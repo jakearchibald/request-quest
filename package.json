@@ -4,5 +4,13 @@
   "main": "index.js",
   "dependencies": {
     "express": "~3.0.4"
+  },
+  "devDependencies": {
+    "grunt-contrib-sass": "~0.2.1",
+    "grunt": "~0.4.0rc3",
+    "grunt-contrib-jshint": "~0.1.0",
+    "grunt-contrib-uglify": "~0.1.0",
+    "grunt-contrib-concat": "~0.1.1",
+    "grunt-contrib-watch": "~0.2.0a"
   }
 }
