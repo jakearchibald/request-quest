@@ -1,3 +1,3 @@
-# Basic express app for low-level http tinkering
+# Basic express app for low-level frontend development
 
-I fork this when I want a server with some static serving than I can muck about with.
+Featuring grunt & sass
