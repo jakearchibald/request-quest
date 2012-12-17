@@ -60,6 +60,10 @@ module.exports = function(grunt) {
     },
     sass: {
       all: {
+        options: {
+          lineNumbers: true,
+          debugInfo: true
+        },
         files: {
           'www/static/css/all-dev.css': 'www/static/css/all-dev.scss'
         }
@@ -71,8 +75,8 @@ module.exports = function(grunt) {
         tasks: ['jshint', 'concat']
       },
       styles: {
-        files: 'www/static/css/*',
-        tasks: ['jshint', 'concat']
+        files: 'www/static/css/*.scss',
+        tasks: ['sass']
       }
     }
   });
