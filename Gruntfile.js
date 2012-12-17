@@ -4,12 +4,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-sass');
   
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     meta: {
-      jsFiles: [
+      jsfiles: [
         'www/static/js/1.js',
         'www/static/js/2.js'
       ]
@@ -19,18 +20,13 @@ module.exports = function(grunt) {
         separator: '\n;\n'
       },
       all: {
-        src: [
-          'www/static/js/1.js',
-          'www/static/js/2.js'
-        ],
-        dest: 'www/static/js/all-dev.js'
+        files: {
+          'www/static/js/all-dev.js': '<%= meta.jsfiles %>'
+        }
       }
     },
     jshint: {
-      all: [
-        'www/static/js/1.js',
-        'www/static/js/2.js'
-      ],
+      all: '<%= meta.jsfiles %>',
       options: {
         curly: true,
         forin: true,
@@ -57,16 +53,25 @@ module.exports = function(grunt) {
         }
       },
       all: {
-        src: ['www/static/js/all-dev.js'],
-        dest: 'www/static/js/all.js'
+        files: {
+          'www/static/js/all.js': 'www/static/js/all-dev.js'
+        }
+      }
+    },
+    sass: {
+      all: {
+        files: {
+          'www/static/css/all-dev.css': 'www/static/css/all-dev.scss'
+        }
       }
     },
     watch: {
       scripts: {
-        files: [
-          'www/static/js/1.js',
-          'www/static/js/2.js'
-        ],
+        files: '<%= meta.jsfiles %>',
+        tasks: ['jshint', 'concat']
+      },
+      styles: {
+        files: 'www/static/css/*',
         tasks: ['jshint', 'concat']
       }
     }
