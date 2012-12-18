@@ -21,7 +21,7 @@ module.exports = function(grunt) {
       },
       all: {
         files: {
-          'www/static/js/all-dev.js': '<%= meta.jsfiles %>'
+          'www/static/js/all.js': '<%= meta.jsfiles %>'
         }
       }
     },
@@ -54,33 +54,41 @@ module.exports = function(grunt) {
       },
       all: {
         files: {
-          'www/static/js/all.js': 'www/static/js/all-dev.js'
+          'www/static/js/all.js': 'www/static/js/all.js'
         }
       }
     },
     sass: {
-      all: {
+      dev: {
         options: {
           lineNumbers: true,
           debugInfo: true
         },
         files: {
-          'www/static/css/all-dev.css': 'www/static/css/all-dev.scss'
+          'www/static/css/all.css': 'www/static/css/all.scss'
+        }
+      },
+      dist: {
+        options: {
+          style: 'compressed'
+        },
+        files: {
+          'www/static/css/all.css': 'www/static/css/all.scss'
         }
       }
     },
     watch: {
       scripts: {
         files: '<%= meta.jsfiles %>',
-        tasks: ['jshint', 'concat']
+        tasks: ['concat']
       },
       styles: {
         files: 'www/static/css/*.scss',
-        tasks: ['sass']
+        tasks: ['sass:dev']
       }
     }
   });
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'sass:dist']);
 };

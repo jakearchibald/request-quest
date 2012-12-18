@@ -1,5 +1,4 @@
 node_modules
-www/static/js/all-dev.js
 www/static/js/all.js
 .sass-cache
-www/static/css/all-dev.css
+www/static/css/all.css
