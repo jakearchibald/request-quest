@@ -56,11 +56,11 @@ testDirs.forEach(function(dir) {
     });
 
     var phase = req.query.phase;
-    var content = '<!doctype html><html><head><meta charset=utf-8></head><body>\n';
+    var content = '<!doctype html><html><head><meta charset=utf-8></head><body>';
     var lines = [];
 
     if (spec.lang === 'js') {
-      content += '<script>\n';
+      content += '<script>';
     }
 
     spec.phases.slice(0, phase).forEach(function(phase) {
@@ -72,7 +72,7 @@ testDirs.forEach(function(dir) {
       }
     });
 
-    content += '\n' + lines.join('\n') + '\n\n';
+    content += '\n' + lines.join('\n') + '\n';
 
     if (spec.lang === 'js') {
       content += '</script>';

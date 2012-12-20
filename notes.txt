@@ -17,6 +17,7 @@
 * manifest (dynamically added)
 
 * js-creating imgs, scripts, style links, divs with bg (offsetWidth trick)
+* Try adjacent selectors, Bev thinks adding it is enough
 
 * That link ping thing
 
@@ -31,6 +32,12 @@
 * ::before image url on img element (or input element)
 
 * Fancy shit with audio/video element?
+
+* SVG sprites
+
+* Media query css
+
+* event source
 
 * Test format
 

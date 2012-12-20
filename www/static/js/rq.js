@@ -7,7 +7,6 @@ rq.getJson = function(url) {
   req.open('get', url);
   
   req.addEventListener('load', function() {
-    // not using .response - chrome is broken
     deferred.resolve(JSON.parse(req.responseText));
   });
 
