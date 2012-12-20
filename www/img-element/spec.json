@@ -5,30 +5,27 @@
 	"expectedRequest": "img.png",
 	"phases": [
 		{
-			"addContent": "<div></div>"
-		},
-		{
-			"addContent": "<img src=\"img.png\" style=\"display: none\">"
+			"addLines": ["<img src=\"img.png\" style=\"display: none\">"]
 		},
 		{
 			"removeLines": 1,
-			"addContent": "<img src=\"img.png\" style=\"visibility: hidden\">"
+			"addLines": ["<img src=\"img.png\" style=\"visibility: hidden\">"]
 		},
 		{
 			"removeLines": 1,
-			"addContent": "<img src=\"img.png\">"
+			"addLines": ["<img src=\"img.png\">"]
 		},
 		{
-			"addContent": "<p>Abracadabra!</p>"
+			"addLines": ["<p>Abracadabra!</p>"]
 		},
 		{
-			"addContent": "<xhr url=\"img.png\"/>"
+			"addLines": ["<xhr url=\"img.png\"/>"]
 		},
 		{
-			"addContent": "<p>I'm just making stuff up now</p>"
+			"addLines": ["<p>I'm just making stuff up now</p>"]
 		},
 		{
-			"addContent": "<p>You totally missed the request</p>"
+			"addLines": ["<p>You totally missed the request</p>"]
 		}
 	]
 }

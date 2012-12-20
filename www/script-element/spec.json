@@ -5,10 +5,16 @@
 	"expectedRequest": "script.js",
 	"phases": [
 		{
-			"addContent": "var script = document.createElement('script');\nscript.src = 'script.js';"
+			"addLines": [
+				"var script = document.createElement('script');",
+				"script.src = 'script.js';"
+			]
 		},
 		{
-			"addContent": "document.body.appendChild(script);\ndocument.body.removeChild(script);"
+			"addLines": [
+				"document.body.appendChild(script);",
+				"document.body.removeChild(script);"
+			]
 		},
 		{
 			"removeLines": 1

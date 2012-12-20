@@ -67,8 +67,8 @@ testDirs.forEach(function(dir) {
       if (phase.removeLines) {
         lines.splice(-phase.removeLines);
       }
-      if (phase.addContent) {
-        lines.push.apply(lines, phase.addContent.split('\n'));
+      if (phase.addLines) {
+        lines.push.apply(lines, phase.addLines);
       }
     });
 
