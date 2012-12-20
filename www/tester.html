@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test runner</title>
+    <style>
+      .test-iframe {
+        position: absolute;
+        top: -1000px;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe src="javascript:;" class="test-iframe"></iframe>
+    <script src="/static/js/all.js"></script>
+    <script>
+      (function() {
+        var iframe = document.querySelector('.test-iframe');
+
+        function addHeading(text) {
+          var h1 = document.createElement('h1');
+          h1.textContent = text;
+          document.body.appendChild(h1);
+        }
+        function log(text) {
+          var div = document.createElement('div');
+          div.textContent = text;
+          document.body.appendChild(div);
+        }
+        function outputCode(text) {
+          var pre = document.createElement('pre');
+          pre.textContent = text;
+          document.body.appendChild(pre);
+        }
+
+        function doTest(dir) {
+          var deferred = Q.defer();
+          var phase = 1;
+
+          addHeading('Starting test: ' + dir);
+
+          rq.getJson('/' + dir + '/spec.json').then(function(data) {
+            var phaseLen = data.phases.length;
+
+            function doPhase() {
+              log('Trying phase ' + phase);
+              iframe.src = '/' + dir + '/test?phase=' + phase;
+              setTimeout(function() {
+                rq.getJson('/request-by-test.json').then(function(data) {
+                  if (data[dir]) {
+                    log('Ohh, got a request running...');
+                    outputCode(iframe.contentWindow.document.documentElement.outerHTML);
+                    deferred.resolve();
+                  }
+                  else if (phase == phaseLen) {
+                    log('No requests at all');
+                    deferred.resolve();
+                  }
+                  else {
+                    phase++;
+                    doPhase();
+                  }
+                });
+              }, 2500);
+            };
+
+            doPhase();
+          });
+
+          return deferred.promise;
+        }
+
+        rq.getJson('/test-dirs.json').then(function(dirs) {
+          var queue = Q.resolve();
+          
+          dirs.forEach(function(dir) {
+            queue = queue.then(function() {
+              return doTest(dir);
+            });
+          });
+
+          return queue;
+        }).then(function() {
+          log('All done!');
+        });
+      }());
+    </script>
+  </body>
+</html>

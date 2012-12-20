@@ -1,0 +1,57 @@
+* img element display none <- request
+* img element vis hidden
+* img element no style
+* HTML JUNK
+
+* div with bg, display none
+* div with bg, vis hidden <- request
+* div with bg, no style
+* HTML JUNK
+
+* script doc write comment, img, comment end <- request
+* no doc write
+* HTML JUNK
+
+* iframes?
+
+* manifest (dynamically added)
+
+* js-creating imgs, scripts, style links, divs with bg (offsetWidth trick)
+
+* That link ping thing
+
+* fonts, define local with unicode-range mask then webfont
+* Have a paragraph use both, but fall back to webfont
+* paragraph contains letters in original unicode range
+* Use letters out of range
+
+* give a ul a bullet image, but no lis
+
+* content property on normal elements?
+* ::before image url on img element (or input element)
+
+* Fancy shit with audio/video element?
+
+* Test format
+
+{
+	title: 'This is my test',
+	subtitle: 'Does blah.png get requested?',
+	lang: 'html',
+	expectedRequest: 'blah.png'
+	phases: [
+		{
+			addContent: 'What\never'
+		},
+		{
+			removeLines: 1,
+			addContent: 'etc' 
+		}
+	]
+}
+
+Go to test url in Chrome
+Advertisies page to connect other browser to
+Other browser hits page, cycles thorugh test phases until file is requested
+Server events reflect fail cases, success case displayed & no further phases displayed
+Iframe changed to next test

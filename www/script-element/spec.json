@@ -1,0 +1,17 @@
+{
+	"title": "Simple script element",
+	"subtitle": "Is script.js requested?",
+	"lang": "js",
+	"expectedRequest": "script.js",
+	"phases": [
+		{
+			"addContent": "var script = document.createElement('script');"
+		},
+		{
+			"addContent": "script.src = 'script.js';\ndocument.body.appendChild(script);\ndocument.body.removeChild(script);"
+		},
+		{
+			"removeLines": 1
+		}
+	]
+}
