@@ -91,4 +91,8 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'sass:dist']);
+
+  grunt.registerTask('server', function() {
+    require('./index.js');
+  });
 };
