@@ -1,23 +1,43 @@
 {
-  "title": "Simple script element",
+  "title": "Adding a script with script",
   "subtitle": "Is script.js requested?",
-  "lang": "js",
+  "lang": "html",
   "expectedRequest": "script.js",
   "phases": [
     {
       "addLines": [
-        "var script = document.createElement('script');",
-        "script.src = 'script.js';"
+        "<script src=\"script.js\" type=\"foo/bar\"></script>"
       ]
     },
     {
+      "removeLines": 1,
       "addLines": [
-        "document.body.appendChild(script);",
-        "document.body.removeChild(script);"
+        "<script src=\"script.js\" type=\"script/dart\"></script>"
       ]
     },
     {
-      "removeLines": 1
+      "removeLines": 1,
+      "addLines": [
+        "<script src=\"script.js\" type=\"text/html\"></script>"
+      ]
+    },
+    {
+      "removeLines": 1,
+      "addLines": [
+        "<script src=\"script.js\" language=\"dart\"></script>"
+      ]
+    },
+    {
+      "removeLines": 1,
+      "addLines": [
+        "<script src=\"script.js\"></script>"
+      ]
+    },
+    {
+      "removeLines": 1,
+      "addLines": [
+        "<script src=\"script.js\" type=\"script/javascript\"></script>"
+      ]
     }
   ]
 }

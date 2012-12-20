@@ -16,7 +16,8 @@ app.get('/', function(req, res) {
 var requestByTest;
 var testDirs = [
   'img-element',
-  'script-element'
+  'script-element',
+  'script-add'
 ];
 
 function initTestResults() {

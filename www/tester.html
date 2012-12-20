@@ -97,7 +97,14 @@
 
         rq.getJson('/test-dirs.json').then(function(dirs) {
           var queue = Q.resolve();
+          var search = location.search.slice(1);
           
+          if (location.search) {
+            dirs = dirs.filter(function(dir) {
+              return dir.indexOf(search) !== -1;
+            });
+          }
+
           dirs.forEach(function(dir) {
             queue = queue.then(function() {
               return doTest(dir);

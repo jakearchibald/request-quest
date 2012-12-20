@@ -1,0 +1,23 @@
+{
+  "title": "Adding a script with script",
+  "subtitle": "Is script.js requested?",
+  "lang": "js",
+  "expectedRequest": "script.js",
+  "phases": [
+    {
+      "addLines": [
+        "var script = document.createElement('script');",
+        "script.src = 'script.js';"
+      ]
+    },
+    {
+      "addLines": [
+        "document.body.appendChild(script);",
+        "document.body.removeChild(script);"
+      ]
+    },
+    {
+      "removeLines": 1
+    }
+  ]
+}
