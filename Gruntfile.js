@@ -85,11 +85,11 @@ module.exports = function(grunt) {
       styles: {
         files: 'www/static/css/*.scss',
         tasks: ['sass:dev']
-      },
-      config: {
-        files: 'index.js',
-        tasks: ['restart-server']
-      }
+      }//,
+      // config: {
+      //   files: 'index.js',
+      //   tasks: ['restart-server']
+      // }
     }
   });
 
@@ -101,13 +101,14 @@ module.exports = function(grunt) {
       app = require('./index.js');
     });
 
-    grunt.registerTask('restart-server', function() {
-      if (app) {
-        app.close(function() {
-          app = require('./index.js');
-        });
-      }
-    });
+    // grunt.registerTask('restart-server', function() {
+    //   if (app) {
+    //     app.close(function() {
+    //       delete require.cache[__dirname + '/index.js'];
+    //       app = require('./index.js');
+    //     });
+    //   }
+    // });
   }());
 
   // Default task.
