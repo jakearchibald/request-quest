@@ -1,5 +1,4 @@
 
-* js-creating style links
 * Try adjacent selectors, Bev thinks adding it is enough
 
 * manifest (dynamically added)

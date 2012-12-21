@@ -23,7 +23,8 @@ var testDirs = [
   'script-comment',
   'img-add',
   'divbg-add',
-  'style-add'
+  'style-add',
+  'webfont-range'
 ];
 
 function initTestResults() {

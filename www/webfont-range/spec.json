@@ -1,0 +1,45 @@
+{
+  "title": "Downloading webfonts",
+  "subtitle": "Is font.woff requested?",
+  "lang": "html",
+  "expectedRequest": "font.woff",
+  "phases": [
+    {
+      "addLines": [
+        "<style>",
+        "  @font-face {",
+        "    font-family: 'myfont';",
+        "    src: url('font.woff');",
+        "    unicode-range: U+61-7A; /* lowercase a-z */",
+        "  }",
+        "</style>"
+      ]
+    },
+    {
+      "removeLines": 1,
+      "addLines": [
+        "  p {",
+        "    font-family: myfont, sans-serif;",
+        "  }",
+        "</style>"
+      ]
+    },
+    {
+      "addLines": [
+        "<p></p>"
+      ]
+    },
+    {
+      "removeLines": 1,
+      "addLines": [
+        "<p>HI THERE!!</p>"
+      ]
+    },
+    {
+      "removeLines": 1,
+      "addLines": [
+        "<p>Hi THERE!!</p>"
+      ]
+    }
+  ]
+}
