@@ -1,5 +1,5 @@
 
-* js-creating imgs, style links, divs with bg (offsetWidth trick)
+* js-creating style links
 * Try adjacent selectors, Bev thinks adding it is enough
 
 * manifest (dynamically added)

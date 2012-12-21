@@ -1,0 +1,23 @@
+{
+  "title": "Adding an element with js",
+  "subtitle": "Is img.png requested?",
+  "lang": "js",
+  "expectedRequest": "img.png",
+  "phases": [
+    {
+      "addLines": [
+        "var img = document.createElement('img');",
+        "img.src = 'img.png';"
+      ]
+    },
+    {
+      "addLines": [
+        "document.body.appendChild(img);",
+        "document.body.removeChild(img);"
+      ]
+    },
+    {
+      "removeLines": 1
+    }
+  ]
+}

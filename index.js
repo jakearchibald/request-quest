@@ -21,6 +21,7 @@ var testDirs = [
   'script-add',
   'iframe-element',
   'script-comment',
+  'img-add',
   'divbg-add'
 ];
 
