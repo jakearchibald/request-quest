@@ -1,19 +1,26 @@
 var rq = {};
+(function() {
+  rq.get = function(url) {
+    var deferred = Q.defer();
+    var req = new XMLHttpRequest();
+    
+    req.open('get', url);
+    
+    req.addEventListener('load', function() {
+      deferred.resolve(req);
+    });
 
-rq.getJson = function(url) {
-  var deferred = Q.defer();
-  var req = new XMLHttpRequest();
-  
-  req.open('get', url);
-  
-  req.addEventListener('load', function() {
-    deferred.resolve(JSON.parse(req.responseText));
-  });
+    req.addEventListener('error', function() {
+      deferred.reject(req);
+    });
 
-  req.addEventListener('error', function() {
-    deferred.reject(req);
-  });
+    req.send();
+    return deferred.promise;
+  };
 
-  req.send();
-  return deferred.promise;
-};
+  rq.getJson = function(url) {
+    return rq.get(url).then(function(req) {
+      return JSON.parse(req.responseText);
+    });
+  };
+}());

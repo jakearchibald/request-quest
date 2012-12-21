@@ -1,18 +1,8 @@
-* img element display none <- request
-* img element vis hidden
-* img element no style
-* HTML JUNK
-
-* div with bg, display none
-* div with bg, vis hidden <- request
-* div with bg, no style
-* HTML JUNK
-
 * script doc write comment, img, comment end <- request
 * no doc write
 * HTML JUNK
 
-* iframes? (without src)
+* iframes?
 
 * manifest (dynamically added)
 

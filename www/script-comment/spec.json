@@ -1,0 +1,42 @@
+{
+  "title": "Script write comment",
+  "subtitle": "Is img.png requested?",
+  "lang": "html",
+  "expectedRequest": "img.png",
+  "phases": [
+    {
+      "addLines": [
+        "<script>document.write('<'+'!--')</script>",
+        "<img src=\"img.png\">",
+        "-->"
+      ]
+    },
+    {
+      "removeLines": 3,
+      "addLines": [
+        "<script async>document.write('<'+'!--')</script>",
+        "<img src=\"img.png\">",
+        "-->"
+      ]
+    },
+    {
+      "removeLines": 3,
+      "addLines": [
+        "<script defer>document.write('<'+'!--')</script>",
+        "<img src=\"img.png\">",
+        "-->"
+      ]
+    },
+    {
+      "removeLines": 2,
+      "addLines": [
+        "-->",
+        "<img src=\"img.png\">",
+        "-->"
+      ]
+    },
+    {
+      "removeLines": 1
+    }
+  ]
+}
