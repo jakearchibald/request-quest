@@ -22,7 +22,8 @@ var testDirs = [
   'iframe-element',
   'script-comment',
   'img-add',
-  'divbg-add'
+  'divbg-add',
+  'style-add'
 ];
 
 function initTestResults() {

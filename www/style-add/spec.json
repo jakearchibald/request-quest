@@ -1,0 +1,30 @@
+{
+  "title": "Adding a link element with js",
+  "subtitle": "Is style.css requested?",
+  "lang": "js",
+  "expectedRequest": "style.css",
+  "phases": [
+    {
+      "addLines": [
+        "var link = document.createElement('link');",
+        "link.setAttribute('rel', 'stylesheet');",
+        "link.setAttribute('href', 'style.css');"
+      ]
+    },
+    {
+      "addLines": [
+        "document.body.appendChild(link);",
+        "document.body.removeChild(link);"
+      ]
+    },
+    {
+      "removeLines": 1
+    },
+    {
+      "removeLines": 1,
+      "addLines": [
+        "document.querySelector('head').appendChild(link)"
+      ]
+    }
+  ]
+}
