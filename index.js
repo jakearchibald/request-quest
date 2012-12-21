@@ -16,6 +16,7 @@ app.get('/', function(req, res) {
 var requestByTest;
 var testDirs = [
   'img-element',
+  'divbg-element',
   'script-element',
   'script-add'
 ];

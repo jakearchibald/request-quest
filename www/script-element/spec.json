@@ -1,5 +1,5 @@
 {
-  "title": "Adding a script with script",
+  "title": "Adding a script with HTML",
   "subtitle": "Is script.js requested?",
   "lang": "html",
   "expectedRequest": "script.js",
@@ -24,7 +24,7 @@
     {
       "removeLines": 1,
       "addLines": [
-        "<script src=\"script.js\" language=\"dart\"></script>"
+        "<script src=\"script.js\" LANGUAGE=DART></script>"
       ]
     },
     {
