@@ -85,6 +85,10 @@ module.exports = function(grunt) {
       styles: {
         files: 'www/static/css/*.scss',
         tasks: ['sass:dev']
+      },
+      config: {
+        files: ['index.js', 'www/**/*.json'],
+        tasks: ['restart-server']
       }
     }
   });
@@ -92,7 +96,20 @@ module.exports = function(grunt) {
   // Default task.
   grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'sass:dist']);
 
-  grunt.registerTask('server', function() {
-    require('./index.js');
-  });
+  (function() {
+    var app;
+    grunt.registerTask('server', function() {
+      app = require('./index.js');
+    });
+
+    grunt.registerTask('restart-server', function() {
+      if (app) {
+        app.close(function() {
+          app = require('./index.js');
+        });
+      }
+    });
+  }());
+
+
 };
