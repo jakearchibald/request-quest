@@ -74,8 +74,10 @@
                 rq.getJson('/request-by-test.json').then(function(data) {
                   if (data[dir]) {
                     log('Ohh, it made a request...');
-                    outputCode(iframe.contentWindow.document.documentElement.outerHTML.split('\n').slice(1, -1).join('\n'));
-                    deferred.resolve();
+                    rq.get(iframe.src).then(function(res) {
+                      outputCode(res.responseText.split('\n').slice(1, -1).join('\n'));
+                      deferred.resolve();
+                    });
                   }
                   else if (phase == phaseLen) {
                     log('No requests at all');
