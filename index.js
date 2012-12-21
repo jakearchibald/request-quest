@@ -20,7 +20,8 @@ var testDirs = [
   'script-element',
   'script-add',
   'iframe-element',
-  'script-comment'
+  'script-comment',
+  'divbg-add'
 ];
 
 function initTestResults() {

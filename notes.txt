@@ -1,13 +1,9 @@
-* script doc write comment, img, comment end <- request
-* no doc write
-* HTML JUNK
 
-* iframes?
+* js-creating imgs, style links, divs with bg (offsetWidth trick)
+* Try adjacent selectors, Bev thinks adding it is enough
 
 * manifest (dynamically added)
-
-* js-creating imgs, scripts, style links, divs with bg (offsetWidth trick)
-* Try adjacent selectors, Bev thinks adding it is enough
+* iframes?
 
 * That link ping thing
 
