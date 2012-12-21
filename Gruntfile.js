@@ -85,14 +85,32 @@ module.exports = function(grunt) {
       styles: {
         files: 'www/static/css/*.scss',
         tasks: ['sass:dev']
+      },
+      config: {
+        files: 'index.js',
+        tasks: ['restart-server']
       }
     }
   });
 
+  (function() {
+    var app;
+    // Run with the watcher:
+    // grunt server watch
+    grunt.registerTask('server', function() {
+      app = require('./index.js');
+    });
+
+    grunt.registerTask('restart-server', function() {
+      if (app) {
+        app.close(function() {
+          app = require('./index.js');
+        });
+      }
+    });
+  }());
+
   // Default task.
   grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'sass:dist']);
 
-  grunt.registerTask('server', function() {
-    require('./index.js');
-  });
 };
