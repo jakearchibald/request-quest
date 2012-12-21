@@ -18,7 +18,8 @@ var testDirs = [
   'img-element',
   'divbg-element',
   'script-element',
-  'script-add'
+  'script-add',
+  'iframe-element'
 ];
 
 function initTestResults() {
@@ -40,15 +41,17 @@ testDirs.forEach(function(dir) {
   });
 
   // serve expected file
-  app.get('/' + dir + '/' + spec.expectedRequest, function(req, res) {
-    res.set({
-      'Cache-Control': 'no-Cache'
-    });
+  if (spec.expectedRequest != '#') {
+    app.get('/' + dir + '/' + spec.expectedRequest, function(req, res) {
+      res.set({
+        'Cache-Control': 'no-Cache'
+      });
 
-    // todo: respond to any listening test console
-    requestByTest[dir] = true;
-    res.sendfile(path.join('www', dir, spec.expectedRequest));
-  });
+      // todo: respond to any listening test console
+      requestByTest[dir] = true;
+      res.sendfile(path.join('www', dir, spec.expectedRequest));
+    });
+  }
 
   // serve test page
   app.get('/' + dir + '/test', function(req, res) {
@@ -56,6 +59,19 @@ testDirs.forEach(function(dir) {
       'Content-Type': 'text/html',
       'Cache-Control': 'no-Cache'
     });
+
+    // Ohh, there's been a request back to ourself
+    if (req.get('referrer') && req.get('referrer').slice('http://'.length).indexOf(req.get('host') + req.path) === 0) {
+      // were we expecting that?
+      if (spec.expectedRequest === '#') {
+        requestByTest[dir] = true;
+      }
+      else {
+        console.log("Unexpected request back to test page");
+      }
+      res.send('Hey there.');
+      return;
+    }
 
     var phase = req.query.phase;
     var content = '<!doctype html><html><head><meta charset=utf-8></head><body>';
@@ -108,6 +124,4 @@ app.get('/test/', function(req, res) {
   res.sendfile('www/tester.html');
 });
 
-app.listen(3000);
-
-exports = app;
+module.exports = app.listen(3000);

@@ -1,0 +1,25 @@
+{
+  "title": "Iframe fun",
+  "subtitle": "Is anything requested?",
+  "lang": "html",
+  "expectedRequest": "#",
+  "phases": [
+    {
+      "addLines": [
+        "<iframe></iframe>"
+      ]
+    },
+    {
+      "removeLines": 1,
+      "addLines": [
+        "<iframe src=\"#\"></iframe>"
+      ]
+    },
+    {
+      "removeLines": 1,
+      "addLines": [
+        "<iframe src=\"?\"></iframe>"
+      ]
+    }
+  ]
+}

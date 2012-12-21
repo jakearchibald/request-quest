@@ -12,7 +12,7 @@
 * no doc write
 * HTML JUNK
 
-* iframes?
+* iframes? (without src)
 
 * manifest (dynamically added)
 

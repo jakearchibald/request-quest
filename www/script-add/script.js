@@ -1,3 +1,1 @@
-(function() {
-	var foo = 'bar';
-}());
+console.log('log from script.js');
