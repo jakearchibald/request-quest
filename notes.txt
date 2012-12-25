@@ -4,7 +4,9 @@
 * manifest (dynamically added)
 * iframes?
 
-* That link ping thing
+* That link ping thing & prefetch
+
+* window.reload in a resize even
 
 * fonts, define local with unicode-range mask then webfont
 * Have a paragraph use both, but fall back to webfont
