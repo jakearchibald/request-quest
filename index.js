@@ -25,7 +25,8 @@ var testDirs = [
   'img-add',
   'divbg-add',
   'style-add',
-  'webfont-range'
+  'webfont-range',
+  'resize-reload'
 ];
 
 function initTestResults() {

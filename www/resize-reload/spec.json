@@ -1,0 +1,27 @@
+{
+  "title": "Reloading the page",
+  "subtitle": "Is the page reloaded?",
+  "lang": "js",
+  "expectedRequest": "#",
+  "phases": [
+    {
+      "addLines": [
+        "window.onresize = function() {",
+        "  window.location.reload();",
+        "};"
+      ]
+    },
+    {
+      "addLines": [
+        "var event = document.createEvent('Event');",
+        "event.initEvent('resize', false, false);",
+        "window.dispatchEvent(event);"
+      ]
+    },
+    {
+      "addLines": [
+        "window.onresize();"
+      ]
+    }
+  ]
+}
