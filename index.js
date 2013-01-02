@@ -14,6 +14,7 @@ app.get('/', function(req, res) {
 
 // Testing:
 var requestByTest;
+var lastPhaseId;
 var testDirs = [
   'img-element',
   'divbg-element',
@@ -28,6 +29,7 @@ var testDirs = [
 ];
 
 function initTestResults() {
+  lastPhaseId = '';
   requestByTest = {};
 }
 
@@ -65,8 +67,14 @@ testDirs.forEach(function(dir) {
       'Cache-Control': 'no-Cache'
     });
 
-    // Ohh, there's been a request back to ourself
-    if (req.get('referrer') && req.get('referrer').slice('http://'.length).indexOf(req.get('host') + req.path) === 0) {
+    var phase = req.query.phase;
+    var phaseId = dir + phase;
+    var content = '<!doctype html><html><head><meta charset=utf-8></head><body>';
+    var lines = [];
+
+    // We assume the a test will never request the same dir & phase combo
+    // unless it's requesting the source to display as part of the test
+    if ((!phase || phaseId == lastPhaseId) && !req.xhr) {
       // were we expecting that?
       if (spec.expectedRequest === '#') {
         requestByTest[dir] = true;
@@ -74,13 +82,9 @@ testDirs.forEach(function(dir) {
       else {
         console.log("Unexpected request back to test page");
       }
-      res.send('Hey there.');
+      res.send('Oh hello.');
       return;
     }
-
-    var phase = req.query.phase;
-    var content = '<!doctype html><html><head><meta charset=utf-8></head><body>';
-    var lines = [];
 
     if (spec.lang === 'js') {
       content += '<script>';
@@ -104,6 +108,7 @@ testDirs.forEach(function(dir) {
     content += '</body></html>';
 
     res.send(content);
+    lastPhaseId = phaseId;
   });
 });
 
