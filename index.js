@@ -7,7 +7,7 @@ app.use('/static', express.static(__dirname + '/www/static'));
 
 app.get('/', function(req, res) {
   res.set({
-    'Cache-Control': 'no-Cache'
+    'Cache-Control': 'no-cache'
   });
   res.sendfile('www/index.html');
 });
@@ -47,7 +47,7 @@ questionDirs.forEach(function(dir) {
   // serve json
   app.get('/questions/' + dir + '/spec.json', function(req, res) {
     res.set({
-      'Cache-Control': 'no-Cache'
+      'Cache-Control': 'no-cache'
     });
     res.json(spec);
   });
@@ -56,10 +56,10 @@ questionDirs.forEach(function(dir) {
   if (spec.expectedRequest != '#') {
     app.get('/questions/' + dir + '/' + spec.expectedRequest, function(req, res) {
       res.set({
-        'Cache-Control': 'no-Cache'
+        'Cache-Control': 'no-cache'
       });
 
-      triggerPhase[dir] = lastPhase;
+      triggerPhase[dir] = Number(lastPhase);
       res.sendfile(path.join('www', 'questions', dir, spec.expectedRequest));
     });
   }
@@ -68,10 +68,10 @@ questionDirs.forEach(function(dir) {
   app.get('/questions/' + dir + '/test', function(req, res) {
     res.set({
       'Content-Type': 'text/html',
-      'Cache-Control': 'no-Cache'
+      'Cache-Control': 'no-cache'
     });
 
-    phase = req.query.phase;
+    var phase = req.query.phase;
     var phaseId = dir + phase;
     var content = '<!doctype html><html><head><meta charset=utf-8></head><body>';
     var lines = [];
@@ -81,7 +81,7 @@ questionDirs.forEach(function(dir) {
     if ((!phase || phaseId == lastPhaseId) && !req.xhr) {
       // were we expecting that?
       if (spec.expectedRequest === '#') {
-        triggerPhase[dir] = lastPhase;
+        triggerPhase[dir] = Number(lastPhase);
       }
       else {
         console.log("Unexpected request back to test page");
@@ -119,14 +119,14 @@ questionDirs.forEach(function(dir) {
 
 app.get('/trigger-phases.json', function(req, res) {
   res.set({
-    'Cache-Control': 'no-Cache'
+    'Cache-Control': 'no-cache'
   });
   res.json(triggerPhase || {});
 });
 
 app.get('/question-dirs.json', function(req, res) {
   res.set({
-    'Cache-Control': 'no-Cache'
+    'Cache-Control': 'no-cache'
   });
   res.json(questionDirs);
 });
@@ -134,7 +134,7 @@ app.get('/question-dirs.json', function(req, res) {
 app.get('/test/', function(req, res) {
   initTestResults();
   res.set({
-    'Cache-Control': 'no-Cache'
+    'Cache-Control': 'no-cache'
   });
   res.sendfile('www/tester.html');
 });

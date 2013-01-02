@@ -1,0 +1,13 @@
+{
+  "img-element": 1,
+  "divbg-element": 2,
+  "script-element": 5,
+  "script-add": 2,
+  "iframe-element": 2,
+  "script-comment": 4,
+  "img-add": 1,
+  "divbg-add": 5,
+  "style-add": 2,
+  "webfont-range": 4,
+  "resize-reload": 2
+}
