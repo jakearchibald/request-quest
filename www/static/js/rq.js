@@ -5,6 +5,7 @@ var rq = {};
     var req = new XMLHttpRequest();
     
     req.open('get', url);
+    req.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     
     req.addEventListener('load', function() {
       deferred.resolve(req);
