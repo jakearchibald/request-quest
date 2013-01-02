@@ -1,0 +1,42 @@
+{
+  "chrome": {
+    "img-element": 1,
+    "divbg-element": 2,
+    "script-element": 5,
+    "script-add": 2,
+    "iframe-element": 2,
+    "script-comment": 4,
+    "img-add": 1,
+    "divbg-add": 5,
+    "style-add": 2,
+    "webfont-range": 4,
+    "resize-reload": 2
+  },
+  "opera": {
+    "img-element": 1,
+    "divbg-element": 3,
+    "script-element": 1,
+    "script-add": 3,
+    "iframe-element": 3,
+    "script-comment": 4,
+    "img-add": 1,
+    "divbg-add": 6,
+    "style-add": 3,
+    "webfont-range": 3,
+    "resize-reload": 2
+  },
+  "firefox": {
+    "img-element": 1,
+    "divbg-element": 3,
+    "script-element": 1,
+    "script-add": 2,
+    "iframe-element": 3,
+    "script-comment": 1,
+    "img-add": 1,
+    "divbg-add": 5,
+    "style-add": 2,
+    "webfont-range": 3,
+    "resize-reload": 3
+  },
+  "ie": {}
+}
