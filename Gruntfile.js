@@ -89,8 +89,8 @@ module.exports = function(grunt) {
     }
   });
 
-  // Default task.
   grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'sass:dist']);
+  grunt.registerTask('dev', ['concat', 'sass:dev', 'server', 'watch']);
 
   (function() {
     var app;

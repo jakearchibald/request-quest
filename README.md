@@ -24,7 +24,7 @@ npm install
 Run server and watch for changes:
 
 ```sh
-grunt server watch
+grunt dev
 ```
 
 This will pick up changes to js & css files. If you change index.js you'll have to ctrl+c and run grunt again.
@@ -37,7 +37,7 @@ Once a test completes it'll output the code that first triggered the request.
 
 ## Writing tests
 
-Create a directory in `www` for your test, `example-test` is provided as (a very small amount of) boilerplate.
+Create a directory in `questions` for your test, `example-question` is provided as (a very small amount of) boilerplate.
 
 The test is defined in `spec.json`
 
@@ -90,4 +90,4 @@ The test is defined in `spec.json`
 }
 ```
 
-When you're ready to test your question, add its folder name to `testDirs` in `index.js`.
+When you're ready to test your question, add its folder name to `questionDirs` in `index.js`.

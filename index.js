@@ -15,7 +15,7 @@ app.get('/', function(req, res) {
 // Testing:
 var requestByTest;
 var lastPhaseId;
-var testDirs = [
+var questionDirs = [
   'img-element',
   'divbg-element',
   'script-element',
@@ -36,13 +36,13 @@ function initTestResults() {
 
 initTestResults();
 
-testDirs.forEach(function(dir) {
+questionDirs.forEach(function(dir) {
   // get test data
-  var spec = JSON.parse(fs.readFileSync(path.join(__dirname, 'www', dir, 'spec.json')));
+  var spec = JSON.parse(fs.readFileSync(path.join(__dirname, 'www', 'questions', dir, 'spec.json')));
   var phase;
 
   // serve json
-  app.get('/' + dir + '/spec.json', function(req, res) {
+  app.get('/questions/' + dir + '/spec.json', function(req, res) {
     res.set({
       'Cache-Control': 'no-Cache'
     });
@@ -51,18 +51,18 @@ testDirs.forEach(function(dir) {
 
   // serve expected file
   if (spec.expectedRequest != '#') {
-    app.get('/' + dir + '/' + spec.expectedRequest, function(req, res) {
+    app.get('/questions/' + dir + '/' + spec.expectedRequest, function(req, res) {
       res.set({
         'Cache-Control': 'no-Cache'
       });
 
       requestByTest[dir] = phase;
-      res.sendfile(path.join('www', dir, spec.expectedRequest));
+      res.sendfile(path.join('www', 'questions', dir, spec.expectedRequest));
     });
   }
 
   // serve test page
-  app.get('/' + dir + '/test', function(req, res) {
+  app.get('/questions/' + dir + '/test', function(req, res) {
     res.set({
       'Content-Type': 'text/html',
       'Cache-Control': 'no-Cache'
@@ -120,11 +120,11 @@ app.get('/request-by-test.json', function(req, res) {
   res.json(requestByTest || {});
 });
 
-app.get('/test-dirs.json', function(req, res) {
+app.get('/question-dirs.json', function(req, res) {
   res.set({
     'Cache-Control': 'no-Cache'
   });
-  res.json(testDirs);
+  res.json(questionDirs);
 });
 
 app.get('/test/', function(req, res) {

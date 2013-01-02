@@ -19,6 +19,7 @@
       ]
     },
     {
+      "removeLines": 3,
       "addLines": [
         "window.onresize();"
       ]

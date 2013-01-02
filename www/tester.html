@@ -64,12 +64,12 @@
 
           addHeading('Starting test: ' + dir);
 
-          rq.getJson('/' + dir + '/spec.json').then(function(data) {
+          rq.getJson('/questions/' + dir + '/spec.json').then(function(data) {
             var phaseLen = data.phases.length;
 
             function doPhase() {
               log('Trying phase ' + phase);
-              iframe.src = '/' + dir + '/test?phase=' + phase;
+              iframe.src = '/questions/' + dir + '/test?phase=' + phase;
               setTimeout(function() {
                 rq.getJson('/request-by-test.json').then(function(data) {
                   if (data[dir]) {
@@ -99,7 +99,7 @@
 
         var filtered = false;
 
-        rq.getJson('/test-dirs.json').then(function(dirs) {
+        rq.getJson('/question-dirs.json').then(function(dirs) {
           var queue = Q.resolve();
           var search = window.location.search.slice(1);
           
