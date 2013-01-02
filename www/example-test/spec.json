@@ -1,0 +1,34 @@
+{
+  "title": "An example test",
+  "subtitle": "Is script.js requested?",
+  "lang": "js",
+  "expectedRequest": "script.js",
+  "phases": [
+    {
+      "addLines": [
+        "var whatever;"
+      ]
+    },
+    {
+      "removeLines": 1,
+      "addLines": [
+        "var whatever = 'script.js';"
+      ]
+    },
+    {
+      "addLines": [
+        "var script = document.createElement('script');",
+        "script.src = whatever;"
+      ]
+    },
+    {
+      "addLines": [
+        "document.body.appendChild(script);",
+        "document.body.removeChild(script);"
+      ]
+    },
+    {
+      "removeLines": 1
+    }
+  ]
+}
