@@ -32,6 +32,9 @@ var questionDirs = [
 function initTestResults() {
   lastPhaseId = '';
   triggerPhase = {};
+  questionDirs.forEach(function(questionDir) {
+    triggerPhase[questionDir] = 0;
+  });
 }
 
 initTestResults();
