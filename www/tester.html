@@ -71,7 +71,7 @@
               log('Trying phase ' + phase);
               iframe.src = '/questions/' + dir + '/test?phase=' + phase;
               setTimeout(function() {
-                rq.getJson('/request-by-test.json').then(function(data) {
+                rq.getJson('/trigger-phases.json').then(function(data) {
                   if (data[dir]) {
                     log('Ohh, it made a request...');
                     rq.get(iframe.src).then(function(res) {
@@ -122,7 +122,7 @@
 
           if (!filtered) {
             log('Results JSON:');
-            rq.getJson('/request-by-test.json').then(function(data) {
+            rq.getJson('/trigger-phases.json').then(function(data) {
               outputCode(JSON.stringify(data, null, "  "));
             });
           }

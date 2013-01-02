@@ -13,7 +13,7 @@ app.get('/', function(req, res) {
 });
 
 // Testing:
-var requestByTest;
+var triggerPhase;
 var lastPhaseId;
 var questionDirs = [
   'img-element',
@@ -31,7 +31,7 @@ var questionDirs = [
 
 function initTestResults() {
   lastPhaseId = '';
-  requestByTest = {};
+  triggerPhase = {};
 }
 
 initTestResults();
@@ -39,7 +39,7 @@ initTestResults();
 questionDirs.forEach(function(dir) {
   // get test data
   var spec = JSON.parse(fs.readFileSync(path.join(__dirname, 'www', 'questions', dir, 'spec.json')));
-  var phase;
+  var lastPhase;
 
   // serve json
   app.get('/questions/' + dir + '/spec.json', function(req, res) {
@@ -56,7 +56,7 @@ questionDirs.forEach(function(dir) {
         'Cache-Control': 'no-Cache'
       });
 
-      requestByTest[dir] = phase;
+      triggerPhase[dir] = lastPhase;
       res.sendfile(path.join('www', 'questions', dir, spec.expectedRequest));
     });
   }
@@ -78,7 +78,7 @@ questionDirs.forEach(function(dir) {
     if ((!phase || phaseId == lastPhaseId) && !req.xhr) {
       // were we expecting that?
       if (spec.expectedRequest === '#') {
-        requestByTest[dir] = phase;
+        triggerPhase[dir] = lastPhase;
       }
       else {
         console.log("Unexpected request back to test page");
@@ -110,14 +110,15 @@ questionDirs.forEach(function(dir) {
 
     res.send(content);
     lastPhaseId = phaseId;
+    lastPhase = phase;
   });
 });
 
-app.get('/request-by-test.json', function(req, res) {
+app.get('/trigger-phases.json', function(req, res) {
   res.set({
     'Cache-Control': 'no-Cache'
   });
-  res.json(requestByTest || {});
+  res.json(triggerPhase || {});
 });
 
 app.get('/question-dirs.json', function(req, res) {
