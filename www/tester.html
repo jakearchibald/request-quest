@@ -88,7 +88,7 @@
                     doPhase();
                   }
                 });
-              }, 2500);
+              }, 750);
             };
 
             doPhase();
@@ -97,11 +97,14 @@
           return deferred.promise;
         }
 
+        var filtered = false;
+
         rq.getJson('/test-dirs.json').then(function(dirs) {
           var queue = Q.resolve();
-          var search = location.search.slice(1);
+          var search = window.location.search.slice(1);
           
-          if (location.search) {
+          if (window.location.search) {
+            filtered = true;
             dirs = dirs.filter(function(dir) {
               return dir.indexOf(search) !== -1;
             });
@@ -116,6 +119,13 @@
           return queue;
         }).then(function() {
           log('All done!');
+
+          if (!filtered) {
+            log('Results JSON:');
+            rq.getJson('/request-by-test.json').then(function(data) {
+              outputCode(JSON.stringify(data, null, "  "));
+            });
+          }
         });
       }());
     </script>

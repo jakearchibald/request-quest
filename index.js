@@ -39,6 +39,7 @@ initTestResults();
 testDirs.forEach(function(dir) {
   // get test data
   var spec = JSON.parse(fs.readFileSync(path.join(__dirname, 'www', dir, 'spec.json')));
+  var phase;
 
   // serve json
   app.get('/' + dir + '/spec.json', function(req, res) {
@@ -55,8 +56,7 @@ testDirs.forEach(function(dir) {
         'Cache-Control': 'no-Cache'
       });
 
-      // todo: respond to any listening test console
-      requestByTest[dir] = true;
+      requestByTest[dir] = phase;
       res.sendfile(path.join('www', dir, spec.expectedRequest));
     });
   }
@@ -68,7 +68,7 @@ testDirs.forEach(function(dir) {
       'Cache-Control': 'no-Cache'
     });
 
-    var phase = req.query.phase;
+    phase = req.query.phase;
     var phaseId = dir + phase;
     var content = '<!doctype html><html><head><meta charset=utf-8></head><body>';
     var lines = [];
@@ -78,7 +78,7 @@ testDirs.forEach(function(dir) {
     if ((!phase || phaseId == lastPhaseId) && !req.xhr) {
       // were we expecting that?
       if (spec.expectedRequest === '#') {
-        requestByTest[dir] = true;
+        requestByTest[dir] = phase;
       }
       else {
         console.log("Unexpected request back to test page");
