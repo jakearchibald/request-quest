@@ -5,6 +5,7 @@ var showdownConvertor = new (require('showdown')).converter();
 var Q = require('q');
 var app = express();
 
+app.use(express.compress());
 app.use('/static', express.static(__dirname + '/www/static'));
 
 //app.set('json spaces', 0);
