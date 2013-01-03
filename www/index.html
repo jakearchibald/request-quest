@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Request Quest</title>
+    <link rel="stylesheet" href="static/css/all.css">
+  </head>
+  <body>
+    <h1>Request Quest</h1>
+    <p>
+      The game is pretty simple, look at some code &amp; decide if
+      it would trigger an HTTP request. Each example was tested in
+      Chrome 23, Firefox 17, Opera 12, and IE 10.
+    </p>
+    <p>
+      Sometimes the browsers do different things, so if you want
+      to show off and go for maximum points, you'll need to say
+      which browsers make a request.
+    </p>
+    <p>Anyway, let's get started:</p>
+    <div class="questions"></div>
+    <script type="text/html" class="question-template">
+      <section class="question">
+        <h1 class="question-title"></h1>
+        <p class="question-subtitle"></p>
+        <pre class="question-code"><code></code></pre>
+        <section>
+          <h1>Does it make a request?</h1>
+          <button type="button">Yes</button>
+          <button type="button">No</button>
+          <button type="button">In some browsers</button>
+          <section>
+            <h1>Call it:</h1>
+            <div><input type="checkbox" id="chrome"> <label for="chrome">Chrome</label></div>
+            <div><input type="checkbox" id="firefox"> <label for="firefox">Firefox</label></div>
+            <div><input type="checkbox" id="opera"> <label for="opera">Opera</label></div>
+            <div><input type="checkbox" id="ie"> <label for="ie">IE</label></div>
+            <div><button type="button">Those ones!</button></div>
+          </section>
+        </section>
+      </section>
+    </script>
+    <script src="/static/js/all.js"></script>
+    <script>new rq.QuizController().start();</script>
+  </body>
+</html>
