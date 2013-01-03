@@ -5,6 +5,8 @@ var app = express();
 
 app.use('/static', express.static(__dirname + '/www/static'));
 
+//app.set('json spaces', 0);
+
 app.get('/', function(req, res) {
   res.set({
     'Cache-Control': 'no-cache'
@@ -12,9 +14,9 @@ app.get('/', function(req, res) {
   res.sendfile('www/index.html');
 });
 
-// Testing:
 var triggerPhase;
 var lastPhaseId;
+var questionSpecs = [];
 var questionDirs = [
   'img-element',
   'divbg-element',
@@ -43,6 +45,10 @@ questionDirs.forEach(function(dir) {
   // get test data
   var spec = JSON.parse(fs.readFileSync(path.join(__dirname, 'www', 'questions', dir, 'spec.json')));
   var lastPhase;
+
+  // save it for creating quiz data
+  spec.id = dir;
+  questionSpecs.push(spec);
 
   // serve json
   app.get('/questions/' + dir + '/spec.json', function(req, res) {
@@ -129,6 +135,25 @@ app.get('/question-dirs.json', function(req, res) {
     'Cache-Control': 'no-cache'
   });
   res.json(questionDirs);
+});
+
+app.get('/quiz-data.json', function(req, res) {
+  res.set({
+    'Cache-Control': 'no-cache'
+  });
+
+  fs.readFile(path.join(__dirname, 'www', 'results.json'), function (err, data) {
+    if (err) throw err;
+    var results = JSON.parse(data);
+    questionSpecs.forEach(function(questionSpec) {
+      questionSpec.answer = {};
+      for (var browser in results) {
+        questionSpec.answer[browser] = results[browser][questionSpec.id];
+      }
+    });
+    res.json(questionSpecs);
+  });
+
 });
 
 app.get('/test/', function(req, res) {
