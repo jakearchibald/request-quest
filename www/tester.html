@@ -60,7 +60,7 @@
 
         function doTest(dir) {
           var deferred = Q.defer();
-          var phase = 1;
+          var phase = 0;
 
           addHeading('Starting test: ' + dir);
 
@@ -72,14 +72,14 @@
               iframe.src = '/questions/' + dir + '/test?phase=' + phase;
               setTimeout(function() {
                 rq.getJson('/trigger-phases.json').then(function(data) {
-                  if (data[dir]) {
+                  if (data[dir] > -1) {
                     log('Ohh, it made a request...');
                     rq.get(iframe.src).then(function(res) {
                       outputCode(res.responseText.split('\n').slice(1, -1).join('\n'));
                       deferred.resolve();
                     });
                   }
-                  else if (phase == phaseLen) {
+                  else if (phase + 1 == phaseLen) {
                     log('No requests at all');
                     deferred.resolve();
                   }

@@ -37,7 +37,7 @@ function initTestResults() {
   lastPhaseId = '';
   triggerPhase = {};
   questionDirs.forEach(function(questionDir) {
-    triggerPhase[questionDir] = 0;
+    triggerPhase[questionDir] = -1;
   });
 }
 
@@ -63,7 +63,7 @@ questionDirs.forEach(function(dir) {
         'Cache-Control': 'no-cache'
       });
 
-      triggerPhase[dir] = Number(lastPhase);
+      triggerPhase[dir] = lastPhase;
       res.sendfile(path.join('www', 'questions', dir, spec.expectedRequest));
     });
   }
@@ -75,17 +75,17 @@ questionDirs.forEach(function(dir) {
       'Cache-Control': 'no-cache'
     });
 
-    var phase = req.query.phase;
+    var phase = Number(req.query.phase);
     var phaseId = dir + phase;
     var content = '<!doctype html><html><head><meta charset=utf-8></head><body>';
     var lines = [];
 
     // We assume the a test will never request the same dir & phase combo
     // unless it's requesting the source to display as part of the test
-    if ((!phase || phaseId == lastPhaseId) && !req.xhr) {
+    if ((isNaN(phase) || phaseId == lastPhaseId) && !req.xhr) {
       // were we expecting that?
       if (spec.expectedRequest === '#') {
-        triggerPhase[dir] = Number(lastPhase);
+        triggerPhase[dir] = lastPhase;
       }
       else {
         console.log("Unexpected request back to test page");
@@ -98,7 +98,7 @@ questionDirs.forEach(function(dir) {
       content += '<script>';
     }
 
-    spec.phases.slice(0, phase).forEach(function(phase) {
+    spec.phases.slice(0, phase + 1).forEach(function(phase) {
       if (phase.removeLines) {
         lines.splice(-phase.removeLines);
       }
