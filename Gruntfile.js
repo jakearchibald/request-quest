@@ -13,6 +13,8 @@ module.exports = function(grunt) {
       jsfiles: [
         'www/static/js/q.js',
         'www/static/js/rq.js',
+        'www/static/js/rq.EventEmitter.js',
+        'www/static/js/rq.QuizUi.js',
         'www/static/js/rq.QuestionModel.js',
         'www/static/js/rq.QuizModel.js',
         'www/static/js/rq.QuizController.js'

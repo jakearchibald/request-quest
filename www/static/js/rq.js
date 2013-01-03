@@ -44,35 +44,6 @@ rq.getJson = function(url) {
 //   If we're doing complex interactive replacement stuff, a seperate model is good
 
 
-
-(function() {
-  rq.QuizUi = function() {
-    // inherit event interface (from backbone)
-    // gather elements from page
-    // get question template
-  };
-
-  rq.QuizUi.prototype.showIntro = function() {
-    // enhance intro page, add start button
-  };
-
-  rq.QuizUi.prototype.showQuestion = function(title, subtitle) {
-    // animate into quiz mode
-    // show question
-  };
-
-  rq.QuizUi.prototype.showPhase = function(code) {
-    // wait for state anim if needed
-    // show code & answer buttons
-    // use questionui, if this code gets large
-  };
-
-  rq.QuizUi.prototype.showAnswer = function(pointsAwarded, explanation) {
-    // switch to answer state
-    // show explainaion & some comment about the score
-  };
-}());
-
 (function() {
   rq.QuestionController = function(questionModel, quizUi) {
     // set phase = 0
