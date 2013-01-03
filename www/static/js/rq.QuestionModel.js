@@ -18,6 +18,7 @@
     this.answer = data.answer;
     this.playerAnswer = data.playerAnswer;
     this.score = 0;
+    this.explanation = data.explanation;
   }
 
   var QuestionModelProto = QuestionModel.prototype;
