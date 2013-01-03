@@ -5,11 +5,11 @@
   "expectedRequest": "img.png",
   "phases": [
     {
-      "addLines": ["<img src=\"img.png\" style=\"display: none\">"]
+      "addLines": ["<div style=\"display: none\"><img src=\"img.png\"></div>"]
     },
     {
       "removeLines": 1,
-      "addLines": ["<div style=\"display: none\"><img src=\"img.png\"></div>"]
+      "addLines": ["<img src=\"img.png\" style=\"display: none\">"]
     },
     {
       "removeLines": 1,
