@@ -1,4 +1,8 @@
 (function() {
+  function toArray(arrayLike) {
+    return Array.prototype.slice.call(arrayLike);
+  }
+
   function $(selector, context) {
     return document.querySelector(selector, context);
   }
@@ -25,9 +29,15 @@
     this.intro_ = $('.intro');
     this.question_ = elFromStr($('.question-template').textContent);
     this.container_ = elFromStr('<div class="quiz-container"></div>');
+    this.browserChoices_ = this.question_.querySelector('.choices');
+    this.questionTitle_ = this.question_.querySelector('.title');
+    this.questionSubtitle_ = this.question_.querySelector('.subtitle');
+    this.questionCode_ = this.question_.querySelector('.phase-code');
+
     document.body.appendChild(this.container_);
     this.intro_.parentNode.removeChild(this.intro_);
     this.enhanceIntro_();
+    this.enhanceQuestion_();
   }
 
   var QuizUiProto = QuizUi.prototype = Object.create(rq.EventEmitter.prototype);
@@ -35,10 +45,41 @@
   QuizUiProto.enhanceIntro_ = function() {
     var quizUi = this;
     var nextBtn = elFromStr('<button type="button">Begin</button>');
-    nextBtn.addEventListener('click', function() {
+    nextBtn.addEventListener('click', function(event) {
       quizUi.trigger('startBtnSelected');
+      event.preventDefault();
     });
     quizUi.intro_.appendChild(nextBtn);
+  };
+
+  QuizUiProto.enhanceQuestion_ = function() {
+    var quizUi = this;
+
+    quizUi.question_.querySelector('.yes-btn').addEventListener('click', function(event) {
+      quizUi.trigger('answerYes');
+      event.preventDefault();
+    });
+
+    quizUi.question_.querySelector('.no-btn').addEventListener('click', function(event) {
+      quizUi.trigger('answerNo');
+      event.preventDefault();
+    });
+
+    quizUi.question_.querySelector('.some-btn').addEventListener('click', function(event) {
+      quizUi.trigger('answerSome');
+      event.preventDefault();
+    });
+
+    quizUi.question_.querySelector('.those-btn').addEventListener('click', function(event) {
+      var checked = toArray(quizUi.browserChoices_.querySelectorAll('input[type=checkbox]')).filter(function(checkbox) {
+        return checkbox.checked;
+      }).map(function(checkbox) {
+        return checkbox.id;
+      });
+
+      quizUi.trigger('answerThose', checked);
+      event.preventDefault();
+    });
   };
 
   QuizUiProto.showIntro = function() {
@@ -47,14 +88,29 @@
   };
 
   QuizUiProto.showQuestion = function(title, subtitle) {
-    // animate into quiz mode
-    // show question
+    emptyEl(this.container_);
+    this.container_.appendChild(this.question_);
+    this.questionTitle_.textContent = title;
+    this.questionSubtitle_.textContent = subtitle;
+    this.browserChoices_.style.display = 'none';
   };
 
-  QuizUiProto.showPhase = function(code) {
-    // wait for state anim if needed
-    // show code & answer buttons
-    // use questionui, if this code gets large
+  QuizUiProto.showBrowserChoices = function(browsers) {
+    this.browserChoices_.style.display = 'block';
+
+    toArray(this.browserChoices_.querySelectorAll('.browser-choice')).forEach(function(choice) {
+      if (browsers.indexOf(choice.querySelector('input[type=checkbox]').id) != -1) {
+        choice.style.display = 'block';
+      }
+      else {
+        choice.style.display = 'none';
+      }
+    });
+  };
+
+  QuizUiProto.showPhaseCode = function(code) {
+    this.questionCode_.textContent = code;
+    this.browserChoices_.style.display = 'none';
   };
 
   QuizUiProto.showAnswer = function(pointsAwarded, explanation) {

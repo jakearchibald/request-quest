@@ -1,11 +1,20 @@
-.question {
-
+.intro {
+  margin: 50px;
 }
-.question-code {
-  padding: 7px 10px;
-  margin: 12px 0;
-  background: #EEE;
-  border: 1px dotted #AAA;
-  font-size: 12px;
-  line-height: 1.4;
+
+.question {
+  margin: 50px;
+
+  & .phase-code {
+    padding: 7px 10px;
+    margin: 12px 0;
+    background: #EEE;
+    border: 1px dotted #AAA;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  & .choices {
+    display: none;
+  }
 }

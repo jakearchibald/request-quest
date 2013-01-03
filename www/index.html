@@ -23,21 +23,20 @@
     <div class="questions"></div>
     <script type="text/html" class="question-template">
       <section class="question">
-        <h1 class="question-title"></h1>
-        <p class="question-subtitle"></p>
-        <pre class="question-code"><code></code></pre>
+        <h1 class="title"></h1>
+        <p class="subtitle"></p>
+        <pre class="phase-code"><code></code></pre>
         <section>
-          <h1>Does it make a request?</h1>
-          <button type="button">Yes</button>
-          <button type="button">No</button>
-          <button type="button">In some browsers</button>
-          <section>
+          <button type="button" class="yes-btn">Yes</button>
+          <button type="button" class="no-btn">No</button>
+          <button type="button" class="some-btn">In some browsers</button>
+          <section class="choices">
             <h1>Call it:</h1>
-            <div><input type="checkbox" id="chrome"> <label for="chrome">Chrome</label></div>
-            <div><input type="checkbox" id="firefox"> <label for="firefox">Firefox</label></div>
-            <div><input type="checkbox" id="opera"> <label for="opera">Opera</label></div>
-            <div><input type="checkbox" id="ie"> <label for="ie">IE</label></div>
-            <div><button type="button">Those ones!</button></div>
+            <div class="chrome-answer browser-choice"><input type="checkbox" id="chrome"> <label for="chrome">Chrome</label></div>
+            <div class="firefox-answer browser-choice"><input type="checkbox" id="firefox"> <label for="firefox">Firefox</label></div>
+            <div class="opera-answer browser-choice"><input type="checkbox" id="opera"> <label for="opera">Opera</label></div>
+            <div class="ie-answer browser-choice"><input type="checkbox" id="ie"> <label for="ie">IE</label></div>
+            <div><button type="button" class="those-btn">Those ones!</button></div>
           </section>
         </section>
       </section>
