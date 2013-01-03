@@ -9,6 +9,10 @@
     },
     {
       "removeLines": 1,
+      "addLines": ["<div style=\"display: none\"><img src=\"img.png\"></div>"]
+    },
+    {
+      "removeLines": 1,
       "addLines": ["<img src=\"img.png\" style=\"visibility: hidden\">"]
     },
     {
