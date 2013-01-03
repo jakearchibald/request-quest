@@ -1,6 +1,8 @@
 var fs = require('fs');
 var path = require('path');
 var express = require('express');
+var showdownConvertor = new (require('showdown')).converter();
+var Q = require('q');
 var app = express();
 
 app.use('/static', express.static(__dirname + '/www/static'));
@@ -16,7 +18,6 @@ app.get('/', function(req, res) {
 
 var triggerPhase;
 var lastPhaseId;
-var questionSpecs = [];
 var questionDirs = [
   'img-element',
   'divbg-element',
@@ -45,10 +46,6 @@ questionDirs.forEach(function(dir) {
   // get test data
   var spec = JSON.parse(fs.readFileSync(path.join(__dirname, 'www', 'questions', dir, 'spec.json')));
   var lastPhase;
-
-  // save it for creating quiz data
-  spec.id = dir;
-  questionSpecs.push(spec);
 
   // serve json
   app.get('/questions/' + dir + '/spec.json', function(req, res) {
@@ -142,16 +139,51 @@ app.get('/quiz-data.json', function(req, res) {
     'Cache-Control': 'no-cache'
   });
 
-  fs.readFile(path.join(__dirname, 'www', 'results.json'), function (err, data) {
-    if (err) throw err;
-    var results = JSON.parse(data);
-    questionSpecs.forEach(function(questionSpec) {
+  // get all the specs
+  var specs = [];
+  var specPromises = questionDirs.map(function(dir, i) {
+    return Q.nfcall(fs.readFile, path.join(__dirname, 'www', 'questions', dir, 'spec.json'), 'utf-8').then(function(data) {
+      specs[i] = JSON.parse(data);
+      specs[i].dir = dir;
+      return JSON.parse(data);
+    });
+  });
+
+  // get the results
+  Q.nfcall(fs.readFile, path.join(__dirname, 'www', 'results.json'), 'utf-8').then(function(data) {
+    return Q.all(specPromises).then(function() {
+      return JSON.parse(data);
+    });
+  }).then(function(results) {
+    var explainationPromises = [];
+
+    specs.forEach(function(questionSpec) {
+      // get explaination
+      
       questionSpec.answer = {};
       for (var browser in results) {
-        questionSpec.answer[browser] = results[browser][questionSpec.id];
+        questionSpec.answer[browser] = results[browser][questionSpec.dir];
       }
+      
+      var explainationPromise = Q.nfcall(fs.readFile, path.join(__dirname, 'www', 'questions', questionSpec.dir, 'explanation.md'), 'utf-8');
+      
+      explainationPromise = explainationPromise.then(function(md) {
+        questionSpec.explaination = showdownConvertor.makeHtml(md);
+        return questionSpec;
+      }, function() {
+        questionSpec.explaination = '<p>No explaination</p>';
+        return questionSpec;
+      });
+
+      explainationPromises.push(explainationPromise);
     });
-    res.json(questionSpecs);
+
+    return Q.all(explainationPromises);
+  }).then(function() {
+    res.json(specs);
+  }, function(err) {
+    console.error(err);
+    res.json({fail:1});
   });
 
 });

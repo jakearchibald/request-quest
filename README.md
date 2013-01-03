@@ -29,13 +29,13 @@ grunt dev
 
 This will pick up changes to js & css files. If you change index.js you'll have to ctrl+c and run grunt again.
 
-## Running tests
+## Testing questions
 
 Each quiz question has an automated test, go to http://localhost:3000/test/ to run them all, or http://localhost:3000/test/?iframe to run tests with iframe in the title.
 
 Once a test completes it'll output the code that first triggered the request.
 
-## Writing tests
+## Writing questions
 
 Create a directory in `questions` for your test, `example-question` is provided as (a very small amount of) boilerplate.
 
@@ -91,3 +91,5 @@ The test is defined in `spec.json`
 ```
 
 When you're ready to test your question, add its folder name to `questionDirs` in `index.js`.
+
+After the user has answered a question, they're shown the content of `explanation.md`. Try to explain why the browsers do what they do, and what the spec says they *should* do, if anything.
