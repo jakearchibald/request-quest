@@ -24,18 +24,20 @@
 
   QuizControllerProto.nextQuestion_ = function() {
     this.questionNum++;
-    var quizController = this;
-    var question = quizController.model_.questions[quizController.questionNum];
-    var questionController = new rq.QuestionController(question, quizController.ui_);
+    var question = this.model_.questions[this.questionNum];
+
+    if (!question) {
+      this.results_();
+      return;
+    }
+
+    var questionController = new rq.QuestionController(question, this.ui_);
+    questionController.on('continue', this.nextQuestion_.bind(this));
     questionController.start();
-    
-    // wait for QuestionController to fire 'continue'
-    // if has nextquestion nextQuestion_
-    // else results_
   };
 
   QuizControllerProto.results_ = function() {
-    // tell UI to show results & score
+    this.ui_.showFinalResults();
   };
 
   rq.QuizController = QuizController;

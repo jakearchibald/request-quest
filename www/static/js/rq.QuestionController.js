@@ -1,29 +1,30 @@
 (function() {
   function QuestionController(questionModel, quizUi) {
     var questionController = this;
+    questionController.listeners_ = [];
     questionController.phase_ = -1;
     questionController.ui_ = quizUi;
     questionController.model_ = questionModel;
 
     // user has finished reading the solution and wants to continue
-    quizUi.on('continueBtnSelected', questionController.end_.bind(questionController));
+    questionController.uiOn_('continueBtnSelected', questionController.end_.bind(questionController));
     
-    quizUi.on('answerYes', function() {
+    questionController.uiOn_('answerYes', function() {
       questionModel.answerRemaining(questionController.phase_);
       questionController.showAnswer_();
     });
 
-    quizUi.on('answerNo', function() {
+    questionController.uiOn_('answerNo', function() {
       questionController.nextPhase_();
     });
 
     // User wants to decide on particular browsers
-    quizUi.on('answerSome', function() {
+    questionController.uiOn_('answerSome', function() {
       quizUi.showBrowserChoices(questionModel.remainingBrowsers());
     });
 
     // User selected particular browsers
-    quizUi.on('answerThose', function(browsers) {
+    questionController.uiOn_('answerThose', function(browsers) {
       questionModel.answer(questionController.phase_, browsers);
       if (questionModel.answered()) {
         questionController.showAnswer_();
@@ -39,6 +40,18 @@
   QuestionControllerProto.start = function() {
     this.ui_.showQuestion(this.model_.title, this.model_.subtitle);
     this.nextPhase_();
+  };
+
+  QuestionControllerProto.uiOn_ = function(type, func) {
+    this.listeners_.push([type, func]);
+    this.ui_.on(type, func);
+  };
+
+  QuestionControllerProto.removeUiListeners_ = function() {
+    var questionController = this;
+    questionController.listeners_.forEach(function(listener) {
+      questionController.ui_.off(listener[0], listener[1]);
+    });
   };
 
   QuestionControllerProto.nextPhase_ = function() {
@@ -59,9 +72,9 @@
   };
 
   QuestionControllerProto.end_ = function() {
-    // remove listeners
-    // fire event
-    console.log('TODO: end question');
+    this.removeUiListeners_();
+    this.trigger('continue');
+    this.off(); // remove all listeners to clean up
   };
 
   rq.QuestionController = QuestionController;

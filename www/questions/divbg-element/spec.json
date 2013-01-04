@@ -1,5 +1,5 @@
 {
-  "title": "Element with a",
+  "title": "Element with a background image",
   "subtitle": "Is img.png requested?",
   "lang": "html",
   "expectedRequest": "img.png",

@@ -41,6 +41,7 @@
     this.questionContextTemplate_ = loadTemplate('.question-context-template');
     this.answer_ = loadTemplate('.answer-template');
     this.answerContentTemplate_ = loadTemplate('.answer-content-template');
+    this.finalResults_ = loadTemplate('.final-results-template');
     this.container_ = elFromStr('<div class="quiz-container"></div>');
     this.browserChoices_ = this.question_.querySelector('.choices');
     this.questionContext_ = this.question_.querySelector('.context');
@@ -148,6 +149,11 @@
       breakdown: breakdown,
       explanation: explanation
     });
+  };
+
+  QuizUiProto.showFinalResults = function() {
+    emptyEl(this.container_);
+    this.container_.appendChild(this.finalResults_);
   };
 
   rq.QuizUi = QuizUi;

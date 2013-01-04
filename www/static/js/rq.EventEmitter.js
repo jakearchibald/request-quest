@@ -18,6 +18,16 @@ rq.EventEmitter.prototype = {
     return this.on(event, wrappedFct);
   },
   off: function(event, fct){
+    if (!event) {
+      // remove all
+      delete this._events;
+      return this;
+    }
+    if (!fct) {
+      // remove all for an event name
+      delete this._events[event];
+      return this;
+    }
     fct = fct.wrappedFct || fct;
     this._events = this._events || {};
     if( event in this._events === false  )  return this;
