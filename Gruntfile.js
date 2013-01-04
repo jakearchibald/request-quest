@@ -12,6 +12,7 @@ module.exports = function(grunt) {
     meta: {
       jsfiles: [
         'www/static/js/q.js',
+        'www/static/js/mustache.js',
         'www/static/js/rq.js',
         'www/static/js/rq.EventEmitter.js',
         'www/static/js/rq.QuestionModel.js',

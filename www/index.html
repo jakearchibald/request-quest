@@ -20,11 +20,13 @@
       </p>
       <p>Anyway, let's get started:</p>
     </div>
-    <div class="questions"></div>
+    <script type="application/x-mustache" class="question-context-template">
+      <h1 class="title">{{title}}</h1>
+      <p class="subtitle">{{subtitle}}</p>
+    </script>
     <script type="text/html" class="question-template">
-      <section class="question">
-        <h1 class="title"></h1>
-        <p class="subtitle"></p>
+      <article class="question">
+        <header class="context"></header>
         <pre class="phase-code"><code></code></pre>
         <section>
           <button type="button" class="yes-btn">Yes</button>
@@ -39,7 +41,47 @@
             <div><button type="button" class="those-btn">Those ones!</button></div>
           </section>
         </section>
-      </section>
+      </article>
+    </script>
+    <script type="text/html" class="answer-template">
+      <article class="answer">
+        <div class="answer-content"></div>
+        <button type="button" class="continue-btn">Continue</button>
+      </article>
+    </script>
+    <script type="application/x-mustache" class="answer-content-template">
+      <h1 class="title">{{title}}</h1>
+      <p class="subtitle">
+        You scored <span class="answer-score">{{pointsAwarded}}</span>
+        point{{^pointsAwardedSingular}}s{{/pointsAwardedSingular}}.
+      </p>
+      <div class="breakdown">
+        {{#breakdown}}
+          <div class="breakdown-item">
+            <pre class="phase-code"><code>{{phase}}</code></pre>
+            <div class="browsers">
+              <div class="actual">
+                First triggers request in:
+                {{#browserAnswer}}
+                  <span class="browser-{{.}}">{{.}}</span>
+                {{/browserAnswer}}
+                {{^browserAnswer}}
+                  None
+                {{/browserAnswer}}
+              </div>
+              {{#playerAnswer.length}}
+                <div class="player">
+                  You guessed:
+                  {{#playerAnswer}}
+                    <span class="browser-{{.}}">{{.}}</span>
+                  {{/playerAnswer}}
+                </div>
+              {{/playerAnswer.length}}
+            </div>
+          </div>
+        {{/breakdown}}
+      </div>
+      <div class="explanation">{{{explanation}}}</div>
     </script>
     <script src="/static/js/all.js"></script>
     <script>new rq.QuizController().start();</script>

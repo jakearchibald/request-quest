@@ -84,5 +84,44 @@
     return true;
   };
 
+  // Return an array of { phase{String}, browserAnswer{Array}, playerAnswer{Array} }
+  // for each bit of code that first triggered a browser request or the player answered
+  QuestionModelProto.answerBreakdown = function() {
+    var breakdown = [];
+    var answersRemaining = Object.keys(this.browserAnswer).length * 2; // correct answer & player answer
+    var browserAnswer;
+    var playerAnswer;
+
+    for (var i = 0, len = this.phases.length; i < len; i++) {
+      browserAnswer = [];
+      playerAnswer = [];
+
+      for (var browser in this.browserAnswer) {
+        if (this.browserAnswer[browser] === i) {
+          browserAnswer.push(browser);
+          answersRemaining--;
+        }
+        if (this.playerAnswer[browser] === i) {
+          playerAnswer.push(browser);
+          answersRemaining--;
+        }
+      }
+
+      if (browserAnswer.length || playerAnswer.length) {
+        breakdown.push({
+          phase: this.phases[i],
+          browserAnswer: browserAnswer,
+          playerAnswer: playerAnswer
+        });
+
+        if (!answersRemaining) {
+          break;
+        }
+      }
+    }
+
+    return breakdown;
+  };
+
   rq.QuestionModel = QuestionModel;
 })();

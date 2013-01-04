@@ -55,8 +55,7 @@
   };
 
   QuestionControllerProto.showAnswer_ = function() {
-    // quizUi.showAnswer
-    console.log('TODO: show answer');
+    this.ui_.showAnswer(this.model_.title, this.model_.score, this.model_.answerBreakdown(), this.model_.explanation);
   };
 
   QuestionControllerProto.end_ = function() {
