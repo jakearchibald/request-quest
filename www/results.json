@@ -4,7 +4,7 @@
     "divbg-element": 1,
     "script-element": 4,
     "script-add": 1,
-    "iframe-element": 1,
+    "iframe-element": 2,
     "script-comment": 3,
     "img-add": 0,
     "divbg-add": 4,
@@ -17,11 +17,11 @@
     "divbg-element": 2,
     "script-element": 0,
     "script-add": 2,
-    "iframe-element": 2,
+    "iframe-element": 3,
     "script-comment": 3,
     "img-add": 0,
     "divbg-add": 5,
-    "style-add": 2,
+    "style-add": 4,
     "webfont-range": 2,
     "resize-reload": 1
   },
@@ -30,13 +30,25 @@
     "divbg-element": 2,
     "script-element": 0,
     "script-add": 1,
-    "iframe-element": 2,
+    "iframe-element": 3,
     "script-comment": 0,
     "img-add": 0,
     "divbg-add": 4,
-    "style-add": 1,
+    "style-add": 3,
     "webfont-range": 2,
     "resize-reload": 2
   },
-  "ie": {}
+  "ie": {
+      "img-element": 0,
+      "divbg-element": 1,
+      "script-element": 0,
+      "script-add": 0,
+      "iframe-element": 3,
+      "script-comment": 0,
+      "img-add": 0,
+      "divbg-add": 3,
+      "style-add": 3,
+      "webfont-range": 2,
+      "resize-reload": 1
+    }
 }

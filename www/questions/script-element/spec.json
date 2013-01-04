@@ -1,5 +1,5 @@
 {
-  "title": "Adding a script with HTML",
+  "title": "Script elements",
   "subtitle": "Is script.js requested?",
   "lang": "html",
   "expectedRequest": "script.js",

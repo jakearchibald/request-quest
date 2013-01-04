@@ -1,5 +1,5 @@
 {
-  "title": "Adding a link element with js",
+  "title": "Creating a link element via script",
   "subtitle": "Is style.css requested?",
   "lang": "js",
   "expectedRequest": "style.css",
@@ -7,11 +7,22 @@
     {
       "addLines": [
         "var link = document.createElement('link');",
-        "link.setAttribute('rel', 'stylesheet');",
-        "link.setAttribute('href', 'style.css');"
+        "link.rel = 'stylesheet';",
+        "link.href = 'style.css';"
       ]
     },
     {
+      "addLines": [
+        "link.type = 'text/javascript';",
+        "document.body.appendChild(link);",
+        "document.body.removeChild(link);"
+      ]
+    },
+    {
+      "removeLines": 1
+    },
+    {
+      "removeLines": 2,
       "addLines": [
         "document.body.appendChild(link);",
         "document.body.removeChild(link);"

@@ -1,5 +1,5 @@
 {
-  "title": "Script write comment",
+  "title": "Altering the DOM with document.write",
   "subtitle": "Is img.png requested?",
   "lang": "html",
   "expectedRequest": "img.png",

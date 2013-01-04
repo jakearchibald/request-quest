@@ -1,5 +1,5 @@
 {
-  "title": "Adding an element with js",
+  "title": "Elements with background images created via script",
   "subtitle": "Is img.png requested?",
   "lang": "js",
   "expectedRequest": "img.png",

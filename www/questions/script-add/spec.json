@@ -1,5 +1,5 @@
 {
-  "title": "Adding a script with script",
+  "title": "Dynamic script loading",
   "subtitle": "Is script.js requested?",
   "lang": "js",
   "expectedRequest": "script.js",

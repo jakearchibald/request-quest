@@ -1,12 +1,18 @@
 {
-  "title": "Iframe fun",
-  "subtitle": "Is anything requested?",
+  "title": "Iframes",
+  "subtitle": "Is anything from the host domain requested? Assume the host page location is `/index.html?search=stuff`",
   "lang": "html",
   "expectedRequest": "#",
   "phases": [
     {
       "addLines": [
         "<iframe></iframe>"
+      ]
+    },
+    {
+      "removeLines": 1,
+      "addLines": [
+        "<iframe src=\"\"></iframe>"
       ]
     },
     {

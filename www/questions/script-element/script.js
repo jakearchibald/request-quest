@@ -1,1 +1,1 @@
-console.log('log from script.js');
+alert('hello from script.js');
