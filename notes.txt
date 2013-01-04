@@ -4,6 +4,8 @@
 * manifest (dynamically added)
 * iframes?
 
+* That CSS example from Andy Hume
+
 * That link ping thing & prefetch
 
 * window.reload in a resize even
@@ -25,27 +27,3 @@
 * Media query css
 
 * event source
-
-* Test format
-
-{
-	title: 'This is my test',
-	subtitle: 'Does blah.png get requested?',
-	lang: 'html',
-	expectedRequest: 'blah.png'
-	phases: [
-		{
-			addContent: 'What\never'
-		},
-		{
-			removeLines: 1,
-			addContent: 'etc' 
-		}
-	]
-}
-
-Go to test url in Chrome
-Advertisies page to connect other browser to
-Other browser hits page, cycles thorugh test phases until file is requested
-Server events reflect fail cases, success case displayed & no further phases displayed
-Iframe changed to next test
