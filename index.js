@@ -156,30 +156,30 @@ app.get('/quiz-data.json', function(req, res) {
       return JSON.parse(data);
     });
   }).then(function(results) {
-    var explainationPromises = [];
+    var explanationPromises = [];
 
     specs.forEach(function(questionSpec) {
-      // get explaination
+      // get explanation
       
       questionSpec.answer = {};
       for (var browser in results) {
         questionSpec.answer[browser] = results[browser][questionSpec.dir];
       }
       
-      var explainationPromise = Q.nfcall(fs.readFile, path.join(__dirname, 'www', 'questions', questionSpec.dir, 'explanation.md'), 'utf-8');
+      var explanationPromise = Q.nfcall(fs.readFile, path.join(__dirname, 'www', 'questions', questionSpec.dir, 'explanation.md'), 'utf-8');
       
-      explainationPromise = explainationPromise.then(function(md) {
-        questionSpec.explaination = showdownConvertor.makeHtml(md);
+      explanationPromise = explanationPromise.then(function(md) {
+        questionSpec.explanation = showdownConvertor.makeHtml(md);
         return questionSpec;
       }, function() {
-        questionSpec.explaination = '<p>No explaination</p>';
+        questionSpec.explanation = '<p>No explanation</p>';
         return questionSpec;
       });
 
-      explainationPromises.push(explainationPromise);
+      explanationPromises.push(explanationPromise);
     });
 
-    return Q.all(explainationPromises);
+    return Q.all(explanationPromises);
   }).then(function() {
     res.json(specs);
   }, function(err) {
