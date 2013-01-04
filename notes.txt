@@ -8,7 +8,7 @@
 
 * That link ping thing & prefetch
 
-* window.reload in a resize even
+* changing the src of a script element shouldn't request the new file (if the script isn't parser inserted)
 
 * fonts, define local with unicode-range mask then webfont
 * Have a paragraph use both, but fall back to webfont
