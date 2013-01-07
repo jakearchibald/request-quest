@@ -1,5 +1,4 @@
 TODOS:
-  * Build static
   * Make progressive enhancing version?
 
 QUESTION IDEAS:
