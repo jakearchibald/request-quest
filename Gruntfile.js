@@ -63,9 +63,6 @@ module.exports = function(grunt) {
     },
     uglify: {
       options: {
-        mangle: {
-          except: []
-        }
       },
       all: {
         files: {
@@ -106,14 +103,17 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'sass:dist']);
   grunt.registerTask('dev', ['concat', 'sass:dev', 'server', 'watch']);
-  grunt.registerTask('build', ['concat', 'uglify', 'sass:dist', 'server']);
+  grunt.registerTask('build', ['concat', 'sass:dist', 'server', 'buildStatic']);
 
   (function() {
-    var app;
+    var server;
     grunt.registerTask('server', function() {
-      app = require('./index.js');
+      server = require('./index.js');
     });
   }());
 
-
+  grunt.registerTask('buildStatic', function() {
+    var done = this.async();
+    require('./build-static.js')(done);
+  });
 };

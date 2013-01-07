@@ -8,7 +8,7 @@ var app = express();
 app.use(express.compress());
 app.use('/static', express.static(__dirname + '/www/static'));
 
-//app.set('json spaces', 0);
+app.set('json spaces', 0);
 
 app.get('/', function(req, res) {
   res.set({
