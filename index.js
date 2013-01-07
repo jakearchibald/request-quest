@@ -145,13 +145,14 @@ app.get('/quiz-data.json', function(req, res) {
   var specPromises = questionDirs.map(function(dir, i) {
     return Q.nfcall(fs.readFile, path.join(__dirname, 'www', 'questions', dir, 'spec.json'), 'utf-8').then(function(data) {
       specs[i] = JSON.parse(data);
-      specs[i].dir = dir;
+      specs[i].id = dir;
       return JSON.parse(data);
     });
   });
 
-  // get the results
+  // get the browser results
   Q.nfcall(fs.readFile, path.join(__dirname, 'www', 'results.json'), 'utf-8').then(function(data) {
+    // wait for the specs
     return Q.all(specPromises).then(function() {
       return JSON.parse(data);
     });
@@ -159,14 +160,14 @@ app.get('/quiz-data.json', function(req, res) {
     var explanationPromises = [];
 
     specs.forEach(function(questionSpec) {
-      // get explanation
-      
+      // store questions against each answer
       questionSpec.answer = {};
       for (var browser in results) {
-        questionSpec.answer[browser] = results[browser][questionSpec.dir];
+        questionSpec.answer[browser] = results[browser][questionSpec.id];
       }
       
-      var explanationPromise = Q.nfcall(fs.readFile, path.join(__dirname, 'www', 'questions', questionSpec.dir, 'explanation.md'), 'utf-8');
+      // get the explanation & convert it to HTML
+      var explanationPromise = Q.nfcall(fs.readFile, path.join(__dirname, 'www', 'questions', questionSpec.id, 'explanation.md'), 'utf-8');
       
       explanationPromise = explanationPromise.then(function(md) {
         questionSpec.explanation = showdownConvertor.makeHtml(md);

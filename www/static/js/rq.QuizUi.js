@@ -43,30 +43,21 @@
     this.answerContentTemplate_ = loadTemplate('.answer-content-template');
     this.finalResults_ = loadTemplate('.final-results-template');
     this.finalResultsContentTemplate_ = loadTemplate('.final-results-content-template');
+    this.introBtnsTemplate_ = loadTemplate('.intro-btns-template');
     this.container_ = elFromStr('<div class="quiz-container"></div>');
     this.browserChoices_ = this.question_.querySelector('.choices');
     this.questionContext_ = this.question_.querySelector('.context');
     this.questionCode_ = this.question_.querySelector('.phase-code');
     this.answerContent_ = this.answer_.querySelector('.answer-content');
+    this.introChoices_ = this.intro_.querySelector('.start-options');
 
     document.body.appendChild(this.container_);
     this.intro_.parentNode.removeChild(this.intro_);
-    this.enhanceIntro_();
     this.enhanceQuestion_();
     this.enhanceAnswer_();
   }
 
   var QuizUiProto = QuizUi.prototype = Object.create(rq.EventEmitter.prototype);
-
-  QuizUiProto.enhanceIntro_ = function() {
-    var quizUi = this;
-    var nextBtn = elFromStr('<button type="button">Begin</button>');
-    nextBtn.addEventListener('click', function(event) {
-      quizUi.trigger('startBtnSelected');
-      event.preventDefault();
-    });
-    quizUi.intro_.appendChild(nextBtn);
-  };
 
   QuizUiProto.enhanceAnswer_ = function() {
     var quizUi = this;
@@ -107,9 +98,27 @@
     });
   };
 
-  QuizUiProto.showIntro = function() {
-    emptyEl(this.container_);
-    this.container_.appendChild(this.intro_);
+  QuizUiProto.showIntro = function(gameInProgress) {
+    var quizUi = this;
+
+    emptyEl(quizUi.container_);
+    quizUi.introChoices_.innerHTML = quizUi.introBtnsTemplate_({
+      gameInProgress: gameInProgress
+    });
+
+    quizUi.introChoices_.querySelector('.start-btn').addEventListener('click', function(event) {
+      quizUi.trigger('startQuizBtnSelected');
+      event.preventDefault();
+    });
+
+    if (gameInProgress) {
+      quizUi.introChoices_.querySelector('.restart-btn').addEventListener('click', function(event) {
+        quizUi.trigger('restartQuizBtnSelected');
+        event.preventDefault();
+      });
+    }
+    
+    quizUi.container_.appendChild(quizUi.intro_);
   };
 
   QuizUiProto.showQuestion = function(title, subtitle) {

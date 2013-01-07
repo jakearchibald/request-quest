@@ -6,11 +6,18 @@
       quizController.model_ = new rq.QuizModel(data);
       quizController.ui_ = new rq.QuizUi();
 
+      quizController.gameInProgress_ = quizController.model_.load();
+
       // user wants to start the quiz
-      quizController.ui_.on('startBtnSelected', quizController.nextQuestion_.bind(quizController));
+      quizController.ui_.on('startQuizBtnSelected', quizController.nextQuestion_.bind(quizController));
+      quizController.ui_.on('restartQuizBtnSelected', function() {
+        quizController.model_.reset();
+        quizController.nextQuestion_();
+      });
     });
 
-    quizController.questionNum = -1;
+    quizController.questionNum_ = -1;
+    quizController.gameInProgress_ = false;
   }
 
   var QuizControllerProto = QuizController.prototype;
@@ -18,21 +25,29 @@
   QuizControllerProto.start = function() {
     var quizController = this;
     quizController.ready_.done(function() {
-      quizController.ui_.showIntro();
+      quizController.ui_.showIntro(quizController.gameInProgress_);
     });
   };
 
   QuizControllerProto.nextQuestion_ = function() {
-    this.questionNum++;
-    var question = this.model_.questions[this.questionNum];
+    this.questionNum_++;
+    this.model_.save();
+
+    var question = this.model_.questions[this.questionNum_];
 
     if (!question) {
       this.results_();
       return;
     }
 
+    if (question.answered()) {
+      this.nextQuestion_();
+      return;
+    }
+
     var questionController = new rq.QuestionController(question, this.ui_);
     questionController.on('continue', this.nextQuestion_.bind(this));
+    questionController.on('answerGiven', this.model_.save.bind(this.model_));
     questionController.start();
   };
 

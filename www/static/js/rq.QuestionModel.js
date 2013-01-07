@@ -1,9 +1,12 @@
 (function() {
   function QuestionModel(data) {
-    this.title = data.title;
-    this.subtitle = data.subtitle;
-    this.lang = data.lang;
+    this.id          = data.id;
+    this.title       = data.title;
+    this.subtitle    = data.subtitle;
+    this.lang        = data.lang;
+    this.explanation = data.explanation;
 
+    // expand each of the phases
     var lines = [];
     this.phases = data.phases.map(function(phase) {
       if (phase.removeLines) {
@@ -19,10 +22,14 @@
     this.playerAnswer = {};
     this.score = 0;
     this.maxScore = Object.keys(data.answer).length;
-    this.explanation = data.explanation;
   }
 
   var QuestionModelProto = QuestionModel.prototype;
+
+  QuestionModelProto.reset = function() {
+    this.score = 0;
+    this.playerAnswer = {};
+  };
 
   QuestionModelProto.answer = function(phaseNum, browsers) {
     var questionModel = this;

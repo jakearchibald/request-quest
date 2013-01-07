@@ -1,5 +1,5 @@
 TODOS:
-  * Oof, clicking links in explaination loses progress
+  * Upgrade to indexdb
   * Make progressive enhancing version?
   * Code highlighting
   * Push-state urls? (but how to resolve them?)

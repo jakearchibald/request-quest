@@ -19,7 +19,23 @@
         which browsers make a request.
       </p>
       <p>Anyway, let's get started:</p>
+      <div class="start-options"></div>
     </div>
+    <script type="application/x-mustache" class="intro-btns-template">
+      <button type="button" class="start-btn">
+        {{#gameInProgress}}
+          Continue current game
+        {{/gameInProgress}}
+        {{^gameInProgress}}
+          Begin
+        {{/gameInProgress}}
+      </button>
+      {{#gameInProgress}}
+        <button type="button" class="restart-btn">
+          Start afresh
+        </button>
+      {{/gameInProgress}}
+    </script>
     <script type="application/x-mustache" class="question-context-template">
       <h1 class="title">{{title}}</h1>
       <p class="subtitle">{{subtitle}}</p>

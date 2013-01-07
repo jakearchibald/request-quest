@@ -12,10 +12,12 @@
     questionController.uiOn_('answerYes', function() {
       questionModel.answerRemaining(questionController.phase_);
       questionController.showAnswer_();
+      questionController.trigger('answerGiven');
     });
 
     questionController.uiOn_('answerNo', function() {
       questionController.nextPhase_();
+      questionController.trigger('answerGiven');
     });
 
     // User wants to decide on particular browsers
@@ -32,6 +34,8 @@
       else {
         questionController.nextPhase_();
       }
+
+      questionController.trigger('answerGiven');
     });
   }
 
