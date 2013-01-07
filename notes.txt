@@ -1,5 +1,7 @@
 TODOS:
   * Score tracking
+  * Browser test
+  * Oof, clicking links in explaination loses progress
   * Make progressive enhancing version?
   * Code highlighting
   * Push-state urls? (but how to resolve them?)

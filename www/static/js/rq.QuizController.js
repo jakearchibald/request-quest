@@ -37,7 +37,7 @@
   };
 
   QuizControllerProto.results_ = function() {
-    this.ui_.showFinalResults();
+    this.ui_.showFinalResults(this.model_.score, this.model_.maxScore);
   };
 
   rq.QuizController = QuizController;

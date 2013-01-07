@@ -85,10 +85,13 @@
     </script>
     <script type="text/html" class="final-results-template">
       <article class="end">
-        <h1>Well done, you did ok.</h1>
-        <p>Actually, I haven't set up score tracking yet, so I don't know how well you did.</p>
-        <p>You can go do something else now.</p>
       </article>
+    </script>
+    <script type="application/x-mustache" class="final-results-content-template">
+      <h1>You scored {{score}} point{{^scoreSingular}}s{{/scoreSingular}}</h1>
+      <p>…out of a possible {{maxScore}}</p>
+      <p>{{review}}</p>
+      <p>You can go do something else now.</p>
     </script>
     <script src="static/js/all.js"></script>
     <script>new rq.QuizController().start();</script>

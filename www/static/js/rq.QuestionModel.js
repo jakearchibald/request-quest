@@ -18,6 +18,7 @@
     this.browserAnswer = data.answer;
     this.playerAnswer = {};
     this.score = 0;
+    this.maxScore = Object.keys(data.answer).length;
     this.explanation = data.explanation;
   }
 
