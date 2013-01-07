@@ -1,6 +1,6 @@
-None of the browsers parse scripts of a type/language they don't recognise, but Firefox, IE and Opera _will_ download them regardless.
+None of the browsers parse scripts of a type/language they don't recognise, but Firefox, IE and Opera _will_ download the file regardless of type.
 
-[The HTML spec](http://www.whatwg.org/specs/web-apps/current-work/multipage/scripting-1.html#script-processing-prepare) instructs browsers to ignore script elements with an unsupported type, Chrome follows this rule.
+[The HTML spec](http://www.whatwg.org/specs/web-apps/current-work/multipage/scripting-1.html#script-processing-prepare) instructs browsers to ignore script elements with an unsupported type, Chrome follows this rule whereas the others don't.
 
 If a script element lacks a type/language attribute, `text/javascript` is assumed. This is common browser behaviour and was [later added to the HTML spec](http://www.whatwg.org/specs/web-apps/current-work/multipage/scripting-1.html#script-processing-prepare)
 

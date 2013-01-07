@@ -125,7 +125,12 @@
     this.browserChoices_.style.display = 'block';
 
     toArray(this.browserChoices_.querySelectorAll('.browser-choice')).forEach(function(choice) {
-      if (browsers.indexOf(choice.querySelector('input[type=checkbox]').id) != -1) {
+      var checkbox = choice.querySelector('input[type=checkbox]');
+
+      // this resets the checkboxes, but also avoids checked-but-hidden boxes turning up in results
+      checkbox.checked = false;
+      
+      if (browsers.indexOf(checkbox.id) != -1) {
         choice.style.display = 'block';
       }
       else {

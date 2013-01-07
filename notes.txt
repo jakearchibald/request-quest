@@ -1,5 +1,10 @@
 TODOS:
+  * Think about test ordering
+  * Score tracking
   * Make progressive enhancing version?
+  * Code highlighting
+  * Push-state urls? (but how to resolve them?)
+  * Crueler code when the request has gone
 
 QUESTION IDEAS:
 * Try adjacent selectors, Bev thinks adding it is enough
