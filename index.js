@@ -22,15 +22,15 @@ var lastPhaseId;
 var questionDirs = [
   'img-element',
   'divbg-element',
-  'script-element',
-  'script-add',
-  'iframe-element',
-  'script-comment',
   'img-add',
   'divbg-add',
+  'script-element',
+  'script-add',
   'style-add',
-  'webfont-range',
-  'resize-reload'
+  'iframe-element',
+  'script-comment',
+  'resize-reload',
+  'webfont-range'
 ];
 
 function initTestResults() {

@@ -1,6 +1,6 @@
 {
   "title": "Reloading the page",
-  "subtitle": "Is the page reloaded?",
+  "subtitle": "Is the page reloaded? Assume the user does not resize the page.",
   "lang": "js",
   "expectedRequest": "#",
   "phases": [

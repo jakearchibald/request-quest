@@ -1,5 +1,4 @@
 TODOS:
-  * Think about test ordering
   * Score tracking
   * Make progressive enhancing version?
   * Code highlighting
