@@ -33,12 +33,20 @@ module.exports = function(grunt) {
       }
     },
     jshint: {
-      all: '<%= meta.jsfiles %>',
+      all: [
+        'www/static/js/rq.js',
+        'www/static/js/rq.EventEmitter.js',
+        'www/static/js/rq.QuestionModel.js',
+        'www/static/js/rq.QuestionController.js',
+        'www/static/js/rq.QuizUi.js',
+        'www/static/js/rq.QuizModel.js',
+        'www/static/js/rq.QuizController.js'
+      ],
       options: {
         curly: true,
         forin: true,
         immed: true,
-        indent: '2',
+        indent: 2,
         latedef: true,
         newcap: true,
         noarg: true,
@@ -98,6 +106,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'sass:dist']);
   grunt.registerTask('dev', ['concat', 'sass:dev', 'server', 'watch']);
+  grunt.registerTask('build', ['concat', 'uglify', 'sass:dist', 'server']);
 
   (function() {
     var app;

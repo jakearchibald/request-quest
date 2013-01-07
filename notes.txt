@@ -1,4 +1,8 @@
+TODOS:
+  * Build static
+  * Make progressive enhancing version?
 
+QUESTION IDEAS:
 * Try adjacent selectors, Bev thinks adding it is enough
 
 * manifest (dynamically added)
