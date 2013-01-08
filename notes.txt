@@ -9,18 +9,12 @@ QUESTION IDEAS:
 * Try adjacent selectors, Bev thinks adding it is enough
 
 * manifest (dynamically added)
-* iframes?
 
 * That CSS example from Andy Hume
 
 * That link ping thing & prefetch
 
 * changing the src of a script element shouldn't request the new file (if the script isn't parser inserted)
-
-* fonts, define local with unicode-range mask then webfont
-* Have a paragraph use both, but fall back to webfont
-* paragraph contains letters in original unicode range
-* Use letters out of range
 
 * give a ul a bullet image, but no lis
 
