@@ -15,7 +15,10 @@
     var div = document.createElement('div');
     return function(str) {
       div.innerHTML = str.trim();
-      return div.firstChild;
+      var elm = div.firstChild;
+      // have to do this, else IE removes every node
+      div.removeChild(div.firstChild);
+      return elm;
     };
   }());
 
