@@ -31,7 +31,7 @@ module.exports = function(grunt) {
         curly: true,
         forin: true,
         immed: true,
-        indent: '2',
+        indent: 2,
         latedef: true,
         newcap: true,
         noarg: true,
@@ -85,33 +85,21 @@ module.exports = function(grunt) {
       styles: {
         files: 'www/static/css/*.scss',
         tasks: ['sass:dev']
-      }//,
-      // config: {
-      //   files: 'index.js',
-      //   tasks: ['restart-server']
-      // }
+      }
     }
   });
 
-  (function() {
-    var app;
-    // Run with the watcher:
-    // grunt server watch
-    grunt.registerTask('server', function() {
-      app = require('./index.js');
-    });
+  grunt.registerTask('server', function() {
+    require('./index.js');
+  });
 
-    // grunt.registerTask('restart-server', function() {
-    //   if (app) {
-    //     app.close(function() {
-    //       delete require.cache[__dirname + '/index.js'];
-    //       app = require('./index.js');
-    //     });
-    //   }
-    // });
-  }());
+  grunt.registerTask('buildStatic', function() {
+    var done = this.async();
+    require('./build-static.js')(done);
+  });
 
-  // Default task.
   grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'sass:dist']);
+  grunt.registerTask('dev', ['concat', 'sass:dev', 'server', 'watch']);
+  grunt.registerTask('build', ['concat', 'uglify', 'sass:dist', 'server', 'buildStatic']);
 
 };
