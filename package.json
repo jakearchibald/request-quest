@@ -7,11 +7,11 @@
     "q": "~0.8.12"
   },
   "devDependencies": {
-    "grunt-contrib-sass": "~0.2.1",
-    "grunt": "~0.4.0rc3",
-    "grunt-contrib-jshint": "~0.1.0",
-    "grunt-contrib-uglify": "~0.1.0",
-    "grunt-contrib-concat": "~0.1.1",
-    "grunt-contrib-watch": "~0.2.0a"
+    "grunt-contrib-sass": "https://github.com/gruntjs/grunt-contrib-sass/archive/aa0f821697e3f1a5046ae4ed50e9358967d9bdd7.tar.gz",
+    "grunt": "~0.4.0rc7",
+    "grunt-contrib-jshint": "~0.1.1rc6",
+    "grunt-contrib-uglify": "~0.1.1rc6",
+    "grunt-contrib-concat": "~0.1.2rc6",
+    "grunt-contrib-watch": "~0.2.0rc7"
   }
 }
