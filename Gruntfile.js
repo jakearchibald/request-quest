@@ -11,8 +11,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     meta: {
       jsfiles: [
-        'www/static/js/1.js',
-        'www/static/js/2.js'
+        'www/static/js/main.js'
       ]
     },
     concat: {
@@ -98,7 +97,6 @@ module.exports = function(grunt) {
     require('./build-static.js')(done);
   });
 
-  grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'sass:dist']);
   grunt.registerTask('dev', ['concat', 'sass:dev', 'server', 'watch']);
   grunt.registerTask('build', ['concat', 'uglify', 'sass:dist', 'server', 'buildStatic']);
 
