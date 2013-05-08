@@ -1,4 +1,5 @@
 TODOS:
+  * Why does compression fail?
   * Upgrade to indexdb
   * Make progressive enhancing version?
   * Code highlighting

@@ -63,6 +63,25 @@ module.exports = function(grunt) {
     },
     uglify: {
       options: {
+        mangle: {},
+        compress: {
+          'sequences': false,
+          'properties': false,
+          'dead_code': false,
+          'drop_debugger': false,
+          'unsafe': false,
+          'conditionals': false,
+          'comparisons': false,
+          'evaluate': false,
+          'booleans': false,
+          'loops': false,
+          'unused': false,
+          'hoist_funs': false,
+          'if_return': false,
+          'join_vars': false,
+          'cascade': false,
+          'warnings': false
+        }
       },
       all: {
         files: {
@@ -103,7 +122,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'sass:dist']);
   grunt.registerTask('dev', ['concat', 'sass:dev', 'server', 'watch']);
-  grunt.registerTask('build', ['concat', 'sass:dist', 'server', 'buildStatic']);
+  grunt.registerTask('build', ['concat', 'uglify', 'sass:dist', 'server', 'buildStatic']);
 
   (function() {
     var server;
