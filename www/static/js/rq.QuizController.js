@@ -10,7 +10,6 @@
       quizController.ui_.on('resetSelected', quizController.reset_.bind(quizController));
 
     });
-
     quizController.questionNum_ = -1;
   }
 
@@ -25,6 +24,7 @@
   };
 
   QuizControllerProto.reset_ = function() {
+    this.questionNum_ = -1;
     this.model_.score = 0;
     this.start();
   };

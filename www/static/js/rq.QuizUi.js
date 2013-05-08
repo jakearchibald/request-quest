@@ -60,6 +60,7 @@
     this.answerFeedback_ = this.question_.querySelector('.answer-feedback');
     this.feedbackContent_ = this.question_.querySelector('.feedback-content');
     this.scoreNum_ = this.score_.querySelector('.num');
+    this.review_ = this.finalResults_.querySelector('.review');
 
     document.body.appendChild(this.container_);
     this.intro_.parentNode.removeChild(this.intro_);
@@ -91,10 +92,13 @@
 
   QuizUiProto.enhanceReset_ = function() {
     var quizUi = this;
-    quizUi.reset_.querySelector('.reset-btn').addEventListener('click', function(event) {
+
+    function reset(event) {
       quizUi.trigger('resetSelected');
       event.preventDefault();
-    });
+    }
+    quizUi.reset_.querySelector('.reset-btn').addEventListener('click', reset);
+    quizUi.finalResults_.querySelector('.reset-btn').addEventListener('click', reset);
   };
 
   QuizUiProto.enhanceIntro_ = function() {
@@ -180,10 +184,10 @@
 
   QuizUiProto.showFinalResults = function(score, maxScore) {
     emptyEl(this.container_);
-    this.container_.appendChild(this.finalResults_);
 
-    var review;
+    var review = "Review TODO";
 
+    /*
     if (score < 6) {
       review = "Well, at least you made it out with your life intact, if not your dignity";
     }
@@ -205,13 +209,16 @@
     else {
       review = "You cheated. You cheated and I hate you.";
     }
+    */
 
-    this.finalResults_.innerHTML = this.finalResultsContentTemplate_({
+    this.review_.innerHTML = this.finalResultsContentTemplate_({
       score: score,
       scoreSingular: score === 1,
       maxScore: maxScore,
       review: review
     });
+
+    this.container_.appendChild(this.finalResults_);
   };
 
   rq.QuizUi = QuizUi;

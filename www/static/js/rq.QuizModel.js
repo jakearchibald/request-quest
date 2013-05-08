@@ -12,7 +12,7 @@
 
   Object.defineProperty(QuizModelProto, 'maxScore', { get: function() {
     return this.questions.reduce(function(total, question) {
-      return total + question.maxScore;
+      return total + question.phases.length;
     }, 0);
   }});
 

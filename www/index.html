@@ -31,7 +31,7 @@
     </script>
     <script type="text/html" class="reset-template">
       <div class="reset">
-        <button type="button" class="reset-btn">Reset</button>
+        <button type="button" class="reset-btn">Start over</button>
       </div>
     </script>
     <script type="text/html" class="question-template">
@@ -68,10 +68,10 @@
           Oh noes!
         {{/wasCorrect}}
         {{#browsers}}
-          The request started in {{browsers}}.
+          The request was made in {{browsers}}.
         {{/browsers}}
         {{^browsers}}
-          No requests in those browsers yet.
+          No requests in those browsers.
         {{/browsers}}
       </h1>
       {{#explanation}}
@@ -80,10 +80,12 @@
     </script>
     <script type="text/html" class="final-results-template">
       <article class="end">
+        <div class="review"></div>
+        <button type="button" class="reset-btn">Start over</button>
       </article>
     </script>
     <script type="application/x-mustache" class="final-results-content-template">
-      <h1>You scored {{score}} point{{^scoreSingular}}s{{/scoreSingular}}</h1>
+      <h1>Phew! That’s it! You scored {{score}}</h1>
       <p>…out of a possible {{maxScore}}</p>
       <p>{{review}}</p>
       <p>You can go do something else now.</p>
