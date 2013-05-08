@@ -38,6 +38,7 @@
     questionController.on('phaseAnswered', function(event) {
       if (event.wasCorrect) {
         quizController.model_.score++;
+        quizController.ui_.score(quizController.model_.score);
       }
     });
     questionController.start();

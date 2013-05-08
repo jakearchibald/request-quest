@@ -14,7 +14,7 @@
       </p>
       <p>
         Beware! What the browsers do isn't always what the specification
-        says they should do!
+        says they should!
       </p>
       <p>Anyway, let's get started:</p>
       <div class="start-options">
@@ -23,6 +23,11 @@
     </div>
     <script type="application/x-mustache" class="question-context-template">
       <p class="subtitle">{{subtitle}}</p>
+    </script>
+    <script type="text/html" class="score-template">
+      <div class="score">
+        Score: <span class="num">0</span>
+      </div>
     </script>
     <script type="text/html" class="question-template">
       <article class="question">
@@ -47,7 +52,6 @@
           <div class="feedback-content"></div>
           <button type="button" class="continue-btn">Continue</button>
         </section>
-
       </article>
     </script>
     <script type="application/x-mustache" class="answer-content-template">

@@ -48,6 +48,7 @@
     this.intro_ = $('.intro');
     this.question_ = loadTemplate('.question-template');
     this.finalResults_ = loadTemplate('.final-results-template');
+    this.score_ = loadTemplate('.score-template');
     this.finalResultsContentTemplate_ = loadTemplate('.final-results-content-template');
     this.answerContentTemplate_ = loadTemplate('.answer-content-template');
     this.container_ = elFromStr('<div class="quiz-container"></div>');
@@ -57,6 +58,7 @@
     this.questionButtons_ = this.question_.querySelector('.answer-buttons');
     this.answerFeedback_ = this.question_.querySelector('.answer-feedback');
     this.feedbackContent_ = this.question_.querySelector('.feedback-content');
+    this.scoreNum_ = this.score_.querySelector('.num');
 
     document.body.appendChild(this.container_);
     this.intro_.parentNode.removeChild(this.intro_);
@@ -111,6 +113,7 @@
     });
 
     this.container_.appendChild(this.question_);
+    this.container_.appendChild(this.score_);
     this.questionTitle_.textContent = title;
     this.questionRequest_.textContent = requestDesc;
   };
@@ -144,6 +147,10 @@
       browsers: browserStr,
       explanation: explanation
     });
+  };
+
+  QuizUiProto.score = function(score) {
+    this.scoreNum_.textContent = score;
   };
 
   QuizUiProto.continueQuestion = function() {
