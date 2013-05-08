@@ -49,11 +49,14 @@ module.exports = function(grunt) {
       options: {
         mangle: {
           except: []
-        }
+        },
+        sourceMap: 'www/static/js/all.js.map',
+        sourceMappingURL: 'all.js.map',
+        sourceMapPrefix: 3
       },
       all: {
         files: {
-          'www/static/js/all.js': 'www/static/js/all.js'
+          'www/static/js/all.js': '<%= meta.jsfiles %>'
         }
       }
     },
