@@ -1,29 +1,19 @@
-.phase-code {
-  padding: 7px 10px;
-  margin: 12px 0;
-  background: #EEE;
-  border: 1px dotted #AAA;
-  font-size: 12px;
-  line-height: 1.4;
-  overflow: auto;
-}
+.metal-box {
+  background: url(imgs/metal.jpg);
+  background-size: cover;
+  box-shadow: 0 13px 40px #000;
+  padding: 20px;
 
-.intro {
-  margin: 50px;
-}
-
-.question {
-  margin: 50px;
-
-  & .choices {
-    display: none;
+  & .inner {
+    padding: 20px;
+    background: rgba(#fff, 0.7);
+    box-shadow: 0 2px 7px rgba(#000, 0.6);
   }
 }
 
-.answer {
-  margin: 50px;
-}
-
-.end {
-  margin: 50px;
+.question {
+  & .answer-feedback,
+  &.first-phase .additional-phase-lead {
+    display: none;
+  }
 }

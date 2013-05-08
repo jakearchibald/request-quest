@@ -12,19 +12,6 @@
     "webfont-range": 3,
     "resize-reload": 1
   },
-  "opera": {
-    "img-element": 0,
-    "divbg-element": 2,
-    "script-element": 0,
-    "script-add": 2,
-    "iframe-element": 3,
-    "script-comment": 3,
-    "img-add": 0,
-    "divbg-add": 5,
-    "style-add": 4,
-    "webfont-range": 2,
-    "resize-reload": 1
-  },
   "firefox": {
     "img-element": 0,
     "divbg-element": 2,

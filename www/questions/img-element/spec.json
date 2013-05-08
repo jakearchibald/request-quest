@@ -5,7 +5,8 @@
   "expectedRequest": "img.png",
   "phases": [
     {
-      "addLines": ["<div style=\"display: none\"><img src=\"img.png\"></div>"]
+      "addLines": ["<div style=\"display: none\"><img src=\"img.png\"></div>"],
+      "explanation": "explanation.md"
     },
     {
       "removeLines": 1,

@@ -1,6 +1,5 @@
 {
   "title": "Elements with background images created via script",
-  "subtitle": "Is img.png requested?",
   "lang": "js",
   "expectedRequest": "img.png",
   "phases": [
@@ -8,13 +7,15 @@
       "addLines": [
         "var div = document.createElement('div');",
         "div.style.background = 'url(img.png)';"
-      ]
+      ],
+      "explanation": "1.md"
     },
     {
       "addLines": [
         "document.body.appendChild(div);",
         "document.body.removeChild(div);"
-      ]
+      ],
+      "explanation": "2.md"
     },
     {
       "removeLines": 1,
@@ -28,14 +29,16 @@
       "addLines": [
         "div.innerHTML;",
         "document.body.removeChild(div);"
-      ]
+      ],
+      "explanation": "3.md"
     },
     {
       "removeLines": 2,
       "addLines": [
         "div.offsetWidth;",
         "document.body.removeChild(div);"
-      ]
+      ],
+      "explanation": "4.md"
     },
     {
       "removeLines": 2

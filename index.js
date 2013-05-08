@@ -20,9 +20,9 @@ app.get('/', function(req, res) {
 var triggerPhase;
 var lastPhaseId;
 var questionDirs = [
-  'img-element',
-  'divbg-element',
-  'img-add',
+  //'img-element',
+  //'divbg-element',
+  //'img-add',
   'divbg-add',
   'script-element',
   'script-add',
@@ -165,19 +165,17 @@ app.get('/quiz-data.json', function(req, res) {
       for (var browser in results) {
         questionSpec.answer[browser] = results[browser][questionSpec.id];
       }
-      
-      // get the explanation & convert it to HTML
-      var explanationPromise = Q.nfcall(fs.readFile, path.join(__dirname, 'www', 'questions', questionSpec.id, 'explanation.md'), 'utf-8');
-      
-      explanationPromise = explanationPromise.then(function(md) {
-        questionSpec.explanation = showdownConvertor.makeHtml(md);
-        return questionSpec;
-      }, function() {
-        questionSpec.explanation = '<p>No explanation</p>';
-        return questionSpec;
-      });
 
-      explanationPromises.push(explanationPromise);
+      questionSpec.phases.forEach(function(phase) {
+        if (phase.explanation) {
+          // get the explanation & convert it to HTML
+          var explanationPromise = Q.nfcall(fs.readFile, path.join(__dirname, 'www', 'questions', questionSpec.id, phase.explanation), 'utf-8').then(function(md) {
+            phase.explanation = showdownConvertor.makeHtml(md);
+          });
+
+          explanationPromises.push(explanationPromise);
+        }
+      });
     });
 
     return Q.all(explanationPromises);

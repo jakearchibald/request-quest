@@ -38,38 +38,33 @@
     }
   }
 
+  var browserMap = {
+    ie: "IE",
+    chrome: "Chrome",
+    firefox: "Firefox"
+  };
+
   function QuizUi() {
     this.intro_ = $('.intro');
     this.question_ = loadTemplate('.question-template');
-    this.questionContextTemplate_ = loadTemplate('.question-context-template');
-    this.answer_ = loadTemplate('.answer-template');
-    this.answerContentTemplate_ = loadTemplate('.answer-content-template');
     this.finalResults_ = loadTemplate('.final-results-template');
     this.finalResultsContentTemplate_ = loadTemplate('.final-results-content-template');
-    this.introBtnsTemplate_ = loadTemplate('.intro-btns-template');
+    this.answerContentTemplate_ = loadTemplate('.answer-content-template');
     this.container_ = elFromStr('<div class="quiz-container"></div>');
-    this.browserChoices_ = this.question_.querySelector('.choices');
-    this.questionContext_ = this.question_.querySelector('.context');
+    this.questionTitle_ = this.question_.querySelector('.title');
+    this.questionRequest_ = this.question_.querySelector('.request');
     this.questionCode_ = this.question_.querySelector('.phase-code');
-    this.answerContent_ = this.answer_.querySelector('.answer-content');
-    this.introChoices_ = this.intro_.querySelector('.start-options');
+    this.questionButtons_ = this.question_.querySelector('.answer-buttons');
+    this.answerFeedback_ = this.question_.querySelector('.answer-feedback');
+    this.feedbackContent_ = this.question_.querySelector('.feedback-content');
 
     document.body.appendChild(this.container_);
     this.intro_.parentNode.removeChild(this.intro_);
     this.enhanceQuestion_();
-    this.enhanceAnswer_();
+    this.enhanceIntro_();
   }
 
   var QuizUiProto = QuizUi.prototype = Object.create(rq.EventEmitter.prototype);
-
-  QuizUiProto.enhanceAnswer_ = function() {
-    var quizUi = this;
-
-    quizUi.answer_.querySelector('.continue-btn').addEventListener('click', function(event) {
-      quizUi.trigger('continueBtnSelected');
-      event.preventDefault();
-    });
-  };
 
   QuizUiProto.enhanceQuestion_ = function() {
     var quizUi = this;
@@ -84,89 +79,64 @@
       event.preventDefault();
     });
 
-    quizUi.question_.querySelector('.some-btn').addEventListener('click', function(event) {
-      quizUi.trigger('answerSome');
-      event.preventDefault();
-    });
-
-    quizUi.question_.querySelector('.those-btn').addEventListener('click', function(event) {
-      var checked = toArray(quizUi.browserChoices_.querySelectorAll('input[type=checkbox]')).filter(function(checkbox) {
-        return checkbox.checked;
-      }).map(function(checkbox) {
-        return checkbox.id;
-      });
-
-      quizUi.trigger('answerThose', checked);
+    quizUi.question_.querySelector('.continue-btn').addEventListener('click', function(event) {
+      quizUi.trigger('continue');
       event.preventDefault();
     });
   };
 
-  QuizUiProto.showIntro = function(gameInProgress) {
+  QuizUiProto.enhanceIntro_ = function() {
     var quizUi = this;
 
-    emptyEl(quizUi.container_);
-    quizUi.introChoices_.innerHTML = quizUi.introBtnsTemplate_({
-      gameInProgress: gameInProgress
-    });
-
-    quizUi.introChoices_.querySelector('.start-btn').addEventListener('click', function(event) {
+    quizUi.intro_.querySelector('.start-btn').addEventListener('click', function(event) {
       quizUi.trigger('startQuizBtnSelected');
       event.preventDefault();
     });
-
-    if (gameInProgress) {
-      quizUi.introChoices_.querySelector('.restart-btn').addEventListener('click', function(event) {
-        quizUi.trigger('restartQuizBtnSelected');
-        event.preventDefault();
-      });
-    }
-    
-    quizUi.container_.appendChild(quizUi.intro_);
   };
 
-  QuizUiProto.showQuestion = function(title, subtitle) {
+  QuizUiProto.showIntro = function() {
     emptyEl(this.container_);
-    this.container_.appendChild(this.question_);
-    this.questionContext_.innerHTML = this.questionContextTemplate_({
-      title: title,
-      subtitle: subtitle
-    });
-    this.browserChoices_.style.display = 'none';
+    this.container_.appendChild(this.intro_);
   };
 
-  QuizUiProto.showBrowserChoices = function(browsers) {
-    this.browserChoices_.style.display = 'block';
+  QuizUiProto.showQuestion = function(title, requestDesc) {
+    emptyEl(this.container_);
+    this.question_.classList.add('first-phase');
+    this.container_.appendChild(this.question_);
+    this.questionTitle_.textContent = title;
+    this.questionRequest_.textContent = requestDesc;
+  };
 
-    toArray(this.browserChoices_.querySelectorAll('.browser-choice')).forEach(function(choice) {
-      var checkbox = choice.querySelector('input[type=checkbox]');
+  QuizUiProto.showAnswer = function(wasCorrect, browsers, explanation) {
+    this.questionButtons_.style.display = 'none';
+    this.answerFeedback_.style.display = 'block';
 
-      // this resets the checkboxes, but also avoids checked-but-hidden boxes turning up in results
-      checkbox.checked = false;
-      
-      if (browsers.indexOf(checkbox.id) != -1) {
-        choice.style.display = 'block';
+    // Format: browser, browser & browser
+    var browserStr = browsers.reduce(function(str, browser, i) {
+      if (i > 0) {
+        if (i == browsers.length - 1) {
+          str += " & ";
+        }
+        else {
+          str += ", ";
+        }
       }
-      else {
-        choice.style.display = 'none';
-      }
+
+      str += browserMap[browser];
+      return str;
+    }, '');
+
+    this.feedbackContent_.innerHTML = this.answerContentTemplate_({
+      wasCorrect: wasCorrect,
+      browsers: browserStr,
+      explanation: explanation
     });
   };
 
   QuizUiProto.showPhaseCode = function(code) {
+    this.questionButtons_.style.display = 'block';
+    this.answerFeedback_.style.display = 'none';
     this.questionCode_.textContent = code;
-    this.browserChoices_.style.display = 'none';
-  };
-
-  QuizUiProto.showAnswer = function(title, pointsAwarded, breakdown, explanation) {
-    emptyEl(this.container_);
-    this.container_.appendChild(this.answer_);
-    this.answerContent_.innerHTML = this.answerContentTemplate_({
-      title: title,
-      pointsAwarded: pointsAwarded,
-      pointsAwardedSingular: pointsAwarded === 1,
-      breakdown: breakdown,
-      explanation: explanation
-    });
   };
 
   QuizUiProto.showFinalResults = function(score, maxScore) {

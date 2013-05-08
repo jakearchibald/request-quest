@@ -6,43 +6,23 @@
     questionController.ui_ = quizUi;
     questionController.model_ = questionModel;
 
-    // user has finished reading the solution and wants to continue
-    questionController.uiOn_('continueBtnSelected', questionController.end_.bind(questionController));
-    
     questionController.uiOn_('answerYes', function() {
-      questionModel.answerRemaining(questionController.phase_);
-      questionController.showAnswer_();
-      questionController.trigger('answerGiven');
+      questionController.handleAnswer_(true);
     });
 
     questionController.uiOn_('answerNo', function() {
+      questionController.handleAnswer_(false);
+    });
+
+    questionController.uiOn_('continue', function() {
       questionController.nextPhase_();
-      questionController.trigger('answerGiven');
-    });
-
-    // User wants to decide on particular browsers
-    questionController.uiOn_('answerSome', function() {
-      quizUi.showBrowserChoices(questionModel.remainingBrowsers());
-    });
-
-    // User selected particular browsers
-    questionController.uiOn_('answerThose', function(browsers) {
-      questionModel.answer(questionController.phase_, browsers);
-      if (questionModel.answered()) {
-        questionController.showAnswer_();
-      }
-      else {
-        questionController.nextPhase_();
-      }
-
-      questionController.trigger('answerGiven');
     });
   }
 
   var QuestionControllerProto = QuestionController.prototype = Object.create(rq.EventEmitter.prototype);
 
   QuestionControllerProto.start = function() {
-    this.ui_.showQuestion(this.model_.title, this.model_.subtitle);
+    this.ui_.showQuestion(this.model_.title, this.model_.requestDesc);
     this.nextPhase_();
   };
 
@@ -58,21 +38,29 @@
     });
   };
 
+  QuestionControllerProto.handleAnswer_ = function(userAnswer) {
+    var browsers = this.model_.browsersForPhase(this.phase_);
+    var makesRequest = !!browsers.length;
+    var wasCorrect = makesRequest == userAnswer;
+
+    this.trigger('phaseAnswered', {
+      wasCorrect: wasCorrect
+    });
+
+    this.ui_.showAnswer(wasCorrect, browsers, this.model_.phases[this.phase_].explanation);
+  };
+
   QuestionControllerProto.nextPhase_ = function() {
     this.phase_++;
-    var phaseCode = this.model_.phases[this.phase_];
+    var phaseObj = this.model_.phases[this.phase_];
 
-    if (phaseCode) {
-      this.ui_.showPhaseCode(this.model_.phases[this.phase_]);
+    if (phaseObj) {
+      this.ui_.showPhaseCode(phaseObj.code);
     }
     else {
       // no phases left
-      this.showAnswer_();
+      this.end_();
     }
-  };
-
-  QuestionControllerProto.showAnswer_ = function() {
-    this.ui_.showAnswer(this.model_.title, this.model_.score, this.model_.answerBreakdown(), this.model_.explanation);
   };
 
   QuestionControllerProto.end_ = function() {

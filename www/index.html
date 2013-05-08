@@ -10,94 +10,64 @@
       <h1>Requestiontime</h1>
       <p>
         The game is pretty simple, look at some code &amp; decide if
-        it would trigger an HTTP request. Each example was tested in
-        Chrome 23, Firefox 17, Opera 12, and IE 10.
+        it would trigger an HTTP request in Chrome 23, Firefox 17, or IE 10.
       </p>
       <p>
-        Sometimes the browsers do different things, so if you want
-        to show off and go for maximum points, you'll need to say
-        which browsers make a request.
+        Beware! What the browsers do isn't always what the specification
+        says they should do!
       </p>
       <p>Anyway, let's get started:</p>
-      <div class="start-options"></div>
+      <div class="start-options">
+        <button type="button" class="start-btn">Begin</button>
+      </div>
     </div>
-    <script type="application/x-mustache" class="intro-btns-template">
-      <button type="button" class="start-btn">
-        {{#gameInProgress}}
-          Continue current game
-        {{/gameInProgress}}
-        {{^gameInProgress}}
-          Begin
-        {{/gameInProgress}}
-      </button>
-      {{#gameInProgress}}
-        <button type="button" class="restart-btn">
-          Start afresh
-        </button>
-      {{/gameInProgress}}
-    </script>
     <script type="application/x-mustache" class="question-context-template">
-      <h1 class="title">{{title}}</h1>
       <p class="subtitle">{{subtitle}}</p>
     </script>
     <script type="text/html" class="question-template">
       <article class="question">
-        <header class="context"></header>
+        <h1 class="title"></h1>
         <pre class="phase-code"><code></code></pre>
-        <section>
+        <p>
+          Does the above trigger a request for
+          <span class="request"></span>
+          in any of the following:
+        </p>
+        <ul class="browsers-remaining">
+          <li class="chrome">Chrome</li>
+          <li class="ie">IE</li>
+          <li class="firefox">Firefox</li>
+        </ul>
+        <div class="answer-buttons">
+          <p class="additional-phase-lead">How about now?</p>
           <button type="button" class="yes-btn">Yes</button>
           <button type="button" class="no-btn">No</button>
-          <button type="button" class="some-btn">In some browsers</button>
-          <section class="choices">
-            <h1>Call it:</h1>
-            <div class="chrome-answer browser-choice"><input type="checkbox" id="chrome"> <label for="chrome">Chrome</label></div>
-            <div class="firefox-answer browser-choice"><input type="checkbox" id="firefox"> <label for="firefox">Firefox</label></div>
-            <div class="opera-answer browser-choice"><input type="checkbox" id="opera"> <label for="opera">Opera</label></div>
-            <div class="ie-answer browser-choice"><input type="checkbox" id="ie"> <label for="ie">IE</label></div>
-            <div><button type="button" class="those-btn">Those ones!</button></div>
-          </section>
+        </div>
+        <section class="answer-feedback">
+          <div class="feedback-content"></div>
+          <button type="button" class="continue-btn">Continue</button>
         </section>
-      </article>
-    </script>
-    <script type="text/html" class="answer-template">
-      <article class="answer">
-        <div class="answer-content"></div>
-        <button type="button" class="continue-btn">Continue</button>
+
       </article>
     </script>
     <script type="application/x-mustache" class="answer-content-template">
-      <h1 class="title">{{title}}</h1>
-      <p class="subtitle">
-        You scored <span class="answer-score">{{pointsAwarded}}</span>
-        point{{^pointsAwardedSingular}}s{{/pointsAwardedSingular}}.
-      </p>
-      <div class="breakdown">
-        {{#breakdown}}
-          <div class="breakdown-item">
-            <pre class="phase-code"><code>{{phase}}</code></pre>
-            <div class="browsers">
-              <div class="actual">
-                ...first triggers request in:
-                {{#browserAnswer}}
-                  <span class="browser-{{.}}">{{.}}</span>
-                {{/browserAnswer}}
-                {{^browserAnswer}}
-                  None
-                {{/browserAnswer}}
-              </div>
-              {{#playerAnswer.length}}
-                <div class="player">
-                  You guessed:
-                  {{#playerAnswer}}
-                    <span class="browser-{{.}}">{{.}}</span>
-                  {{/playerAnswer}}
-                </div>
-              {{/playerAnswer.length}}
-            </div>
-          </div>
-        {{/breakdown}}
-      </div>
-      <div class="explanation">{{{explanation}}}</div>
+      <h1>
+        {{#wasCorrect}}
+          Correct!
+        {{/wasCorrect}}
+        {{^wasCorrect}}
+          Oh noes!
+        {{/wasCorrect}}
+        {{#browsers}}
+          The request started in {{browsers}}.
+        {{/browsers}}
+        {{^browsers}}
+          No requests in those browsers yet.
+        {{/browsers}}
+      </h1>
+      {{#explanation}}
+        <div class="explanation">{{{explanation}}}</div>
+      {{/explanation}}
     </script>
     <script type="text/html" class="final-results-template">
       <article class="end">
