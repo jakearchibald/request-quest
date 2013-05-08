@@ -16,4 +16,13 @@
   &.first-phase .additional-phase-lead {
     display: none;
   }
+
+  & .browsers-remaining {
+    & .active {
+      color: #f00;
+    }
+    & .inactive {
+      color: #ccc;
+    }
+  } 
 }

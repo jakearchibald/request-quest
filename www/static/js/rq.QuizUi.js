@@ -102,14 +102,27 @@
   QuizUiProto.showQuestion = function(title, requestDesc) {
     emptyEl(this.container_);
     this.question_.classList.add('first-phase');
+    this.questionButtons_.style.display = 'block';
+    this.answerFeedback_.style.display = 'none';
+
+    toArray(this.question_.querySelectorAll('.browsers-remaining > *')).forEach(function(browser) {
+      browser.classList.remove('active');
+      browser.classList.remove('inactive');
+    });
+
     this.container_.appendChild(this.question_);
     this.questionTitle_.textContent = title;
     this.questionRequest_.textContent = requestDesc;
   };
 
   QuizUiProto.showAnswer = function(wasCorrect, browsers, explanation) {
-    this.questionButtons_.style.display = 'none';
-    this.answerFeedback_.style.display = 'block';
+    var quizUi = this;
+    quizUi.questionButtons_.style.display = 'none';
+    quizUi.answerFeedback_.style.display = 'block';
+
+    browsers.forEach(function(browser) {
+      quizUi.question_.querySelector('.' + browser).classList.add('active');
+    });
 
     // Format: browser, browser & browser
     var browserStr = browsers.reduce(function(str, browser, i) {
@@ -126,16 +139,24 @@
       return str;
     }, '');
 
-    this.feedbackContent_.innerHTML = this.answerContentTemplate_({
+    quizUi.feedbackContent_.innerHTML = quizUi.answerContentTemplate_({
       wasCorrect: wasCorrect,
       browsers: browserStr,
       explanation: explanation
     });
   };
 
-  QuizUiProto.showPhaseCode = function(code) {
+  QuizUiProto.continueQuestion = function() {
     this.questionButtons_.style.display = 'block';
     this.answerFeedback_.style.display = 'none';
+    toArray(this.question_.querySelectorAll('.browsers-remaining .active')).forEach(function(activeEl) {
+      activeEl.classList.remove('active');
+      activeEl.classList.add('inactive');
+    });
+    this.question_.classList.remove('first-phase');
+  };
+
+  QuizUiProto.showPhaseCode = function(code) {
     this.questionCode_.textContent = code;
   };
 

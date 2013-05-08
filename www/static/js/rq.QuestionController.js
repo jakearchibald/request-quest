@@ -55,6 +55,9 @@
     var phaseObj = this.model_.phases[this.phase_];
 
     if (phaseObj) {
+      if (this.phase_) {
+        this.ui_.continueQuestion();
+      }
       this.ui_.showPhaseCode(phaseObj.code);
     }
     else {
