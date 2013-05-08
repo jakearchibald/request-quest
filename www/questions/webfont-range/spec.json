@@ -1,6 +1,5 @@
 {
   "title": "Downloading webfonts",
-  "subtitle": "Is font.woff requested?",
   "lang": "html",
   "expectedRequest": "font.woff",
   "phases": [
@@ -22,18 +21,21 @@
         "    font-family: myfont, sans-serif;",
         "  }",
         "</style>"
-      ]
+      ],
+      "explanation": "1.md"
     },
     {
       "addLines": [
         "<p></p>"
-      ]
+      ],
+      "explanation": "2.md"
     },
     {
       "removeLines": 1,
       "addLines": [
         "<p>HI THERE!!</p>"
-      ]
+      ],
+      "explanation": "3.md"
     },
     {
       "removeLines": 1,

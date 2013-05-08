@@ -1,6 +1,5 @@
 {
   "title": "Creating a link element via script",
-  "subtitle": "Is style.css requested?",
   "lang": "js",
   "expectedRequest": "style.css",
   "phases": [
@@ -9,33 +8,23 @@
         "var link = document.createElement('link');",
         "link.rel = 'stylesheet';",
         "link.href = 'style.css';"
-      ]
+      ],
+      "explanation": "1.md"
     },
     {
       "addLines": [
         "link.type = 'text/javascript';",
-        "document.body.appendChild(link);",
-        "document.body.removeChild(link);"
-      ]
-    },
-    {
-      "removeLines": 1
+        "document.body.appendChild(link);"
+      ],
+      "explanation": "2.md"
     },
     {
       "removeLines": 2,
       "addLines": [
         "document.body.appendChild(link);",
         "document.body.removeChild(link);"
-      ]
-    },
-    {
-      "removeLines": 1
-    },
-    {
-      "removeLines": 1,
-      "addLines": [
-        "document.querySelector('head').appendChild(link)"
-      ]
+      ],
+      "explanation": "3.md"
     }
   ]
 }

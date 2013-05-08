@@ -41,7 +41,8 @@
   var browserMap = {
     ie: "IE",
     chrome: "Chrome",
-    firefox: "Firefox"
+    firefox: "Firefox",
+    safari: "Safari"
   };
 
   function QuizUi() {

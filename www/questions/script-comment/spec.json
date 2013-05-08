@@ -1,6 +1,5 @@
 {
   "title": "Altering the DOM with document.write",
-  "subtitle": "Is img.png requested?",
   "lang": "html",
   "expectedRequest": "img.png",
   "phases": [
@@ -9,7 +8,8 @@
         "<script>document.write('<'+'!--')</script>",
         "<img src=\"img.png\">",
         "-->"
-      ]
+      ],
+      "explanation": "1.md"
     },
     {
       "removeLines": 3,
@@ -25,7 +25,8 @@
         "<script defer>document.write('<'+'!--')</script>",
         "<img src=\"img.png\">",
         "-->"
-      ]
+      ],
+      "explanation": "2.md"
     },
     {
       "removeLines": 2,

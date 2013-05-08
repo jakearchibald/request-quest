@@ -1,43 +1,41 @@
 {
   "title": "Script elements",
-  "subtitle": "Is script.js requested?",
   "lang": "html",
   "expectedRequest": "script.js",
   "phases": [
     {
       "addLines": [
         "<script src=\"script.js\" type=\"foo/bar\"></script>"
-      ]
+      ],
+      "explanation": "1.md"
     },
     {
       "removeLines": 1,
       "addLines": [
         "<script src=\"script.js\" type=\"script/dart\"></script>"
-      ]
+      ],
+      "explanation": "2.md"
     },
     {
       "removeLines": 1,
       "addLines": [
         "<script src=\"script.js\" type=\"text/html\"></script>"
-      ]
+      ],
+      "explanation": "3.md"
     },
     {
       "removeLines": 1,
       "addLines": [
         "<script src=\"script.js\" LANGUAGE=DART></script>"
-      ]
+      ],
+      "explanation": "4.md"
     },
     {
       "removeLines": 1,
       "addLines": [
         "<script src=\"script.js\"></script>"
-      ]
-    },
-    {
-      "removeLines": 1,
-      "addLines": [
-        "<script src=\"script.js\" type=\"script/javascript\"></script>"
-      ]
+      ],
+      "explanation": "5.md"
     }
   ]
 }

@@ -1,41 +1,54 @@
 {
   "chrome": {
-    "img-element": 0,
+    "img-element": 3,
     "divbg-element": 1,
+    "img-add": 0,
+    "divbg-add": 4,
     "script-element": 4,
-    "script-add": 1,
+    "script-add": 2,
+    "style-add": 1,
     "iframe-element": 2,
     "script-comment": 3,
+    "resize-reload": 1,
+    "webfont-range": 3
+  },
+  "safari": {
+    "img-element": 3,
+    "divbg-element": 1,
     "img-add": 0,
     "divbg-add": 4,
+    "script-element": 4,
+    "script-add": 2,
     "style-add": 1,
-    "webfont-range": 3,
-    "resize-reload": 1
+    "iframe-element": 2,
+    "script-comment": 3,
+    "resize-reload": 1,
+    "webfont-range": 3
   },
   "firefox": {
-    "img-element": 0,
+    "img-element": 3,
     "divbg-element": 2,
-    "script-element": 0,
-    "script-add": 1,
-    "iframe-element": 3,
-    "script-comment": 0,
     "img-add": 0,
     "divbg-add": 4,
-    "style-add": 3,
-    "webfont-range": 2,
-    "resize-reload": 2
+    "script-element": 0,
+    "script-add": 2,
+    "style-add": 2,
+    "iframe-element": 3,
+    "script-comment": 0,
+    "resize-reload": 2,
+    "webfont-range": 2
   },
   "ie": {
-      "img-element": 0,
-      "divbg-element": 1,
-      "script-element": 0,
-      "script-add": 0,
-      "iframe-element": 3,
-      "script-comment": 0,
-      "img-add": 0,
-      "divbg-add": 3,
-      "style-add": 3,
-      "webfont-range": 2,
-      "resize-reload": 1
-    }
+    "img-element": 3,
+    "divbg-element": 1,
+    "img-add": 0,
+    "divbg-add": 3,
+    "script-element": 0,
+    "script-add": 1,
+    "style-add": 2,
+    "iframe-element": 3,
+    "script-comment": 0,
+    "resize-reload": 0,
+    "webfont-range": 2
+  }
 }

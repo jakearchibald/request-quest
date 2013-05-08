@@ -1,31 +1,35 @@
 {
-  "title": "Iframes",
-  "subtitle": "Is anything from the host domain requested? Assume the host page location is `/index.html?search=stuff`",
+  "title": "The joy of iframes",
+  "requestDesc": "anything from the host domain (assuming the host page location is /index.html?search=stuff)",
   "lang": "html",
   "expectedRequest": "#",
   "phases": [
     {
       "addLines": [
         "<iframe></iframe>"
-      ]
+      ],
+      "explanation": "1.md"
     },
     {
       "removeLines": 1,
       "addLines": [
         "<iframe src=\"\"></iframe>"
-      ]
+      ],
+      "explanation": "2.md"
     },
     {
       "removeLines": 1,
       "addLines": [
         "<iframe src=\"#\"></iframe>"
-      ]
+      ],
+      "explanation": "3.md"
     },
     {
       "removeLines": 1,
       "addLines": [
         "<iframe src=\"?\"></iframe>"
-      ]
+      ],
+      "explanation": "4.md"
     }
   ]
 }

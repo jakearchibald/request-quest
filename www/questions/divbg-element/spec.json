@@ -1,6 +1,5 @@
 {
   "title": "Background Images",
-  "subtitle": "Is img.png requested?",
   "lang": "html",
   "expectedRequest": "img.png",
   "phases": [
@@ -9,23 +8,18 @@
         "<div style=\"display:none\">",
         "  <div style=\"background: url(img.png)\"></div>",
         "</div>"
-      ]
+      ],
+      "explanation": "1.md"
     },
     {
       "removeLines": 3,
-      "addLines": ["<div style=\"background: url(img.png); display: none\"></div>"]
+      "addLines": ["<div style=\"background: url(img.png); display: none\"></div>"],
+      "explanation": "2.md"
     },
     {
       "removeLines": 1,
-      "addLines": ["<div style=\"background: url(img.png); visibility: hidden\"></div>"]
-    },
-    {
-      "removeLines": 1,
-      "addLines": ["<div style=\"background: url(img.png); opacity: 0\"></div>"]
-    },
-    {
-      "removeLines": 1,
-      "addLines": ["<div style=\"background: url(img.png);\"></div>"]
+      "addLines": ["<div style=\"background: url(img.png); visibility: hidden\"></div>"],
+      "explanation": "3.md"
     }
   ]
 }

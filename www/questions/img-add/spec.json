@@ -1,6 +1,5 @@
 {
   "title": "Creating an image element with js",
-  "subtitle": "Is img.png requested?",
   "lang": "js",
   "expectedRequest": "img.png",
   "phases": [
@@ -10,15 +9,6 @@
         "img.src = 'img.png';"
       ],
       "explanation": "explanation.md"
-    },
-    {
-      "addLines": [
-        "document.body.appendChild(img);",
-        "document.body.removeChild(img);"
-      ]
-    },
-    {
-      "removeLines": 1
     }
   ]
 }

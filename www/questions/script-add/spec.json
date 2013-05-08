@@ -1,20 +1,28 @@
 {
   "title": "Dynamic script loading",
-  "subtitle": "Is script.js requested?",
   "lang": "js",
   "expectedRequest": "script.js",
   "phases": [
     {
       "addLines": [
         "var script = document.createElement('script');",
+        "script.href = 'script.js';"
+      ],
+      "explanation": "1.md"
+    },
+    {
+      "removeLines": 1,
+      "addLines": [
         "script.src = 'script.js';"
-      ]
+      ],
+      "explanation": "2.md"
     },
     {
       "addLines": [
         "document.body.appendChild(script);",
         "document.body.removeChild(script);"
-      ]
+      ],
+      "explanation": "3.md"
     },
     {
       "removeLines": 1

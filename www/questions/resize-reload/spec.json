@@ -1,6 +1,6 @@
 {
   "title": "Reloading the page",
-  "subtitle": "Is the page reloaded? Assume the user does not resize the page.",
+  "requestDesc": "the current page (a reload without user interaction)",
   "lang": "js",
   "expectedRequest": "#",
   "phases": [
@@ -9,20 +9,23 @@
         "window.onresize = function() {",
         "  window.location.reload();",
         "};"
-      ]
+      ],
+      "explanation": "1.md"
     },
     {
       "addLines": [
         "var event = document.createEvent('Event');",
         "event.initEvent('resize', false, false);",
         "window.dispatchEvent(event);"
-      ]
+      ],
+      "explanation": "2.md"
     },
     {
       "removeLines": 3,
       "addLines": [
         "window.onresize();"
-      ]
+      ],
+      "explanation": "3.md"
     }
   ]
 }
