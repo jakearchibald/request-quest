@@ -49,6 +49,7 @@
     this.question_ = loadTemplate('.question-template');
     this.finalResults_ = loadTemplate('.final-results-template');
     this.score_ = loadTemplate('.score-template');
+    this.reset_ = loadTemplate('.reset-template');
     this.finalResultsContentTemplate_ = loadTemplate('.final-results-content-template');
     this.answerContentTemplate_ = loadTemplate('.answer-content-template');
     this.container_ = elFromStr('<div class="quiz-container"></div>');
@@ -64,6 +65,7 @@
     this.intro_.parentNode.removeChild(this.intro_);
     this.enhanceQuestion_();
     this.enhanceIntro_();
+    this.enhanceReset_();
   }
 
   var QuizUiProto = QuizUi.prototype = Object.create(rq.EventEmitter.prototype);
@@ -83,6 +85,14 @@
 
     quizUi.question_.querySelector('.continue-btn').addEventListener('click', function(event) {
       quizUi.trigger('continue');
+      event.preventDefault();
+    });
+  };
+
+  QuizUiProto.enhanceReset_ = function() {
+    var quizUi = this;
+    quizUi.reset_.querySelector('.reset-btn').addEventListener('click', function(event) {
+      quizUi.trigger('resetSelected');
       event.preventDefault();
     });
   };
@@ -114,6 +124,7 @@
 
     this.container_.appendChild(this.question_);
     this.container_.appendChild(this.score_);
+    this.container_.appendChild(this.reset_);
     this.questionTitle_.textContent = title;
     this.questionRequest_.textContent = requestDesc;
   };

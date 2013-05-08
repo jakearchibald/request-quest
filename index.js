@@ -24,13 +24,13 @@ var questionDirs = [
   //'divbg-element',
   //'img-add',
   'divbg-add',
-  'script-element',
-  'script-add',
-  'style-add',
-  'iframe-element',
-  'script-comment',
-  'resize-reload',
-  'webfont-range'
+  'script-element'
+  //'script-add',
+  //'style-add',
+  //'iframe-element',
+  //'script-comment',
+  //'resize-reload',
+  //'webfont-range'
 ];
 
 function initTestResults() {

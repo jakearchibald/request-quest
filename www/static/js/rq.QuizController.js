@@ -6,8 +6,9 @@
       quizController.model_ = new rq.QuizModel(data);
       quizController.ui_ = new rq.QuizUi();
 
-      // user wants to start the quiz
       quizController.ui_.on('startQuizBtnSelected', quizController.nextQuestion_.bind(quizController));
+      quizController.ui_.on('resetSelected', quizController.reset_.bind(quizController));
+
     });
 
     quizController.questionNum_ = -1;
@@ -18,8 +19,14 @@
   QuizControllerProto.start = function() {
     var quizController = this;
     quizController.ready_.done(function() {
+      quizController.ui_.score(quizController.model_.score);
       quizController.ui_.showIntro();
     });
+  };
+
+  QuizControllerProto.reset_ = function() {
+    this.model_.score = 0;
+    this.start();
   };
 
   QuizControllerProto.nextQuestion_ = function() {
