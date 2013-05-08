@@ -63,29 +63,16 @@ module.exports = function(grunt) {
     },
     uglify: {
       options: {
-        mangle: {},
-        compress: {
-          'sequences': false,
-          'properties': false,
-          'dead_code': false,
-          'drop_debugger': false,
-          'unsafe': false,
-          'conditionals': false,
-          'comparisons': false,
-          'evaluate': false,
-          'booleans': false,
-          'loops': false,
-          'unused': false,
-          'hoist_funs': false,
-          'if_return': false,
-          'join_vars': false,
-          'cascade': false,
-          'warnings': false
-        }
+        mangle: {
+          except: []
+        },
+        sourceMap: 'www/static/js/all.js.map',
+        sourceMappingURL: 'all.js.map',
+        sourceMapPrefix: 3
       },
       all: {
         files: {
-          'www/static/js/all.js': 'www/static/js/all.js'
+          'www/static/js/all.js': '<%= meta.jsfiles %>'
         }
       }
     },
@@ -120,19 +107,16 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'sass:dist']);
-  grunt.registerTask('dev', ['concat', 'sass:dev', 'server', 'watch']);
-  grunt.registerTask('build', ['concat', 'uglify', 'sass:dist', 'server', 'buildStatic']);
-
-  (function() {
-    var server;
-    grunt.registerTask('server', function() {
-      server = require('./index.js');
-    });
-  }());
+  grunt.registerTask('server', function() {
+    require('./index.js');
+  });
 
   grunt.registerTask('buildStatic', function() {
     var done = this.async();
     require('./build-static.js')(done);
   });
+
+  grunt.registerTask('dev', ['concat', 'sass:dev', 'server', 'watch']);
+  grunt.registerTask('build', ['concat', 'uglify', 'sass:dist', 'server', 'buildStatic']);
+
 };

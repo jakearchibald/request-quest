@@ -24,13 +24,32 @@ function mkdirDeep(pathToMake) {
   }, __dirname);
 }
 
-module.exports = function(done) {
-  // remove current dir
-  if (fs.existsSync('build')) {
-    fs.rmdir('build');
-  }
+function del(paths) {
+  paths.forEach(function(path) {
+    if (fs.statSync(path).isDirectory()) { // recurse
+      del(
+        fs.readdirSync(path).map(function(file) {
+          return path + '/' + file;
+        })
+      );
+      fs.rmdirSync(path);
+    }
+    else {
+      fs.unlinkSync(path);
+    }
+  });
+}
 
+module.exports = function(done) {
   mkdirDeep('build');
+
+  // Remove everything within build except stuff beginning '.'
+  // This allows the build dir to be a submodule
+  del(
+    fs.readdirSync('build').filter(function(file) {
+      return file[0] != '.';
+    })
+  );
 
   var promises = manifest.map(function(urlPath) {
     var pathParts = urlPath.split('/').slice(1);
@@ -47,10 +66,7 @@ module.exports = function(done) {
       mode: 0644
     });
 
-    staticFile.on('error', function(err) {
-      deferred.reject(err);
-    });
-
+    staticFile.on('error', deferred.reject.bind(deferred));
     staticFile.on('close', deferred.resolve.bind(deferred));
 
     http.get(server + urlPath, function(res) {
