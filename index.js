@@ -160,11 +160,15 @@ app.get('/quiz-data.json', function(req, res) {
     var explanationPromises = [];
 
     specs.forEach(function(questionSpec) {
-      // store questions against each answer
+      var finalPhase = 0;
+      // store answers against each question
       questionSpec.answer = {};
       for (var browser in results) {
+        finalPhase = Math.max(finalPhase, results[browser][questionSpec.id]);
         questionSpec.answer[browser] = results[browser][questionSpec.id];
       }
+
+      questionSpec.phases = questionSpec.phases.slice(0, finalPhase+1);
 
       questionSpec.phases.forEach(function(phase) {
         if (phase.explanation) {
