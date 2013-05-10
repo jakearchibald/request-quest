@@ -63,9 +63,7 @@ module.exports = function(grunt) {
     },
     uglify: {
       options: {
-        mangle: {
-          except: []
-        },
+        mangle: false,
         sourceMap: 'www/static/js/all.js.map',
         sourceMappingURL: 'all.js.map',
         sourceMapPrefix: 3

@@ -48,6 +48,8 @@ module.exports = function(done) {
   del(
     fs.readdirSync('build').filter(function(file) {
       return file[0] != '.';
+    }).map(function(file) {
+      return 'build/' + file;
     })
   );
 
