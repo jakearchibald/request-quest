@@ -159,10 +159,6 @@
     }
   }
 
-  & .answer-feedback {
-    @include transform-style(preserve-3d);
-    display: none;
-  }
   & .answer-buttons {
     @include transform-origin(0 0);
     @include backface-visibility(hidden);
@@ -181,12 +177,18 @@
   }
 
   & .answer-feedback {
+    @include transform-style(preserve-3d);
     @include transform-origin(0 0);
     @include backface-visibility(hidden);
+    display: none;
     position: absolute;
     left: 0;
     right: 0;
     padding: 20px 26px;
+
+    & h1 {
+      margin: 0 0 5px;
+    }
 
     &.correct {
       background: #D4F3D0;
