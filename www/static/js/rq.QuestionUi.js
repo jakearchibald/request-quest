@@ -97,6 +97,11 @@
       explanation: explanation
     });
 
+    // make all links open in new window
+    toArray(quizUi.feedbackContent_.querySelectorAll('a')).forEach(function(link) {
+      link.target = '_blank';
+    });
+
     if (wasCorrect) {
       quizUi.answerFeedback_.classList.add('correct');
       quizUi.answerFeedback_.classList.remove('incorrect');
