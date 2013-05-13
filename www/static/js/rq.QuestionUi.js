@@ -35,16 +35,19 @@
 
     quizUi.question_.querySelector('.yes-btn').addEventListener('click', function(event) {
       quizUi.trigger('answerYes');
+      quizUi.questionButtons_.style.pointerEvents = 'none';
       event.preventDefault();
     });
 
     quizUi.question_.querySelector('.no-btn').addEventListener('click', function(event) {
       quizUi.trigger('answerNo');
+      quizUi.questionButtons_.style.pointerEvents = 'none';
       event.preventDefault();
     });
 
     quizUi.question_.querySelector('.continue-btn').addEventListener('click', function(event) {
       quizUi.trigger('continue');
+      quizUi.answerFeedback_.style.pointerEvents = 'none';
       event.preventDefault();
     });
   };
@@ -66,9 +69,12 @@
   QuestionUiProto.showAnswer = function(wasCorrect, browsers, explanation) {
     var quizUi = this;
 
+    this.answerFeedback_.style.pointerEvents = 'auto';
+
     browsers.forEach(function(browser) {
       quizUi.question_.querySelector('.' + browser).classList.add('active');
     });
+
 
     // Format: browser, browser & browser
     var browserStr = browsers.reduce(function(str, browser, i) {
@@ -121,6 +127,9 @@
 
   QuestionUiProto.continueQuestion = function(lang, code) {
     var quizUi = this;
+
+    quizUi.questionButtons_.style.pointerEvents = 'auto';
+
     toArray(quizUi.question_.querySelectorAll('.browsers-remaining .active')).forEach(function(activeEl) {
       activeEl.classList.remove('active');
       activeEl.classList.add('inactive');
