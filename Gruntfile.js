@@ -20,6 +20,7 @@ module.exports = function(grunt) {
         'www/static/js/rq.QuestionModel.js',
         'www/static/js/rq.QuestionController.js',
         'www/static/js/rq.QuizUi.js',
+        'www/static/js/rq.QuestionUi.js',
         'www/static/js/rq.QuizModel.js',
         'www/static/js/rq.QuizController.js'
       ]
@@ -36,13 +37,6 @@ module.exports = function(grunt) {
     },
     jshint: {
       all: [
-        'www/static/js/rq.js',
-        'www/static/js/rq.EventEmitter.js',
-        'www/static/js/rq.QuestionModel.js',
-        'www/static/js/rq.QuestionController.js',
-        'www/static/js/rq.QuizUi.js',
-        'www/static/js/rq.QuizModel.js',
-        'www/static/js/rq.QuizController.js'
       ],
       options: {
         curly: true,

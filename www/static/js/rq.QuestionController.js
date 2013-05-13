@@ -1,42 +1,29 @@
 (function() {
-  function QuestionController(questionModel, quizUi) {
+  function QuestionController(model, ui) {
     var questionController = this;
     questionController.listeners_ = [];
     questionController.phase_ = -1;
-    questionController.ui_ = quizUi;
-    questionController.model_ = questionModel;
+    questionController.ui = ui;
+    questionController.model_ = model;
 
-    questionController.uiOn_('answerYes', function() {
+    ui.setQuestion(model.num, model.title, model.requestDesc);
+
+    questionController.ui.on('answerYes', function() {
       questionController.handleAnswer_(true);
     });
 
-    questionController.uiOn_('answerNo', function() {
+    questionController.ui.on('answerNo', function() {
       questionController.handleAnswer_(false);
     });
 
-    questionController.uiOn_('continue', function() {
+    questionController.ui.on('continue', function() {
       questionController.nextPhase_();
     });
+
+    questionController.nextPhase_();
   }
 
   var QuestionControllerProto = QuestionController.prototype = Object.create(rq.EventEmitter.prototype);
-
-  QuestionControllerProto.start = function() {
-    this.ui_.showQuestion(this.model_.num, this.model_.title, this.model_.requestDesc);
-    this.nextPhase_();
-  };
-
-  QuestionControllerProto.uiOn_ = function(type, func) {
-    this.listeners_.push([type, func]);
-    this.ui_.on(type, func);
-  };
-
-  QuestionControllerProto.removeUiListeners_ = function() {
-    var questionController = this;
-    questionController.listeners_.forEach(function(listener) {
-      questionController.ui_.off(listener[0], listener[1]);
-    });
-  };
 
   QuestionControllerProto.handleAnswer_ = function(userAnswer) {
     var browsers = this.model_.browsersForPhase(this.phase_);
@@ -47,7 +34,7 @@
       wasCorrect: wasCorrect
     });
 
-    this.ui_.showAnswer(wasCorrect, browsers, this.model_.phases[this.phase_].explanation);
+    this.ui.showAnswer(wasCorrect, browsers, this.model_.phases[this.phase_].explanation);
   };
 
   QuestionControllerProto.nextPhase_ = function() {
@@ -56,10 +43,10 @@
 
     if (phaseObj) {
       if (this.phase_) {
-        this.ui_.continueQuestion(this.model_.langClass, phaseObj.code);
+        this.ui.continueQuestion(this.model_.langClass, phaseObj.code);
       }
       else {
-        this.ui_.showPhaseCode(this.model_.langClass, phaseObj.code);
+        this.ui.showPhaseCode(this.model_.langClass, phaseObj.code);
       }
     }
     else {
@@ -69,9 +56,7 @@
   };
 
   QuestionControllerProto.end_ = function() {
-    this.removeUiListeners_();
     this.trigger('continue');
-    this.off(); // remove all listeners to clean up
   };
 
   rq.QuestionController = QuestionController;

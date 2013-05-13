@@ -106,5 +106,32 @@
     return deferred.promise;
   };
 
+  utils.elFromStr = (function() {
+    var div = document.createElement('div');
+    return function(str) {
+      div.innerHTML = str.trim();
+      var elm = div.firstChild;
+      // have to do this, else IE removes every node
+      div.removeChild(div.firstChild);
+      return elm;
+    };
+  }());
+
+  utils.emptyEl = function(el) {
+    while (el.lastChild) {
+      el.removeChild(el.lastChild);
+    }
+  };
+
+  utils.loadTemplate = function(selector) {
+    var elm = document.querySelector(selector);
+    if (elm.type == "text/html") {
+      return utils.elFromStr(elm.textContent);
+    }
+    else if (elm.type == "application/x-mustache") {
+      return Mustache.compile(elm.textContent);
+    }
+  };
+
   rq.utils = utils;
 })();

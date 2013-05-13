@@ -8,6 +8,7 @@
   @include justify-content(center);
   @include align-items(center);
 
+  @include transform-style(preserve-3d);
   position: absolute;
   top: 0;
   left: 0;

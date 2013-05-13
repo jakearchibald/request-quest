@@ -4,11 +4,24 @@
 
     quizController.ready_ = rq.getJson('quiz-data.json').then(function(data) {
       quizController.model_ = new rq.QuizModel(data);
+      quizController.questionControllers_ = quizController.model_.questions.map(function(question) {
+        var ui = new rq.QuestionUi();
+        var questionController = new rq.QuestionController(question, ui);
+        ui.setQuestionTotal(quizController.model_.questions.length);
+        questionController.on('continue', quizController.nextQuestion_.bind(quizController));
+        questionController.on('phaseAnswered', function(event) {
+          if (event.wasCorrect) {
+            quizController.model_.score++;
+            quizController.ui_.score(quizController.model_.score);
+          }
+        });
+        return new rq.QuestionController(question, ui);
+      });
+
       quizController.ui_ = new rq.QuizUi();
 
       quizController.ui_.on('startQuizBtnSelected', quizController.nextQuestion_.bind(quizController));
       quizController.ui_.on('resetSelected', quizController.reset_.bind(quizController));
-      quizController.ui_.setQuestionTotal(quizController.model_.questions.length);
     });
     quizController.questionNum_ = -1;
   }
@@ -33,22 +46,14 @@
     var quizController = this;
     quizController.questionNum_++;
 
-    var question = quizController.model_.questions[quizController.questionNum_];
+    var questionController = quizController.questionControllers_[quizController.questionNum_];
 
-    if (!question) {
+    if (!questionController) {
       quizController.results_();
       return;
     }
 
-    var questionController = new rq.QuestionController(question, quizController.ui_);
-    questionController.on('continue', quizController.nextQuestion_.bind(quizController));
-    questionController.on('phaseAnswered', function(event) {
-      if (event.wasCorrect) {
-        quizController.model_.score++;
-        quizController.ui_.score(quizController.model_.score);
-      }
-    });
-    questionController.start();
+    document.body.appendChild(questionController.ui.container);
   };
 
   QuizControllerProto.results_ = function() {
