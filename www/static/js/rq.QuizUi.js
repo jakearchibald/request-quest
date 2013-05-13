@@ -3,20 +3,25 @@
     return Array.prototype.slice.call(arrayLike);
   }
 
-  function QuizUi() {
+  function QuizUi(questionUis) {
     this.intro_ = document.querySelector('.intro');
     this.finalResults_ = rq.utils.loadTemplate('.final-results-template');
     this.score_ = rq.utils.loadTemplate('.score-template');
     this.reset_ = rq.utils.loadTemplate('.reset-template');
     this.finalResultsContentTemplate_ = rq.utils.loadTemplate('.final-results-content-template');
     this.container_ = document.querySelector('.quiz-container');
+    this.questions_ = this.container_.querySelector('.questions');
     this.scoreNum_ = this.score_.querySelector('.num');
     this.review_ = this.finalResults_.querySelector('.review');
+    this.questionUis_ = questionUis;
+    this.questionRotations_ = [];
+    this.viewMode_ = 'intro';
 
     document.body.appendChild(this.container_);
     this.intro_.parentNode.removeChild(this.intro_);
     this.enhanceIntro_();
     this.enhanceReset_();
+    this.layoutQuestions_();
   }
 
   var QuizUiProto = QuizUi.prototype = Object.create(rq.EventEmitter.prototype);
@@ -41,13 +46,42 @@
     });
   };
 
+  QuizUiProto.layoutQuestions_ = function() {
+    var quizUi = this;
+    quizUi.questionUis_.forEach(function(questionUi, i) {
+      quizUi.questions_.appendChild(questionUi.container);
+      quizUi.questionRotations_[i] = (i/quizUi.questionUis_.length)*360;
+      rq.utils.css(questionUi.container, 'transform', 'rotateY(' + quizUi.questionRotations_[i] + 'deg) translateZ(1300px)');
+    });
+  };
+
   QuizUiProto.showIntro = function() {
-    rq.utils.emptyEl(this.container_);
     this.container_.appendChild(this.intro_);
   };
 
   QuizUiProto.showQuestion = function(num) {
-    // TODO
+    var easing = 'easeInOutQuad';
+    var duration = 0.5;
+
+    if (this.viewMode_ == 'intro') {
+      var val = rq.utils.css(this.questions_, 'transform');
+      this.toQuestionView_();
+      this.questions_.classList.remove('spin');
+      rq.utils.css(this.questions_, 'transform', 'rotateY(700deg)');
+      easing = 'easeOutQuart';
+      duration = 3;
+    }
+
+    rq.utils.transition(this.questions_, {
+      transform: 'rotateY(' + -(this.questionRotations_[num]) + 'deg)'
+    }, duration, easing);
+  };
+
+  QuizUiProto.toQuestionView_ = function() {
+    rq.utils.transition(this.container_, {
+      transform: 'translateZ(-1300px)'
+    }, 2, 'easeInOutQuad');
+    this.viewMode_ = 'question';
   };
 
   QuizUiProto.score = function(score) {

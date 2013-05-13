@@ -18,7 +18,9 @@
         return new rq.QuestionController(question, ui);
       });
 
-      quizController.ui_ = new rq.QuizUi();
+      var questionUis = quizController.questionControllers_.map(function(x) { return x.ui; });
+
+      quizController.ui_ = new rq.QuizUi(questionUis);
 
       quizController.ui_.on('startQuizBtnSelected', quizController.nextQuestion_.bind(quizController));
       quizController.ui_.on('resetSelected', quizController.reset_.bind(quizController));
@@ -47,13 +49,14 @@
     quizController.questionNum_++;
 
     var questionController = quizController.questionControllers_[quizController.questionNum_];
+    quizController.ui_.showQuestion(quizController.questionNum_);
 
     if (!questionController) {
       quizController.results_();
       return;
     }
 
-    document.body.appendChild(questionController.ui.container);
+    questionController.start();
   };
 
   QuizControllerProto.results_ = function() {

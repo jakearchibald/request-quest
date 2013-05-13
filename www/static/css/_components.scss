@@ -1,5 +1,16 @@
 @import 'buttons';
 
+.quiz-container {
+  //@include transform(translateZ(-1300px));
+  @include transform(translateZ(-1410px) rotateX(-90deg));
+  @include transform-style(preserve-3d);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
 .metal-box {
   background: url(imgs/metal.jpg);
   background-size: cover;
@@ -20,6 +31,10 @@
   & h1 {
     margin-top: 4px;
   }
+}
+
+.intro {
+  @include transform(rotateX(90deg) translateZ(1410px));
 }
 
 .reset {
@@ -93,9 +108,36 @@
   }
 }
 
+.questions {
+  @include transform-style(preserve-3d);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.question-container {
+  pointer-events: none;
+}
+
 .question {
   @include transform-style(preserve-3d);
   @include transform(translateZ(0));
+  @include backface-visibility(hidden);
+  position: relative;
+
+  & .question-back {
+    @include transform(rotateX(180deg));
+    @include backface-visibility(hidden);
+    background: #555;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+  }
 
   & .title-container .title {
     background: #206C80;
@@ -112,7 +154,6 @@
       margin: 0 0 3px;
     }
     & .question-title {
-      position: relative;
       display: block;
       line-height: 1;
     }
@@ -123,6 +164,7 @@
   }
   & .answer-buttons {
     @include transform-origin(0 0);
+    @include backface-visibility(hidden);
     background: #D8EBFF;
     padding: 20px 26px;
     & .btn {
@@ -132,12 +174,14 @@
   }
   & .question-detail {
     @include transform(translateZ(0));
+    @include backface-visibility(hidden);
     padding-bottom: 0;
     overflow: hidden;
   }
 
   & .answer-feedback {
     @include transform-origin(0 0);
+    @include backface-visibility(hidden);
     position: absolute;
     left: 0;
     right: 0;
@@ -178,4 +222,15 @@
       display: block;
     }
   }
+}
+
+
+@include keyframes(spin) {
+  to {
+    @include transform(rotateY(-360deg));
+  }
+}
+
+.spin {
+  @include animation(spin 20s infinite linear);
 }

@@ -41,6 +41,12 @@
     }
   }
 
+  @mixin backface-visibility($type...) {
+    @each $prefix in -webkit-, '' {
+      #{$prefix}backface-visibility: $type;
+    }
+  }
+
   @mixin perspective($type...) {
     @each $prefix in -webkit-, '' {
       #{$prefix}perspective: $type;

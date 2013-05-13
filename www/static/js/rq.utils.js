@@ -59,7 +59,12 @@
   })();
 
   utils.css = function(el, prop, val) {
-    el.style[getCssPropName(prop)] = val;
+    if (val === undefined) {
+      return window.getComputedStyle(el)[getCssPropName(prop)];
+    }
+    else {
+      el.style[getCssPropName(prop)] = val;
+    }
   };
 
   utils.transition = function(el, props, duration, easing) {

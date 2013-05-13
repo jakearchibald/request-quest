@@ -25,6 +25,10 @@
 
   var QuestionControllerProto = QuestionController.prototype = Object.create(rq.EventEmitter.prototype);
 
+  QuestionControllerProto.start = function() {
+    this.ui.setInteractivity(true);
+  };
+
   QuestionControllerProto.handleAnswer_ = function(userAnswer) {
     var browsers = this.model_.browsersForPhase(this.phase_);
     var makesRequest = !!browsers.length;
@@ -57,6 +61,7 @@
 
   QuestionControllerProto.end_ = function() {
     this.trigger('continue');
+    this.ui.setInteractivity(false);
   };
 
   rq.QuestionController = QuestionController;

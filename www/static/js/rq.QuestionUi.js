@@ -59,6 +59,10 @@
     this.questionRequest_.textContent = requestDesc;
   };
 
+  QuestionUiProto.setInteractivity = function(state) {
+    this.container.style.pointerEvents = state ? 'auto' : 'none';
+  };
+
   QuestionUiProto.showAnswer = function(wasCorrect, browsers, explanation) {
     var quizUi = this;
 
