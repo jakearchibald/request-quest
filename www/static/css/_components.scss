@@ -160,6 +160,7 @@
   }
 
   & .answer-feedback {
+    @include transform-style(preserve-3d);
     display: none;
   }
   & .answer-buttons {
