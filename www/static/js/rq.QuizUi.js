@@ -130,6 +130,7 @@
     this.questionButtons_.style.display = 'block';
     this.answerFeedback_.style.display = 'none';
     rq.utils.css(this.questionButtons_, "transform", 'rotateX(0deg)');
+    rq.utils.css(this.question_, "transform", '');
 
     toArray(this.question_.querySelectorAll('.browsers-remaining > *')).forEach(function(browser) {
       browser.classList.remove('active');

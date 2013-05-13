@@ -3,6 +3,10 @@ var manifest = [
   '/',
   '/quiz-data.json',
   '/static/css/all.css',
+  '/static/css/imgs/logos/chrome.png',
+  '/static/css/imgs/logos/firefox.png',
+  '/static/css/imgs/logos/ie9.png',
+  '/static/css/imgs/logos/safari.png',
   '/static/js/all.js'
 ];
 var server = 'http://localhost:3000';
