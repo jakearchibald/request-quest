@@ -1,3 +1,5 @@
+@import 'buttons';
+
 .metal-box {
   background: url(imgs/metal.jpg);
   background-size: cover;
@@ -12,17 +14,95 @@
 }
 
 .question {
+  background: #fff;
+  padding: 10px;
+
   & .answer-feedback,
   &.first-phase .additional-phase-lead {
     display: none;
   }
+}
 
-  & .browsers-remaining {
-    & .active {
-      color: #f00;
+.box {
+  background: #fff;
+  padding: 26px;
+  width: 552px;
+  & h1 {
+    margin-top: 4px;
+  }
+}
+
+.reset {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.score {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  @include display-flex;
+  @include flex-direction(row);
+  @include justify-content(center);
+
+  & .score-inner {
+    background: #fff;
+    padding: 10px;
+  }
+}
+
+.browsers-remaining {
+  margin: 20px 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+
+  & > * {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 0;
+    width: 100px;
+    height: 100px;
+    background: no-repeat;
+    background-size: contain;
+    text-indent: -5000px;
+    vertical-align: middle;
+    @include transition(all 0.3s ease-in-out);
+  }
+
+  & .chrome {
+    background-image: url(imgs/logos/chrome.png);
+    width: 75px;
+    height: 75px;
+    margin-top: -3px;
+  }
+  & .safari {
+    background-image: url(imgs/logos/safari.png);
+  }
+  & .ie {
+    background-image: url(imgs/logos/ie9.png);
+  }
+  & .firefox {
+    background-image: url(imgs/logos/firefox.png);
+  }
+
+  &.reveal {
+    & > .active {
+      @include transform(scale(1.2));
     }
-    & .inactive {
-      color: #ccc;
+    & > :not(.active) {
+      @include transform(scale(0.8));
+      @include filter(grayscale(1) blur(4px));
+      opacity: 0.6;
     }
-  } 
+  }
+
+  & > .inactive {
+    @include transform(scale(0.8));
+    @include filter(grayscale(1) blur(4px));
+    opacity: 0.6;
+  }
 }

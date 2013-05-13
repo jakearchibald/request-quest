@@ -1,0 +1,138 @@
+// flexbox
+  @mixin display-flex {
+    display: -webkit-flex;
+    display: flex;
+  }
+
+  @mixin flex-direction($type...) {
+    @each $prefix in -webkit-, '' {
+      #{$prefix}flex-direction: $type;
+    }
+  }
+
+  @mixin justify-content($type...) {
+    @each $prefix in -webkit-, '' {
+      #{$prefix}justify-content: $type;
+    }
+  }
+
+  @mixin align-items($type...) {
+    @each $prefix in -webkit-, '' {
+      #{$prefix}align-items: $type;
+    }
+  }
+
+// transform
+  @mixin transform($type...) {
+    @each $prefix in -webkit-, '' {
+      #{$prefix}transform: $type;
+    }
+  }
+
+  @mixin filter($type...) {
+    @each $prefix in -webkit-, '' {
+      #{$prefix}filter: $type;
+    }
+  }
+
+// animation
+  @mixin transition($type...) {
+    @each $prefix in -webkit-, '' {
+      #{$prefix}transition: $type;
+    }
+  }
+
+  @mixin keyframes($name) {
+    @-webkit-keyframes $name { @content; }
+    @keyframes $name { @content; }
+  }
+
+  @mixin animation($type) {
+    @each $prefix in -webkit-, '' {
+      #{$prefix}animation: $type;
+    }
+  }
+
+// gradients
+  @mixin linear-gradient($to-direction, $color-stops...) {
+    // the old old webkit syntax
+    $old-webkit: linear, -jtc-webkit-direction($to-direction);
+    $color-stops-len: length($color-stops);
+
+    // loop through color stops
+    @for $i from 1 through $color-stops-len {
+      $color-stop: nth($color-stops, $i);
+      @if length($color-stop) == 2 {
+        $old-webkit: append($old-webkit, color-stop(nth($color-stop, 2), nth($color-stop, 1)));
+      }
+      @else {
+        // we have to provide a stop position for webkit
+        $old-webkit: append($old-webkit, color-stop(($i - 1) / ($color-stops-len - 1), $color-stop));
+      }
+    }
+
+    $from-direction: -jtc-from-direction($to-direction); 
+
+    background-image: -webkit-gradient($old-webkit);
+    // old syntax is the origin of the gradient, not the destination
+    background-image: -moz-linear-gradient($from-direction, $color-stops);
+    background-image: -o-linear-gradient($from-direction, $color-stops);
+    background-image: linear-gradient($to-direction, $color-stops);
+  }
+
+  @function -jtc-from-direction($to-direction) {
+    @if $to-direction == (to top) {
+      @return bottom;
+    }
+    @if $to-direction == (to top right) or $to-direction == (to right top) {
+      @return bottom left;
+    }
+    @if $to-direction == (to right) {
+      @return left;
+    }
+    @if $to-direction == (to bottom right) or $to-direction == (to right bottom) {
+      @return top left;
+    }
+    @if $to-direction == (to bottom) {
+      @return top;
+    }
+    @if $to-direction == (to bottom left) or $to-direction == (to left bottom) {
+      @return top right;
+    }
+    @if $to-direction == (to left) {
+      @return right;
+    }
+    @if $to-direction == (to top left) or $to-direction == (to left top) {
+      @return bottom right;
+    }
+    @warn "Invalid direction syntax";
+    @return top;
+  }
+
+  @function -jtc-webkit-direction($to-direction) {
+    @if $to-direction == (to top) {
+      @return left bottom, left top;
+    }
+    @if $to-direction == (to top right) or $to-direction == (to right top) {
+      @return left bottom, right top;
+    }
+    @if $to-direction == (to right) {
+      @return left top, right top;
+    }
+    @if $to-direction == (to bottom right) or $to-direction == (to right bottom) {
+      @return left top, right bottom;
+    }
+    @if $to-direction == (to bottom) {
+      @return left top, left bottom;
+    }
+    @if $to-direction == (to bottom left) or $to-direction == (to left bottom) {
+      @return right top, left bottom;
+    }
+    @if $to-direction == (to left) {
+      @return right top, left top;
+    }
+    @if $to-direction == (to top left) or $to-direction == (to left top) {
+      @return right bottom, left top;
+    }
+    @return top, bottom;
+  }

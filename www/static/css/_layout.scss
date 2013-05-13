@@ -1,0 +1,16 @@
+.button-row {
+  text-align: center;
+}
+
+.centerer {
+  @include display-flex;
+  @include flex-direction(row);
+  @include justify-content(center);
+  @include align-items(center);
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

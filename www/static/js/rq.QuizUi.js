@@ -53,13 +53,14 @@
     this.reset_ = loadTemplate('.reset-template');
     this.finalResultsContentTemplate_ = loadTemplate('.final-results-content-template');
     this.answerContentTemplate_ = loadTemplate('.answer-content-template');
-    this.container_ = elFromStr('<div class="quiz-container"></div>');
+    this.container_ = $('.quiz-container');
     this.questionTitle_ = this.question_.querySelector('.title');
     this.questionRequest_ = this.question_.querySelector('.request');
     this.questionCode_ = this.question_.querySelector('.phase-code');
     this.questionButtons_ = this.question_.querySelector('.answer-buttons');
     this.answerFeedback_ = this.question_.querySelector('.answer-feedback');
     this.feedbackContent_ = this.question_.querySelector('.feedback-content');
+    this.browserIcons_ = this.question_.querySelector('.browsers-remaining');
     this.scoreNum_ = this.score_.querySelector('.num');
     this.review_ = this.finalResults_.querySelector('.review');
 
@@ -127,6 +128,8 @@
       browser.classList.remove('inactive');
     });
 
+    this.browserIcons_.classList.remove('reveal');
+
     this.container_.appendChild(this.question_);
     this.container_.appendChild(this.score_);
     this.container_.appendChild(this.reset_);
@@ -142,6 +145,8 @@
     browsers.forEach(function(browser) {
       quizUi.question_.querySelector('.' + browser).classList.add('active');
     });
+
+    quizUi.browserIcons_.classList.add('reveal');
 
     // Format: browser, browser & browser
     var browserStr = browsers.reduce(function(str, browser, i) {
@@ -176,6 +181,7 @@
       activeEl.classList.remove('active');
       activeEl.classList.add('inactive');
     });
+    this.browserIcons_.classList.remove('reveal');
     this.question_.classList.remove('first-phase');
   };
 

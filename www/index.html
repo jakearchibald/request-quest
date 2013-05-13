@@ -6,36 +6,38 @@
     <link rel="stylesheet" href="static/css/all.css">
   </head>
   <body>
-    <div class="intro">
-      <h1>Requestiontime</h1>
-      <p>
-        The game is pretty simple, look at some code &amp; decide if
-        it would trigger an HTTP request in Chrome 23, Firefox 17, or IE 10.
-      </p>
-      <p>
-        Beware! What the browsers do isn't always what the specification
-        says they should!
-      </p>
-      <p>Anyway, let's get started:</p>
-      <div class="start-options">
-        <button type="button" class="start-btn">Begin</button>
+    <div class="quiz-container centerer">
+      <div class="intro box">
+        <h1>Request Quest</h1>
+        <p>
+          The game is pretty simple, look at some code &amp; decide if
+          it would trigger an HTTP request in the latest version of the
+          main browsers.
+        </p>
+        <p>
+          Beware! What the browsers do isn't always what the specification
+          says they should!
+        </p>
+        <p>Anyway, let's get started:</p>
+        <div class="start-options button-row">
+          <button type="button" class="start-btn btn btn-success btn-large">Begin</button>
+        </div>
       </div>
     </div>
-    <script type="application/x-mustache" class="question-context-template">
-      <p class="subtitle">{{subtitle}}</p>
-    </script>
     <script type="text/html" class="score-template">
       <div class="score">
-        Score: <span class="num">0</span>
+        <div class="score-inner">
+          Score: <span class="num">0</span>
+        </div>
       </div>
     </script>
     <script type="text/html" class="reset-template">
       <div class="reset">
-        <button type="button" class="reset-btn">Start over</button>
+        <button type="button" class="reset-btn btn btn-warning">Start over</button>
       </div>
     </script>
     <script type="text/html" class="question-template">
-      <article class="question">
+      <article class="question box">
         <h1 class="title"></h1>
         <pre class="phase-code"><code></code></pre>
         <p>
@@ -51,12 +53,16 @@
         </ul>
         <div class="answer-buttons">
           <p class="additional-phase-lead">How about now?</p>
-          <button type="button" class="yes-btn">Yes</button>
-          <button type="button" class="no-btn">No</button>
+          <div class="button-row">
+            <button type="button" class="yes-btn btn btn-large btn-success">Yes</button>
+            <button type="button" class="no-btn btn btn-large btn-danger">No</button>
+          </div>
         </div>
         <section class="answer-feedback">
           <div class="feedback-content"></div>
-          <button type="button" class="continue-btn">Continue</button>
+          <div class="button-row">
+            <button type="button" class="continue-btn btn btn-large btn-success">Continue</button>
+          </div>
         </section>
       </article>
     </script>
