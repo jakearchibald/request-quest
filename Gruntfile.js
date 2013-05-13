@@ -11,9 +11,11 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     meta: {
       jsfiles: [
+        'www/static/js/highlight.pack.js',
         'www/static/js/q.js',
         'www/static/js/mustache.js',
         'www/static/js/rq.js',
+        'www/static/js/rq.utils.js',
         'www/static/js/rq.EventEmitter.js',
         'www/static/js/rq.QuestionModel.js',
         'www/static/js/rq.QuestionController.js',

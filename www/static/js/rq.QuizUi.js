@@ -54,9 +54,12 @@
     this.finalResultsContentTemplate_ = loadTemplate('.final-results-content-template');
     this.answerContentTemplate_ = loadTemplate('.answer-content-template');
     this.container_ = $('.quiz-container');
-    this.questionTitle_ = this.question_.querySelector('.title');
+    this.questionTitle_ = this.question_.querySelector('.question-title');
+    this.questionNum_ = this.question_.querySelector('.title .num');
+    this.questionTotal_ = this.question_.querySelector('.title .total');
     this.questionRequest_ = this.question_.querySelector('.request');
-    this.questionCode_ = this.question_.querySelector('.phase-code');
+    this.questionCodeContainer_ = this.question_.querySelector('.phase-code');
+    this.questionCode_ = this.question_.querySelector('.phase-code code');
     this.questionButtons_ = this.question_.querySelector('.answer-buttons');
     this.answerFeedback_ = this.question_.querySelector('.answer-feedback');
     this.feedbackContent_ = this.question_.querySelector('.feedback-content');
@@ -122,6 +125,7 @@
     this.question_.classList.add('first-phase');
     this.questionButtons_.style.display = 'block';
     this.answerFeedback_.style.display = 'none';
+    rq.utils.css(this.questionButtons_, "transform", 'rotateX(0deg)');
 
     toArray(this.question_.querySelectorAll('.browsers-remaining > *')).forEach(function(browser) {
       browser.classList.remove('active');
@@ -139,14 +143,10 @@
 
   QuizUiProto.showAnswer = function(wasCorrect, browsers, explanation) {
     var quizUi = this;
-    quizUi.questionButtons_.style.display = 'none';
-    quizUi.answerFeedback_.style.display = 'block';
 
     browsers.forEach(function(browser) {
       quizUi.question_.querySelector('.' + browser).classList.add('active');
     });
-
-    quizUi.browserIcons_.classList.add('reveal');
 
     // Format: browser, browser & browser
     var browserStr = browsers.reduce(function(str, browser, i) {
@@ -168,25 +168,80 @@
       browsers: browserStr,
       explanation: explanation
     });
+
+    if (wasCorrect) {
+      quizUi.answerFeedback_.classList.add('correct');
+      quizUi.answerFeedback_.classList.remove('incorrect');
+    }
+    else {
+      quizUi.answerFeedback_.classList.remove('correct');
+      quizUi.answerFeedback_.classList.add('incorrect');
+    }
+
+    rq.utils.transition(quizUi.questionButtons_, {
+      transform: 'rotateX(-90deg)'
+    }, 0.3).then(function() {
+      quizUi.browserIcons_.classList.add('reveal');
+      quizUi.answerFeedback_.style.display = 'block';
+      rq.utils.css(quizUi.answerFeedback_, "transform", 'rotateX(-90deg)');
+      rq.utils.transition(quizUi.question_, {
+        transform: 'translate(0, ' + Math.floor((quizUi.questionButtons_.offsetHeight - quizUi.answerFeedback_.offsetHeight)/2) + 'px)'
+      }, 0.3);
+      return rq.utils.transition(quizUi.answerFeedback_, {
+        transform: 'rotateX(0deg)'
+      }, 0.3);
+    });
   };
 
   QuizUiProto.score = function(score) {
     this.scoreNum_.textContent = score;
   };
 
-  QuizUiProto.continueQuestion = function() {
-    this.questionButtons_.style.display = 'block';
-    this.answerFeedback_.style.display = 'none';
-    toArray(this.question_.querySelectorAll('.browsers-remaining .active')).forEach(function(activeEl) {
+  QuizUiProto.continueQuestion = function(lang, code) {
+    var quizUi = this;
+    toArray(quizUi.question_.querySelectorAll('.browsers-remaining .active')).forEach(function(activeEl) {
       activeEl.classList.remove('active');
       activeEl.classList.add('inactive');
     });
-    this.browserIcons_.classList.remove('reveal');
-    this.question_.classList.remove('first-phase');
+
+    rq.utils.transition(quizUi.question_, {
+      transform: 'translate(0, 0)'
+    }, 0.3);
+
+    rq.utils.transition(quizUi.answerFeedback_, {
+      transform: 'rotateX(-90deg)'
+    }, 0.3).then(function() {
+      quizUi.questionCodeContainer_.style.height = quizUi.questionCodeContainer_.offsetHeight + 'px';
+      return rq.utils.transition(quizUi.questionCodeContainer_, {
+        height: '0'
+      }, 0.3);
+    }).then(function() {
+      quizUi.showPhaseCode(lang, code);
+      quizUi.questionCodeContainer_.style.height = '';
+      var heightTo = quizUi.questionCodeContainer_.offsetHeight;
+      quizUi.questionCodeContainer_.style.height = '0';
+
+      return rq.utils.transition(quizUi.questionCodeContainer_, {
+        height: heightTo + 'px'
+      }, 0.3).then(function() {
+        quizUi.questionCodeContainer_.style.height = '';
+      });
+    }).then(function() {
+      return rq.utils.transition(quizUi.questionButtons_, {
+        transform: 'rotateX(0deg)'
+      }, 0.3);
+    }).then(function() {
+      quizUi.questionButtons_.style.display = 'block';
+      quizUi.answerFeedback_.style.display = 'none';
+    });
+
+    quizUi.browserIcons_.classList.remove('reveal');
+    quizUi.question_.classList.remove('first-phase');
   };
 
-  QuizUiProto.showPhaseCode = function(code) {
-    this.questionCode_.textContent = code;
+  QuizUiProto.showPhaseCode = function(lang, code) {
+    this.questionCode_.className = lang;
+    this.questionCode_.innerHTML = code;
   };
 
   QuizUiProto.showFinalResults = function(score, maxScore) {

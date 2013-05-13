@@ -56,9 +56,11 @@
 
     if (phaseObj) {
       if (this.phase_) {
-        this.ui_.continueQuestion();
+        this.ui_.continueQuestion(this.model_.langClass, phaseObj.code);
       }
-      this.ui_.showPhaseCode(phaseObj.code);
+      else {
+        this.ui_.showPhaseCode(this.model_.langClass, phaseObj.code);
+      }
     }
     else {
       // no phases left

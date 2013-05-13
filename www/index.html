@@ -37,33 +37,41 @@
       </div>
     </script>
     <script type="text/html" class="question-template">
-      <article class="question box">
-        <h1 class="title"></h1>
-        <pre class="phase-code"><code></code></pre>
-        <p>
-          Does the above trigger a request for
-          <span class="request"></span>
-          in any of the following:
-        </p>
-        <ul class="browsers-remaining">
-          <li class="chrome">Chrome</li>
-          <li class="ie">IE</li>
-          <li class="firefox">Firefox</li>
-          <li class="safari">Safari</li>
-        </ul>
-        <div class="answer-buttons">
-          <p class="additional-phase-lead">How about now?</p>
+      <article class="question">
+        <header class="title-container">
+          <h1 class="title">
+            Question <span class="num"></span> of <span class="total"></span>
+            <span class="question-title"></span>
+          </h1>
+        </header>
+        <div class="box question-detail">
+          <pre class="phase-code"><code></code></pre>
+          <p>
+            Does the above trigger a request for
+            <span class="request"></span>
+            in any of the following:
+          </p>
+          <ul class="browsers-remaining">
+            <li class="chrome">Chrome</li>
+            <li class="ie">IE</li>
+            <li class="firefox">Firefox</li>
+            <li class="safari">Safari</li>
+          </ul>
+        </div>
+        <section class="answer-feedback box">
+          <div class="feedback-content"></div>
+          <div class="button-row">
+            <button type="button" class="continue-btn btn btn-large btn-primary">Continue</button>
+          </div>
+        </section>
+        <div class="answer-buttons box">
+          <p class="button-lead-initial button-lead">What do you think?</p>
+          <p class="button-lead">How about now?</p>
           <div class="button-row">
             <button type="button" class="yes-btn btn btn-large btn-success">Yes</button>
             <button type="button" class="no-btn btn btn-large btn-danger">No</button>
           </div>
         </div>
-        <section class="answer-feedback">
-          <div class="feedback-content"></div>
-          <div class="button-row">
-            <button type="button" class="continue-btn btn btn-large btn-success">Continue</button>
-          </div>
-        </section>
       </article>
     </script>
     <script type="application/x-mustache" class="answer-content-template">

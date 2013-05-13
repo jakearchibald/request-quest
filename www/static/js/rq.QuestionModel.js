@@ -1,13 +1,23 @@
 (function() {
+  var formatMap = {
+    js: 'javascript',
+    html: 'xml',
+    css: 'css'
+  };
+
   function QuestionModel(data) {
-    this.id          = data.id;
-    this.title       = data.title;
-    this.lang        = data.lang;
-    this.requestDesc = data.requestDesc || data.expectedRequest;
+    var questionModel = this;
+
+    questionModel.id          = data.id;
+    questionModel.title       = data.title;
+    questionModel.lang        = data.lang;
+    questionModel.langClass   = formatMap[data.lang];
+    questionModel.requestDesc = data.requestDesc || data.expectedRequest;
 
     // expand each of the phases
     var lines = [];
-    this.phases = data.phases.map(function(phase) {
+    
+    questionModel.phases = data.phases.map(function(phase) {
       if (phase.removeLines) {
         lines.splice(-phase.removeLines);
       }
@@ -15,12 +25,12 @@
         lines.push.apply(lines, phase.addLines);
       }
       return {
-        code: lines.join('\n'),
+        code: hljs.highlight(formatMap[questionModel.lang], lines.join('\n')).value,
         explanation: phase.explanation
       };
     });
 
-    this.browserAnswer = data.answer;
+    questionModel.browserAnswer = data.answer;
   }
 
   var QuestionModelProto = QuestionModel.prototype;

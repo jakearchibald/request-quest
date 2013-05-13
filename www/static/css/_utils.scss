@@ -29,6 +29,24 @@
     }
   }
 
+  @mixin transform-origin($type...) {
+    @each $prefix in -webkit-, '' {
+      #{$prefix}transform-origin: $type;
+    }
+  }
+
+  @mixin transform-style($type...) {
+    @each $prefix in -webkit-, '' {
+      #{$prefix}transform-style: $type;
+    }
+  }
+
+  @mixin perspective($type...) {
+    @each $prefix in -webkit-, '' {
+      #{$prefix}perspective: $type;
+    }
+  }
+
   @mixin filter($type...) {
     @each $prefix in -webkit-, '' {
       #{$prefix}filter: $type;
