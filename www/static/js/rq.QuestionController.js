@@ -22,7 +22,7 @@
   var QuestionControllerProto = QuestionController.prototype = Object.create(rq.EventEmitter.prototype);
 
   QuestionControllerProto.start = function() {
-    this.ui_.showQuestion(this.model_.title, this.model_.requestDesc);
+    this.ui_.showQuestion(this.model_.num, this.model_.title, this.model_.requestDesc);
     this.nextPhase_();
   };
 

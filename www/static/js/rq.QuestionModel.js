@@ -5,9 +5,9 @@
     css: 'css'
   };
 
-  function QuestionModel(data) {
+  function QuestionModel(num, data) {
     var questionModel = this;
-
+    questionModel.num         = num;
     questionModel.id          = data.id;
     questionModel.title       = data.title;
     questionModel.lang        = data.lang;

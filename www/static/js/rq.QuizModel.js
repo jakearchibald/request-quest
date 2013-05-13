@@ -2,8 +2,8 @@
   var localStorageKey = 'rq1';
 
   function QuizModel(data) {
-    this.questions = data.map(function(questionSpec) {
-      return new rq.QuestionModel(questionSpec);
+    this.questions = data.map(function(questionSpec, i) {
+      return new rq.QuestionModel(i+1, questionSpec);
     });
     this.score = 0;
   }

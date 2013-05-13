@@ -8,7 +8,7 @@
 
       quizController.ui_.on('startQuizBtnSelected', quizController.nextQuestion_.bind(quizController));
       quizController.ui_.on('resetSelected', quizController.reset_.bind(quizController));
-
+      quizController.ui_.setQuestionTotal(quizController.model_.questions.length);
     });
     quizController.questionNum_ = -1;
   }

@@ -120,7 +120,11 @@
     this.container_.appendChild(this.intro_);
   };
 
-  QuizUiProto.showQuestion = function(title, requestDesc) {
+  QuizUiProto.setQuestionTotal = function(total) {
+    this.questionTotal_.textContent = total;
+  };
+
+  QuizUiProto.showQuestion = function(num, title, requestDesc) {
     emptyEl(this.container_);
     this.question_.classList.add('first-phase');
     this.questionButtons_.style.display = 'block';
@@ -137,6 +141,7 @@
     this.container_.appendChild(this.question_);
     this.container_.appendChild(this.score_);
     this.container_.appendChild(this.reset_);
+    this.questionNum_.textContent = num;
     this.questionTitle_.textContent = title;
     this.questionRequest_.textContent = requestDesc;
   };

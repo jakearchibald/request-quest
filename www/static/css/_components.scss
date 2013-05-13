@@ -104,6 +104,19 @@
     color: #fff;
     margin: 0;
     font-weight: normal;
+    overflow: hidden;
+
+    & .subtitle {
+      font-size: 12px;
+      display: block;
+      line-height: 1;
+      margin: 0 0 3px;
+    }
+    & .question-title {
+      position: relative;
+      display: block;
+      line-height: 1;
+    }
   }
 
   & .answer-feedback {
