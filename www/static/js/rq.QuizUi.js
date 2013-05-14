@@ -6,10 +6,11 @@
   function QuizUi(questionUis) {
     this.intro_ = document.querySelector('.intro');
     this.finalResults_ = rq.utils.loadTemplate('.final-results-template');
-    this.score_ = rq.utils.loadTemplate('.score-template');
-    this.reset_ = rq.utils.loadTemplate('.reset-template');
+    this.score_ = document.querySelector('.score');
+    this.reset_ = document.querySelector('.reset');
     this.finalResultsContentTemplate_ = rq.utils.loadTemplate('.final-results-content-template');
     this.container_ = document.querySelector('.quiz-container');
+    this.world_ = this.container_ .querySelector('.world');
     this.questions_ = this.container_.querySelector('.questions');
     this.scoreNum_ = this.score_.querySelector('.num');
     this.review_ = this.finalResults_.querySelector('.review');
@@ -56,7 +57,7 @@
   };
 
   QuizUiProto.showIntro = function() {
-    this.container_.appendChild(this.intro_);
+    this.world_.appendChild(this.intro_);
   };
 
   QuizUiProto.showQuestion = function(num) {
@@ -90,10 +91,20 @@
   };
 
   QuizUiProto.toQuestionView_ = function() {
-    rq.utils.transition(this.container_, {
+    var quizUi = this;
+
+    rq.utils.transition(quizUi.world_, {
       transform: 'translateZ(-1300px)'
-    }, 2, 'easeInOutQuad');
-    this.viewMode_ = 'question';
+    }, 2, 'easeInOutQuad').then(function() {
+      rq.utils.transition(quizUi.score_, {
+        transform: 'translate(0,0)'
+      }, 0.4, 'easeOutQuad');
+
+      rq.utils.transition(quizUi.reset_, {
+        transform: 'translate(0,0)'
+      }, 0.4, 'easeOutQuad');
+    });
+    quizUi.viewMode_ = 'question';
   };
 
   QuizUiProto.score = function(score) {
@@ -101,7 +112,7 @@
   };
 
   QuizUiProto.showFinalResults = function(score, maxScore) {
-    var review = "TODO Pretty damn good. Difficult to do better without guessing what individual browsers do. It's ok to be risk-adverse, it's just not very… interesting.";
+    var review = "TODO taunt";
 
     /*
     if (score < 6) {
@@ -134,9 +145,18 @@
       review: review
     });
 
-    this.container_.appendChild(this.finalResults_);
+    this.world_.appendChild(this.finalResults_);
 
     rq.utils.css(this.finalResults_, 'transform', 'translateZ(1800px)');
+
+    rq.utils.transition(this.score_, {
+      transform: 'translate(0,-100%)'
+    }, 0.4, 'easeOutQuad');
+
+    rq.utils.transition(this.reset_, {
+      transform: 'translate(0,-100%)'
+    }, 0.4, 'easeOutQuad');
+
     rq.utils.transition(this.finalResults_, {
       opacity: '1',
       transform: 'translateZ(1300px)'
