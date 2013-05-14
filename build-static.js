@@ -7,6 +7,8 @@ var manifest = [
   '/static/css/imgs/logos/firefox.png',
   '/static/css/imgs/logos/ie9.png',
   '/static/css/imgs/logos/safari.png',
+  '/static/css/imgs/padlock.png',
+  '/static/css/fonts/akashi.ttf',
   '/static/js/all.js'
 ];
 var server = 'http://localhost:3000';
