@@ -84,7 +84,9 @@
     return rq.utils.transition(questionContainer, {
       transform: 'rotateY(' + rotation + 'deg) translateZ(1300px) translateZ(-2189px) rotateX(-180deg) rotateY(-48deg) rotateZ(-23deg)',
       opacity: 0
-    }, 0.4, 'linear');
+    }, 0.4, 'linear').then(function() {
+      questionContainer.style.display = 'none';
+    });
   };
 
   QuizUiProto.toQuestionView_ = function() {
