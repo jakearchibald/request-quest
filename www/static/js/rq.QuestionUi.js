@@ -66,6 +66,10 @@
     this.container.style.pointerEvents = state ? 'auto' : 'none';
   };
 
+  QuestionUiProto.unlock = function() {
+    this.question_.classList.add('unlocked');
+  };
+
   QuestionUiProto.showAnswer = function(wasCorrect, browsers, explanation) {
     var quizUi = this;
 
@@ -115,6 +119,7 @@
       transform: 'rotateX(-90deg)'
     }, 0.3).then(function() {
       quizUi.browserIcons_.classList.add('reveal');
+      quizUi.questionButtons_.style.opacity = '0';
       quizUi.answerFeedback_.style.display = 'block';
       rq.utils.css(quizUi.answerFeedback_, "transform", 'rotateX(-90deg)');
       rq.utils.transition(quizUi.question_, {
@@ -163,11 +168,11 @@
         quizUi.questionCodeContainer_.style.height = '';
       });
     }).then(function() {
+      quizUi.questionButtons_.style.opacity = '1';
       return rq.utils.transition(quizUi.questionButtons_, {
         transform: 'rotateX(0deg)'
       }, 0.3);
     }).then(function() {
-      quizUi.questionButtons_.style.display = 'block';
       quizUi.answerFeedback_.style.display = 'none';
     });
 

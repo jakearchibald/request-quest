@@ -46,17 +46,23 @@
 
   QuizControllerProto.nextQuestion_ = function() {
     var quizController = this;
-    quizController.questionNum_++;
 
-    var questionController = quizController.questionControllers_[quizController.questionNum_];
-    quizController.ui_.showQuestion(quizController.questionNum_);
+    Q.resolve().then(function() {
+      if (quizController.questionNum_ > -1) {
+        return quizController.ui_.destroyQuestion(quizController.questionNum_);
+      }
+    }).then(function() {
+      quizController.questionNum_++;
+      var questionController = quizController.questionControllers_[quizController.questionNum_];
+      quizController.ui_.showQuestion(quizController.questionNum_);
 
-    if (!questionController) {
-      quizController.results_();
-      return;
-    }
+      if (!questionController) {
+        quizController.results_();
+        return;
+      }
 
-    questionController.start();
+      questionController.start();
+    });
   };
 
   QuizControllerProto.results_ = function() {

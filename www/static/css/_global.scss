@@ -9,7 +9,8 @@ html {
   height: 100%;
   font-size: 14px;
   line-height: 1.3;
-  @include perspective(1000);
+  overflow: hidden;
+  @include perspective(540);
 }
 
 body {

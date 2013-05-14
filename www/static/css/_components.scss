@@ -2,7 +2,7 @@
 
 .quiz-container {
   //@include transform(translateZ(-1300px));
-  @include transform(translateZ(-1410px) rotateX(-90deg));
+  @include transform(translateZ(-1010px) rotateX(-90deg));
   @include transform-style(preserve-3d);
   position: absolute;
   top: 0;
@@ -34,7 +34,15 @@
 }
 
 .intro {
-  @include transform(rotateX(90deg) translateZ(1410px));
+  @include transform(rotateX(90deg) translateZ(1010px));
+  @include backface-visibility(hidden);
+  
+  & h1 {
+    font-family: akashi;
+    text-align: center;
+    color: #fff;
+    font-weight: normal;
+  }
 }
 
 .reset {
@@ -137,6 +145,35 @@
     left: 0;
     right: 0;
     pointer-events: none;
+  }
+
+  &.unlocked .lock {
+    opacity: 0;
+  }
+
+  & .lock {
+    @include transform(translateZ(0.05px));
+    @include backface-visibility(hidden);
+    @include transition(opacity 0.3s ease-in-out);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: rgba(0,0,0,0.6);
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: url(imgs/padlock.png) no-repeat center center;
+      @include filter(drop-shadow(0 0 40px rgba(0,0,0,1)));
+    }
   }
 
   & .title-container .title {

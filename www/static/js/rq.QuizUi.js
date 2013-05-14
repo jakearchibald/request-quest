@@ -77,6 +77,16 @@
     }, duration, easing);
   };
 
+  QuizUiProto.destroyQuestion = function(num) {
+    var questionContainer = this.questionUis_[num].container;
+    var rotation = this.questionRotations_[num];
+
+    return rq.utils.transition(questionContainer, {
+      transform: 'rotateY(' + rotation + 'deg) translateZ(1300px) translateZ(-2189px) rotateX(-180deg) rotateY(-48deg) rotateZ(-23deg)',
+      opacity: 0
+    }, 0.4, 'linear');
+  };
+
   QuizUiProto.toQuestionView_ = function() {
     rq.utils.transition(this.container_, {
       transform: 'translateZ(-1300px)'

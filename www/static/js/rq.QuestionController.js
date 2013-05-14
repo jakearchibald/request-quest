@@ -26,6 +26,7 @@
   var QuestionControllerProto = QuestionController.prototype = Object.create(rq.EventEmitter.prototype);
 
   QuestionControllerProto.start = function() {
+    this.ui.unlock();
     this.ui.setInteractivity(true);
   };
 

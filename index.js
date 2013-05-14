@@ -20,6 +20,7 @@ app.get('/', function(req, res) {
 var triggerPhase;
 var lastPhaseId;
 var questionDirs = [
+  'img-add',
   'img-element',
   'divbg-element',
   'img-add',
