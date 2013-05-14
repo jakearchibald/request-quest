@@ -39,9 +39,7 @@
   };
 
   QuizControllerProto.reset_ = function() {
-    this.questionNum_ = -1;
-    this.model_.score = 0;
-    this.start();
+    window.location.reload();
   };
 
   QuizControllerProto.nextQuestion_ = function() {

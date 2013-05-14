@@ -104,16 +104,19 @@
       {{/explanation}}
     </script>
     <script type="text/html" class="final-results-template">
-      <article class="end">
-        <div class="review"></div>
-        <button type="button" class="reset-btn">Start over</button>
+      <article class="end centerer">
+        <div>
+          <h1 class="game-over">Game Over</h1>
+          <div class="review"></div>
+          <div class="button-row">
+            <button type="button" class="reset-btn btn btn-large btn-primary">Start over</button>
+          </div>
+        </div>
       </article>
     </script>
     <script type="application/x-mustache" class="final-results-content-template">
-      <h1>Phew! That’s it! You scored {{score}}</h1>
-      <p>…out of a possible {{maxScore}}</p>
-      <p>{{review}}</p>
-      <p>You can go do something else now.</p>
+      <p class="score-info">You scored {{score}} out of {{maxScore}}</p>
+      <p class="review-p">{{review}}</p>
     </script>
     <script src="static/js/all.js"></script>
     <script>new rq.QuizController().start();</script>

@@ -101,9 +101,7 @@
   };
 
   QuizUiProto.showFinalResults = function(score, maxScore) {
-    emptyEl(this.container_);
-
-    var review = "Review TODO";
+    var review = "TODO Pretty damn good. Difficult to do better without guessing what individual browsers do. It's ok to be risk-adverse, it's just not very… interesting.";
 
     /*
     if (score < 6) {
@@ -137,6 +135,12 @@
     });
 
     this.container_.appendChild(this.finalResults_);
+
+    rq.utils.css(this.finalResults_, 'transform', 'translateZ(1800px)');
+    rq.utils.transition(this.finalResults_, {
+      opacity: '1',
+      transform: 'translateZ(1300px)'
+    }, 0.5, 'easeOutQuad');
   };
 
   rq.QuizUi = QuizUi;

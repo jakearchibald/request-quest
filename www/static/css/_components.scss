@@ -318,3 +318,39 @@
 .spin {
   @include animation(spin 20s infinite linear);
 }
+
+.end {
+  opacity: 0;
+  color: #fff;
+  text-align: center;
+
+  & .game-over {
+    font-family: akashi;
+    text-align: center;
+    font-weight: normal;
+    font-size: 104px;
+    line-height: 0.85;
+    text-shadow: 0 0 70px #03A4FF, 0 0 7px #BBE7FF;
+    color: #000;
+    width: 640px;
+    margin: 0 auto;
+  }
+  & .score-info {
+    font-family: akashi;
+    font-size: 40px;
+    text-align: center;
+    margin: 2px 0;
+  }
+
+  & .review-p {
+    width: 320px;
+    margin: 0 auto;
+    line-height: 1.5;
+    margin: 1em auto;
+    text-align: left;
+  }
+
+  & .btn {
+    width: 360px;
+  }
+}
