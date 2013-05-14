@@ -8,22 +8,22 @@
   <body>
     <div class="quiz-container">
       <div class="intro centerer">
-        <div>
+        <div class="intro-inner">
           <h1>Request Quest</h1>
-          <div class="box">
+          <div class="start-options button-row">
+            <button type="button" class="start-btn btn btn-primary btn-large">Begin</button>
+          </div>
+          <div class="instructions">
             <p>
               The game is pretty simple, look at some code &amp; decide if
-              it would trigger an HTTP request in the latest version of the
-              main browsers.
+              it would trigger an HTTP request in the
+              <strong>latest stable release</strong>
+              of particular browsers.
             </p>
             <p>
               Beware! What the browsers do isn't always what the specification
               says they should!
             </p>
-            <p>Anyway, let's get started:</p>
-            <div class="start-options button-row">
-              <button type="button" class="start-btn btn btn-success btn-large">Begin</button>
-            </div>
           </div>
         </div>
       </div>
@@ -61,9 +61,9 @@
             </p>
             <ul class="browsers-remaining">
               <li class="chrome">Chrome</li>
-              <li class="ie">IE</li>
-              <li class="firefox">Firefox</li>
               <li class="safari">Safari</li>
+              <li class="firefox">Firefox</li>
+              <li class="ie">IE</li>
             </ul>
           </div>
           <section class="answer-feedback box">
