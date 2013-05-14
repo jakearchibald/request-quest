@@ -48,7 +48,7 @@
     "style-add": 2,
     "iframe-element": 3,
     "script-comment": 0,
-    "resize-reload": 0,
+    "resize-reload": 1,
     "webfont-range": 2
   }
 }
