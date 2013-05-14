@@ -112,31 +112,32 @@
   };
 
   QuizUiProto.showFinalResults = function(score, maxScore) {
-    var review = "TODO taunt";
+    var review;
 
-    /*
-    if (score < 6) {
-      review = "Well, at least you made it out with your life intact, if not your dignity";
+    if (score < 20) {
+      review = "Here's a fun fact: If you just blindly clicked 'yes' for every answer, you'd have scored better. But don't beat yourself up about it. I mean, you might hit someone else by accident.";
     }
-    else if (score < 10) {
-      review = "Hey, don't beat yourself up about it, you'd only mess it up. Get someone who really doesn't like you to do it instead.";
+    else if (score < 23) {
+      review = "Sigh. Oh well. At least no one got hurt. That's the best we can take from that.";
     }
-    else if (score < 18) {
-      review = "That performance was like the film Taken 2. You went in guns blazing but the result was, well, ok-ish. Wouldn't buy you on DVD.";
+    else if (score < 25) {
+      review = "That performance was like the film Taken 2. You went in guns blazing but the result was, well, ugh. Wouldn't buy you on DVD.";
     }
-    else if (score < 24) {
-      review = "Not bad at all considering. If you were my child you'd be my second favourite. Despite being the only one.";
+    else if (score < 29) {
+      review = "Not too bad. If you were my child you'd be my second favourite. Even if I only had one child.";
     }
-    else if (score < 31) {
-      review = "Pretty damn good. Difficult to do better without guessing what individual browsers do. It's ok to be risk-adverse, it's just not very… interesting.";
+    else if (score < 32) {
+      review = "Pretty damn good. There's a lot of gotchas in there that you managed to avoid.";
     }
-    else if (score < 36) {
-      review = "Difficult to criticise that without being childish, so: Hahaha *points* you're a massive nerd.";
+    else if (score < 35) {
+      review = "Difficult to criticise that score without being childish, so: Hahaha *points* you're a massive nerd.";
+    }
+    else if (score < 35) {
+      review = "Wow, that was impressive! You hardly tripped up at all. Give yourself a gold star.";
     }
     else {
       review = "You cheated. You cheated and I hate you.";
     }
-    */
 
     this.review_.innerHTML = this.finalResultsContentTemplate_({
       score: score,
