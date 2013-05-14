@@ -6,6 +6,9 @@
   left: 0;
   bottom: 0;
   right: 0;
+  // Chrome needs this else question 3 doesn't get pointer events.
+  // Yeah, wtf, I know.
+  @include transform-style(preserve-3d);
 }
 
 .world {
