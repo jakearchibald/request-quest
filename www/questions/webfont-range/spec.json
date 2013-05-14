@@ -17,9 +17,7 @@
     {
       "removeLines": 1,
       "addLines": [
-        "  p {",
-        "    font-family: myfont, sans-serif;",
-        "  }",
+        "  p { font-family: myfont, sans-serif; }",
         "</style>"
       ],
       "explanation": "1.md"

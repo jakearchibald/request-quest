@@ -257,9 +257,15 @@
     left: 0;
     right: 0;
     padding: 20px 26px;
+    line-height: 1.5;
 
     & h1 {
       margin: 0 0 5px;
+      line-height: 1;
+
+      &:only-child {
+        margin-bottom: 15px;
+      }
     }
 
     &.correct {
@@ -298,21 +304,29 @@
     }
   }
 
-  & .explanation code {
-    display: inline-block;
-    position: relative;
-    padding: 0 5px;
+  & .explanation {
+    & blockquote {
+      margin: 0;
+      border-left: 10px solid rgba(255, 255, 255, 0.8);
+      padding-left: 10px;
+    }
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: -3px;
-      background: rgba(255, 255, 255, 0.44);
-      border: 1px solid #FFF;
-      z-index: -1;
+    & code {
+      display: inline-block;
+      position: relative;
+      padding: 0 5px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: -3px;
+        background: rgba(255, 255, 255, 0.44);
+        border: 1px solid #FFF;
+        z-index: -1;
+      }
     }
   }
 }
