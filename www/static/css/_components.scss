@@ -276,10 +276,11 @@
   & .answer-buttons {
     background: #D8EBFF;
     padding: 15px;
+    position: relative;
+    @include transform-origin(0 0);
+    @include backface-visibility(hidden);
     
     @include desktop {
-      @include transform-origin(0 0);
-      @include backface-visibility(hidden);
       padding: 20px 26px;
     }
     & .btn {
@@ -292,26 +293,45 @@
   }
 
   & .question-detail {
+    @include display-flex;
+    @include flex-direction(column);
+    @include flex(1);
+    padding-bottom: 0;
+    overflow: hidden;
+
     @include desktop {
+      display: block;
       @include transform(translateZ(0));
       @include backface-visibility(hidden);
     }
-    padding-bottom: 0;
-    overflow: hidden;
+  }
+  
+  & .fader {
+    background: #fff;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
   }
 
   & .answer-feedback {
+    display: none;
+    padding: 20px 15px;
+    line-height: 1.5;
+    position: relative;
+    
     @include desktop {
+      padding: 20px 26px;
+      position: absolute;
+      left: 0;
+      right: 0;
       @include transform-style(preserve-3d);
       @include transform-origin(0 0);
       @include backface-visibility(hidden);
     }
-    display: none;
-    position: absolute;
-    left: 0;
-    right: 0;
-    padding: 20px 26px;
-    line-height: 1.5;
 
     & h1 {
       margin: 0 0 5px;
@@ -332,6 +352,7 @@
 
   & .phase-code {
     margin-top: 0;
+    margin-bottom: 0;
     overflow: hidden;
 
     & code {
