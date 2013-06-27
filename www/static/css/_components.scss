@@ -1,63 +1,30 @@
 @import 'buttons';
 
-.quiz-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  // Chrome needs this else question 3 doesn't get pointer events.
-  // Yeah, wtf, I know.
-  @include transform-style(preserve-3d);
-}
-
-.world {
-  @include transform(translateZ(-1010px) rotateX(-90deg));
-  @include transform-style(preserve-3d);
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}
-
-.metal-box {
-  background: url(imgs/metal.jpg);
-  background-size: cover;
-  box-shadow: 0 13px 40px #000;
-  padding: 20px;
-
-  & .inner {
-    padding: 20px;
-    background: rgba(#fff, 0.7);
-    box-shadow: 0 2px 7px rgba(#000, 0.6);
-  }
-}
-
-.box {
-  background: #fff;
-  padding: 26px;
-  width: 552px;
-  & h1 {
-    margin-top: 4px;
-  }
-}
-
 .intro {
-  @include transform(rotateX(90deg) translateZ(1010px));
-  @include backface-visibility(hidden);
+  padding: 0 20px;
+  box-sizing: border-box;
   color: #fff;
+  
+  @include desktop {
+    padding: 0;
+    @include transform(rotateX(90deg) translateZ(1010px));
+    @include backface-visibility(hidden);
+  }
   
   & h1 {
     font-family: akashi;
     text-align: center;
     font-weight: normal;
-    font-size: 104px;
+    font-size: 19vw;
     line-height: 0.85;
-    text-shadow: 0 0 70px #03A4FF, 0 0 7px #BBE7FF;
+    text-shadow: 0 0 52px #03A4FF, 0 0 7px #FFF;
     color: #000;
-    width: 537px;
     margin: 0;
+    @include desktop {
+      font-size: 104px;
+      width: 537px;
+      text-shadow: 0 0 70px #03A4FF, 0 0 7px #BBE7FF;
+    }
   }
 
   & .instructions {
@@ -76,8 +43,11 @@
   }
 
   & .start-options {
-    width: 360px;
     margin: 24px auto;
+    
+    @include desktop {
+      width: 360px;
+    }
 
     & .btn {
       width: 100%;
@@ -85,299 +55,321 @@
   }
 }
 
-.reset {
-  position: absolute;
-  top: 0;
-  padding-top: 10px;
-  right: 50px;
-
-  @include transform(translate(0, -100%));
-}
-
-.score {
-  position: absolute;
-  top: 0;
-  padding-top: 13px;
-  left: 50px;
-  color: #fff;
-  font-family: akashi;
-  font-size: 30px;
-
-  @include transform(translate(0, -100%));
-}
-
-.browsers-remaining {
-  margin: 20px 0 13px;
-  padding: 0;
-  list-style: none;
-  text-align: center;
-
-  & > * {
-    display: inline-block;
-    margin: 0 10px;
-    padding: 0;
-    width: 100px;
-    height: 100px;
-    background: no-repeat;
-    background-size: contain;
-    text-indent: -5000px;
-    vertical-align: middle;
-    @include transition(all 0.3s ease-in-out);
+@media screen and (min-width: 400px) {
+  .quiz-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    // Chrome needs this else question 3 doesn't get pointer events.
+    // Yeah, wtf, I know.
+    @include transform-style(preserve-3d);
+  }
+  .world {
+    @include transform(translateZ(-1010px) rotateX(-90deg));
+    @include transform-style(preserve-3d);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
   }
 
-  & .chrome {
-    background-image: url(imgs/logos/chrome.png);
-    width: 75px;
-    height: 75px;
-    margin-top: -3px;
-  }
-  & .safari {
-    background-image: url(imgs/logos/safari.png);
-  }
-  & .ie {
-    background-image: url(imgs/logos/ie9.png);
-  }
-  & .firefox {
-    background-image: url(imgs/logos/firefox.png);
-  }
-
-  &.reveal {
-    & > :not(.active):not(.inactive) {
-      @include transform(scale(0.8));
-      @include filter(grayscale(1) blur(4px));
-      opacity: 0.6;
+  .box {
+    background: #fff;
+    padding: 26px;
+    width: 552px;
+    & h1 {
+      margin-top: 4px;
     }
   }
 
-  & > .inactive {
-    @include transform(scale(0.1));
-    opacity: 0;
-  }
-}
-
-.questions {
-  @include transform-style(preserve-3d);
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}
-
-.question-container {
-  pointer-events: none;
-}
-
-.question {
-  @include transform-style(preserve-3d);
-  @include transform(translateZ(0));
-  @include backface-visibility(hidden);
-  position: relative;
-
-  & .question-back {
-    @include transform(rotateX(180deg));
-    @include backface-visibility(hidden);
-    background: #555;
+  .score {
     position: absolute;
     top: 0;
-    bottom: 0;
+    padding-top: 13px;
+    left: 50px;
+    color: #fff;
+    font-family: akashi;
+    font-size: 30px;
+
+    @include transform(translate(0, -100%));
+  }
+
+  .browsers-remaining {
+    margin: 20px 0 13px;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+
+    & > * {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 0;
+      width: 100px;
+      height: 100px;
+      background: no-repeat;
+      background-size: contain;
+      text-indent: -5000px;
+      vertical-align: middle;
+      @include transition(all 0.3s ease-in-out);
+    }
+
+    & .chrome {
+      background-image: url(imgs/logos/chrome.png);
+      width: 75px;
+      height: 75px;
+      margin-top: -3px;
+    }
+    & .safari {
+      background-image: url(imgs/logos/safari.png);
+    }
+    & .ie {
+      background-image: url(imgs/logos/ie9.png);
+    }
+    & .firefox {
+      background-image: url(imgs/logos/firefox.png);
+    }
+
+    &.reveal {
+      & > :not(.active):not(.inactive) {
+        @include transform(scale(0.8));
+        @include filter(grayscale(1) blur(4px));
+        opacity: 0.6;
+      }
+    }
+
+    & > .inactive {
+      @include transform(scale(0.1));
+      opacity: 0;
+    }
+  }
+
+  .questions {
+    @include transform-style(preserve-3d);
+    position: absolute;
+    top: 0;
     left: 0;
+    bottom: 0;
     right: 0;
+  }
+
+  .question-container {
     pointer-events: none;
   }
 
-  &.unlocked .lock {
-    opacity: 0;
-  }
-
-  & .lock {
-    @include transform(translateZ(0.05px));
+  .question {
+    @include transform-style(preserve-3d);
+    @include transform(translateZ(0));
     @include backface-visibility(hidden);
-    @include transition(opacity 0.3s ease-in-out);
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    pointer-events: none;
-    z-index: 1;
-    background: rgba(0,0,0,0.6);
+    position: relative;
 
-    &::after {
-      content: '';
+    & .question-back {
+      @include transform(rotateX(180deg));
+      @include backface-visibility(hidden);
+      background: #555;
       position: absolute;
       top: 0;
       bottom: 0;
       left: 0;
       right: 0;
-      background: url(imgs/padlock.png) no-repeat center center;
-      @include filter(drop-shadow(0 0 40px rgba(0,0,0,1)));
-    }
-  }
-
-  & .title-container .title {
-    background: #206C80;
-    padding: 13px 26px;
-    color: #fff;
-    margin: 0;
-    font-weight: normal;
-    overflow: hidden;
-
-    & .subtitle {
-      font-size: 12px;
-      display: block;
-      line-height: 1;
-      margin: 0 0 3px;
-    }
-    & .question-title {
-      display: block;
-      line-height: 1;
-    }
-  }
-
-  & .answer-buttons {
-    @include transform-origin(0 0);
-    @include backface-visibility(hidden);
-    background: #D8EBFF;
-    padding: 20px 26px;
-    & .btn {
-      width: 163px;
-      margin: 0 3px;
-    }
-  }
-  & .question-detail {
-    @include transform(translateZ(0));
-    @include backface-visibility(hidden);
-    padding-bottom: 0;
-    overflow: hidden;
-  }
-
-  & .answer-feedback {
-    @include transform-style(preserve-3d);
-    @include transform-origin(0 0);
-    @include backface-visibility(hidden);
-    display: none;
-    position: absolute;
-    left: 0;
-    right: 0;
-    padding: 20px 26px;
-    line-height: 1.5;
-
-    & h1 {
-      margin: 0 0 5px;
-      line-height: 1;
-
-      &:only-child {
-        margin-bottom: 15px;
-      }
+      pointer-events: none;
     }
 
-    &.correct {
-      background: #D4F3D0;
-    }
-    &.incorrect {
-      background: #FFE5E5;
-    }
-  }
-
-  & .phase-code {
-    margin-top: 0;
-    overflow: hidden;
-
-    & code {
-      padding: 11px 16px;
-    }
-  }
-
-  & .button-lead {
-    margin: 0 0 11px;
-    font-weight: bold;
-    text-align: center;
-    line-height: 1;
-  }
-  & .button-lead-initial {
-    display: none;
-  }
-
-  &.first-phase {
-    & .button-lead {
-      display: none;
-    }
-    & .button-lead-initial {
-      display: block;
-    }
-  }
-
-  & .explanation {
-    & blockquote {
-      margin: 0;
-      border-left: 10px solid rgba(255, 255, 255, 0.8);
-      padding-left: 10px;
+    &.unlocked .lock {
+      opacity: 0;
     }
 
-    & code {
-      display: inline-block;
-      position: relative;
-      padding: 0 5px;
+    & .lock {
+      @include transform(translateZ(0.05px));
+      @include backface-visibility(hidden);
+      @include transition(opacity 0.3s ease-in-out);
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+      z-index: 1;
+      background: rgba(0,0,0,0.6);
 
-      &::before {
+      &::after {
         content: '';
         position: absolute;
         top: 0;
+        bottom: 0;
         left: 0;
         right: 0;
-        bottom: -3px;
-        background: rgba(255, 255, 255, 0.44);
-        border: 1px solid #FFF;
-        z-index: -1;
+        background: url(imgs/padlock.png) no-repeat center center;
+        @include filter(drop-shadow(0 0 40px rgba(0,0,0,1)));
+      }
+    }
+
+    & .title-container .title {
+      background: #206C80;
+      padding: 13px 26px;
+      color: #fff;
+      margin: 0;
+      font-weight: normal;
+      overflow: hidden;
+
+      & .subtitle {
+        font-size: 12px;
+        display: block;
+        line-height: 1;
+        margin: 0 0 3px;
+      }
+      & .question-title {
+        display: block;
+        line-height: 1;
+      }
+    }
+
+    & .answer-buttons {
+      @include transform-origin(0 0);
+      @include backface-visibility(hidden);
+      background: #D8EBFF;
+      padding: 20px 26px;
+      & .btn {
+        width: 163px;
+        margin: 0 3px;
+      }
+    }
+    & .question-detail {
+      @include transform(translateZ(0));
+      @include backface-visibility(hidden);
+      padding-bottom: 0;
+      overflow: hidden;
+    }
+
+    & .answer-feedback {
+      @include transform-style(preserve-3d);
+      @include transform-origin(0 0);
+      @include backface-visibility(hidden);
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      padding: 20px 26px;
+      line-height: 1.5;
+
+      & h1 {
+        margin: 0 0 5px;
+        line-height: 1;
+
+        &:only-child {
+          margin-bottom: 15px;
+        }
+      }
+
+      &.correct {
+        background: #D4F3D0;
+      }
+      &.incorrect {
+        background: #FFE5E5;
+      }
+    }
+
+    & .phase-code {
+      margin-top: 0;
+      overflow: hidden;
+
+      & code {
+        padding: 11px 16px;
+      }
+    }
+
+    & .button-lead {
+      margin: 0 0 11px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1;
+    }
+    & .button-lead-initial {
+      display: none;
+    }
+
+    &.first-phase {
+      & .button-lead {
+        display: none;
+      }
+      & .button-lead-initial {
+        display: block;
+      }
+    }
+
+    & .explanation {
+      & blockquote {
+        margin: 0;
+        border-left: 10px solid rgba(255, 255, 255, 0.8);
+        padding-left: 10px;
+      }
+
+      & code {
+        display: inline-block;
+        position: relative;
+        padding: 0 5px;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: -3px;
+          background: rgba(255, 255, 255, 0.44);
+          border: 1px solid #FFF;
+          z-index: -1;
+        }
       }
     }
   }
-}
 
 
-@include keyframes(spin) {
-  to {
-    @include transform(rotateY(-360deg));
+  @include keyframes(spin) {
+    to {
+      @include transform(rotateY(-360deg));
+    }
   }
-}
 
-.spin {
-  @include animation(spin 20s infinite linear);
-}
+  .spin {
+    @include animation(spin 20s infinite linear);
+  }
 
-.end {
-  opacity: 0;
-  color: #fff;
-  text-align: center;
-
-  & .game-over {
-    font-family: akashi;
+  .end {
+    opacity: 0;
+    color: #fff;
     text-align: center;
-    font-weight: normal;
-    font-size: 104px;
-    line-height: 0.85;
-    text-shadow: 0 0 70px #03A4FF, 0 0 7px #BBE7FF;
-    color: #000;
-    width: 640px;
-    margin: 0 auto;
-  }
-  & .score-info {
-    font-family: akashi;
-    font-size: 40px;
-    text-align: center;
-    margin: 2px 0;
-  }
 
-  & .review-p {
-    width: 320px;
-    margin: 0 auto;
-    line-height: 1.5;
-    margin: 1em auto;
-    text-align: left;
-  }
+    & .game-over {
+      font-family: akashi;
+      text-align: center;
+      font-weight: normal;
+      font-size: 104px;
+      line-height: 0.85;
+      text-shadow: 0 0 70px #03A4FF, 0 0 7px #BBE7FF;
+      color: #000;
+      width: 640px;
+      margin: 0 auto;
+    }
+    & .score-info {
+      font-family: akashi;
+      font-size: 40px;
+      text-align: center;
+      margin: 2px 0;
+    }
 
-  & .btn {
-    width: 360px;
+    & .review-p {
+      width: 320px;
+      margin: 0 auto;
+      line-height: 1.5;
+      margin: 1em auto;
+      text-align: left;
+    }
+
+    & .btn {
+      width: 360px;
+    }
   }
 }

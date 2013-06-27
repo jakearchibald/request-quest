@@ -45,9 +45,13 @@
 
 .btn-large {
   padding: 13px 29px 17px;
-  font-size: 33.5px;
+  font-size: 30px;
   border-radius: 6px;
-  line-height: 37px;
+  line-height: 23px;
+  @include desktop {
+    font-size: 33.5px;
+    line-height: 37px;
+  }
 }
 
 .btn-success {

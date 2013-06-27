@@ -1,4 +1,6 @@
 (function() {
+  var desktopView = window.matchMedia('(min-width: 400px)').matches;
+
   function toArray(arrayLike) {
     return Array.prototype.slice.call(arrayLike);
   }
@@ -7,7 +9,6 @@
     this.intro_ = document.querySelector('.intro');
     this.finalResults_ = rq.utils.loadTemplate('.final-results-template');
     this.score_ = document.querySelector('.score');
-    this.reset_ = document.querySelector('.reset');
     this.finalResultsContentTemplate_ = rq.utils.loadTemplate('.final-results-content-template');
     this.container_ = document.querySelector('.quiz-container');
     this.world_ = this.container_ .querySelector('.world');
@@ -34,7 +35,6 @@
       quizUi.trigger('resetSelected');
       event.preventDefault();
     }
-    quizUi.reset_.querySelector('.reset-btn').addEventListener('click', reset);
     quizUi.finalResults_.querySelector('.reset-btn').addEventListener('click', reset);
   };
 
@@ -49,11 +49,15 @@
 
   QuizUiProto.layoutQuestions_ = function() {
     var quizUi = this;
-    quizUi.questionUis_.forEach(function(questionUi, i) {
-      quizUi.questions_.appendChild(questionUi.container);
-      quizUi.questionRotations_[i] = (i/quizUi.questionUis_.length)*360;
-      rq.utils.css(questionUi.container, 'transform', 'rotateY(' + quizUi.questionRotations_[i] + 'deg) translateZ(1300px)');
-    });
+    if (desktopView) {
+      quizUi.questionUis_.forEach(function(questionUi, i) {
+        quizUi.questions_.appendChild(questionUi.container);
+        quizUi.questionRotations_[i] = (i/quizUi.questionUis_.length)*360;
+        rq.utils.css(questionUi.container, 'transform', 'rotateY(' + quizUi.questionRotations_[i] + 'deg) translateZ(1300px)');
+      });
+    }
+    else {
+    }
   };
 
   QuizUiProto.showIntro = function() {
@@ -97,10 +101,6 @@
       transform: 'translateZ(-1300px)'
     }, 2, 'easeInOutQuad').then(function() {
       rq.utils.transition(quizUi.score_, {
-        transform: 'translate(0,0)'
-      }, 0.4, 'easeOutQuad');
-
-      rq.utils.transition(quizUi.reset_, {
         transform: 'translate(0,0)'
       }, 0.4, 'easeOutQuad');
     });
@@ -151,10 +151,6 @@
     rq.utils.css(this.finalResults_, 'transform', 'translateZ(1800px)');
 
     rq.utils.transition(this.score_, {
-      transform: 'translate(0,-100%)'
-    }, 0.4, 'easeOutQuad');
-
-    rq.utils.transition(this.reset_, {
       transform: 'translate(0,-100%)'
     }, 0.4, 'easeOutQuad');
 
