@@ -1,8 +1,50 @@
 (function() {
   var desktopView = window.matchMedia('(min-width: 400px)').matches;
+  var desktopScreen = window.matchMedia('(min-device-width: 400px)').matches;
 
   function toArray(arrayLike) {
     return Array.prototype.slice.call(arrayLike);
+  }
+
+  function fullscreenPage() {
+    var elm = document.documentElement;
+    var deferred = Q.defer();
+    var prefixes = ['webkit', 'moz', ''];
+    var requestFullscreen = elm.requestFullscreen || elm.webkitRequestFullscreen || elm.mozRequestFullscreen;
+
+    function removeListeners() {
+      prefixes.forEach(function(prefix) {
+        elm.removeEventListener(prefix + 'fullscreenchange', done);
+        elm.removeEventListener(prefix + 'fullscreenerror', error);
+      });
+    }
+    function done() {
+      removeListeners();
+      // let fullscreen engage
+      setTimeout(function() {
+        deferred.resolve();
+      }, 1000);
+    }
+    function error() {
+      removeListeners();
+      deferred.reject();
+    }
+
+    if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement) {
+      deferred.resolve();
+    }
+    else if (requestFullscreen) {
+      prefixes.forEach(function(prefix) {
+        elm.addEventListener(prefix + 'fullscreenchange', done);
+        elm.addEventListener(prefix + 'fullscreenerror', error);
+      });
+      requestFullscreen.call(elm);
+    }
+    else {
+      deferred.reject();
+    }
+
+    return deferred.promise;
   }
 
   function QuizUi(questionUis) {
@@ -127,6 +169,15 @@
       });
     }
     quizUi.viewMode_ = 'question';
+  };
+
+  QuizUiProto.prepareScreen = function() {
+    if (desktopScreen) {
+      return Q.resolve();
+    }
+    else {
+      return fullscreenPage().catch(function() {});
+    }
   };
 
   QuizUiProto.score = function(score) {

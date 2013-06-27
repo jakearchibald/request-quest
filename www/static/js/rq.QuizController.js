@@ -22,7 +22,11 @@
 
       quizController.ui_ = new rq.QuizUi(questionUis);
 
-      quizController.ui_.on('startQuizBtnSelected', quizController.nextQuestion_.bind(quizController));
+      quizController.ui_.on('startQuizBtnSelected', function() {
+        quizController.ui_.prepareScreen().then(
+          quizController.nextQuestion_.bind(quizController)
+        );
+      });
       quizController.ui_.on('resetSelected', quizController.reset_.bind(quizController));
     });
     quizController.questionNum_ = -1;
