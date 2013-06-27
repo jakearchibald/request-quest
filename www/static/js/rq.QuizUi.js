@@ -57,6 +57,9 @@
       });
     }
     else {
+      quizUi.questions_.appendChild(quizUi.questionUis_[0].container);
+      rq.utils.css(quizUi.questionUis_[0].container, 'transform', 'translateZ(-500px)');
+      quizUi.questionUis_[0].container.style.opacity = 0;
     }
   };
 
@@ -69,17 +72,20 @@
     var duration = 0.5;
 
     if (this.viewMode_ == 'intro') {
-      var val = rq.utils.css(this.questions_, 'transform');
       this.toQuestionView_();
       this.questions_.classList.remove('spin');
-      rq.utils.css(this.questions_, 'transform', 'rotateY(700deg)');
-      easing = 'easeOutQuart';
-      duration = 3;
+      if (desktopView) {
+        rq.utils.css(this.questions_, 'transform', 'rotateY(700deg)');
+        easing = 'easeOutQuart';
+        duration = 3;
+      }
     }
 
-    rq.utils.transition(this.questions_, {
-      transform: 'rotateY(' + -(this.questionRotations_[num]) + 'deg)'
-    }, duration, easing);
+    if (desktopView) {
+      rq.utils.transition(this.questions_, {
+        transform: 'rotateY(' + -(this.questionRotations_[num]) + 'deg)'
+      }, duration, easing);
+    }
   };
 
   QuizUiProto.destroyQuestion = function(num) {
@@ -97,13 +103,29 @@
   QuizUiProto.toQuestionView_ = function() {
     var quizUi = this;
 
-    rq.utils.transition(quizUi.world_, {
-      transform: 'translateZ(-1300px)'
-    }, 2, 'easeInOutQuad').then(function() {
-      rq.utils.transition(quizUi.score_, {
-        transform: 'translate(0,0)'
-      }, 0.4, 'easeOutQuad');
-    });
+    if (desktopView) {
+      rq.utils.transition(quizUi.world_, {
+        transform: 'translateZ(-1300px)'
+      }, 2, 'easeInOutQuad').then(function() {
+        rq.utils.transition(quizUi.score_, {
+          transform: 'translate(0,0)'
+        }, 0.4, 'easeOutQuad');
+      });
+    }
+    else {
+      Q.all([
+        rq.utils.transition(quizUi.intro_, {
+          transform: 'translateZ(500px)',
+          opacity: 0
+        }, 0.5, 'easeInOutQuad'),
+        rq.utils.transition(quizUi.questionUis_[0].container, {
+          transform: '',
+          opacity: 1
+        }, 0.5, 'easeInOutQuad')
+      ]).then(function() {
+        quizUi.world_.removeChild(quizUi.intro_);
+      });
+    }
     quizUi.viewMode_ = 'question';
   };
 

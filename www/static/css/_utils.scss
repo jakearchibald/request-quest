@@ -28,6 +28,12 @@
     }
   }
 
+  @mixin flex($type...) {
+    @each $prefix in -webkit-, '' {
+      #{$prefix}flex: $type;
+    }
+  }
+
 // transform
   @mixin transform($type...) {
     @each $prefix in -webkit-, '' {
