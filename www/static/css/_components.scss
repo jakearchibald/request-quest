@@ -126,9 +126,10 @@
     background-size: contain;
     text-indent: -5000px;
     vertical-align: middle;
+    @include transition(all 0.3s ease-in-out);
+    
     @include desktop {
       margin: 0 10px;
-      @include transition(all 0.3s ease-in-out);
       width: 100px;
       height: 100px;
     }
@@ -157,8 +158,12 @@
   &.reveal {
     & > :not(.active):not(.inactive) {
       @include transform(scale(0.8));
-      @include filter(grayscale(1) blur(4px));
-      opacity: 0.6;
+      opacity: 0.3;
+      
+      @include desktop {
+        @include filter(grayscale(1) blur(4px));
+        opacity: 0.6;
+      }
     }
   }
 
@@ -285,7 +290,6 @@
     }
     & .btn {
       margin: 0 3px;
-      @include flex(1);
       @include desktop {
         width: 163px;
       }
@@ -357,6 +361,8 @@
 
     & code {
       padding: 10px;
+      overflow: auto;
+      
       @include desktop {
         padding: 11px 16px;
       }

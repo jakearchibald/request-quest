@@ -139,6 +139,7 @@
       rq.utils.transition(quizUi.buttonsFader_, {
         opacity: 1
       }, 0.3).then(function() {
+        quizUi.browserIcons_.classList.add('reveal');
         quizUi.questionButtons_.style.display = 'none';
         quizUi.answerFeedback_.style.display = 'block';
         quizUi.feedbackFader_.style.opacity = '1';
@@ -163,36 +164,57 @@
       activeEl.classList.add('inactive');
     });
 
-    rq.utils.transition(quizUi.question_, {
-      transform: 'translate(0, 0)'
-    }, 0.3);
-
-    rq.utils.transition(quizUi.answerFeedback_, {
-      transform: 'rotateX(-90deg)'
-    }, 0.3).then(function() {
-      quizUi.questionCodeContainer_.style.height = quizUi.questionCodeContainer_.offsetHeight + 'px';
-      return rq.utils.transition(quizUi.questionCodeContainer_, {
-        height: '0'
+    if (desktopView) {
+      rq.utils.transition(quizUi.question_, {
+        transform: 'translate(0, 0)'
       }, 0.3);
-    }).then(function() {
-      quizUi.showPhaseCode(lang, code);
-      quizUi.questionCodeContainer_.style.height = '';
-      var heightTo = quizUi.questionCodeContainer_.offsetHeight;
-      quizUi.questionCodeContainer_.style.height = '0';
 
-      return rq.utils.transition(quizUi.questionCodeContainer_, {
-        height: heightTo + 'px'
+      rq.utils.transition(quizUi.answerFeedback_, {
+        transform: 'rotateX(-90deg)'
       }, 0.3).then(function() {
+        quizUi.questionCodeContainer_.style.height = quizUi.questionCodeContainer_.offsetHeight + 'px';
+        return rq.utils.transition(quizUi.questionCodeContainer_, {
+          height: '0'
+        }, 0.3);
+      }).then(function() {
+        quizUi.showPhaseCode(lang, code);
         quizUi.questionCodeContainer_.style.height = '';
+        var heightTo = quizUi.questionCodeContainer_.offsetHeight;
+        quizUi.questionCodeContainer_.style.height = '0';
+
+        return rq.utils.transition(quizUi.questionCodeContainer_, {
+          height: heightTo + 'px'
+        }, 0.3).then(function() {
+          quizUi.questionCodeContainer_.style.height = '';
+        });
+      }).then(function() {
+        quizUi.questionButtons_.style.opacity = '1';
+        return rq.utils.transition(quizUi.questionButtons_, {
+          transform: 'rotateX(0deg)'
+        }, 0.3);
+      }).then(function() {
+        quizUi.answerFeedback_.style.display = 'none';
       });
-    }).then(function() {
-      quizUi.questionButtons_.style.opacity = '1';
-      return rq.utils.transition(quizUi.questionButtons_, {
-        transform: 'rotateX(0deg)'
-      }, 0.3);
-    }).then(function() {
-      quizUi.answerFeedback_.style.display = 'none';
-    });
+    }
+    else {
+      rq.utils.transition(quizUi.feedbackFader_, {
+        opacity: 1
+      }, 0.3).then(function() {
+        quizUi.questionButtons_.style.display = 'block';
+        quizUi.answerFeedback_.style.display = 'none';
+        quizUi.buttonsFader_.style.opacity = '1';
+        quizUi.showPhaseCode(lang, code);
+        rq.utils.css(quizUi.questionCodeContainer_, 'transform', 'scale(1.8)');
+
+        rq.utils.transition(quizUi.questionCodeContainer_, {
+          transform: ''
+        }, 0.3, 'easeOutQuad');
+
+        rq.utils.transition(quizUi.buttonsFader_, {
+          opacity: 0
+        }, 0.3);
+      });
+    }
 
     quizUi.browserIcons_.classList.remove('reveal');
     quizUi.question_.classList.remove('first-phase');
