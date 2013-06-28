@@ -10,10 +10,6 @@
 }
 
 .centerer {
-  @include display-flex;
-  @include flex-direction(row);
-  @include justify-content(center);
-  @include align-items(center);
 
   position: absolute;
   top: 0;
@@ -22,6 +18,10 @@
   height: 100%;
   
   @include desktop {
+    @include display-flex;
+    @include flex-direction(row);
+    @include justify-content(center);
+    @include align-items(center);
     @include transform-style(preserve-3d);
   }
 }
