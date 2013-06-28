@@ -91,18 +91,18 @@
 
   QuizUiProto.layoutQuestions_ = function() {
     var quizUi = this;
-    if (desktopView) {
-      quizUi.questionUis_.forEach(function(questionUi, i) {
-        quizUi.questions_.appendChild(questionUi.container);
+    quizUi.questionUis_.forEach(function(questionUi, i) {
+      quizUi.questions_.appendChild(questionUi.container);
+      if (desktopView) {
         quizUi.questionRotations_[i] = (i/quizUi.questionUis_.length)*360;
         rq.utils.css(questionUi.container, 'transform', 'rotateY(' + quizUi.questionRotations_[i] + 'deg) translateZ(1300px)');
-      });
-    }
-    else {
-      quizUi.questions_.appendChild(quizUi.questionUis_[0].container);
-      rq.utils.css(quizUi.questionUis_[0].container, 'transform', 'translateZ(-500px)');
-      quizUi.questionUis_[0].container.style.opacity = 0;
-    }
+      }
+      else {
+        questionUi.container.style.display = 'none';
+        rq.utils.css(questionUi.container, 'transform', 'translateZ(-500px)');
+        questionUi.container.style.opacity = 0;
+      }
+    });
   };
 
   QuizUiProto.showIntro = function() {
@@ -112,21 +112,30 @@
   QuizUiProto.showQuestion = function(num) {
     var easing = 'easeInOutQuad';
     var duration = 0.5;
+    var quizUi = this;
 
-    if (this.viewMode_ == 'intro') {
-      this.toQuestionView_();
-      this.questions_.classList.remove('spin');
+    if (quizUi.viewMode_ == 'intro') {
+      quizUi.toQuestionView_();
+      quizUi.questions_.classList.remove('spin');
       if (desktopView) {
-        rq.utils.css(this.questions_, 'transform', 'rotateY(700deg)');
+        rq.utils.css(quizUi.questions_, 'transform', 'rotateY(700deg)');
         easing = 'easeOutQuart';
         duration = 3;
       }
     }
 
     if (desktopView) {
-      rq.utils.transition(this.questions_, {
-        transform: 'rotateY(' + -(this.questionRotations_[num]) + 'deg)'
+      rq.utils.transition(quizUi.questions_, {
+        transform: 'rotateY(' + -(quizUi.questionRotations_[num]) + 'deg)'
       }, duration, easing);
+    }
+    else {
+      quizUi.questionUis_[num].container.style.display = '';
+
+      rq.utils.transition(quizUi.questionUis_[num].container, {
+        transform: '',
+        opacity: 1
+      }, 0.5);
     }
   };
 
@@ -134,12 +143,23 @@
     var questionContainer = this.questionUis_[num].container;
     var rotation = this.questionRotations_[num];
 
-    return rq.utils.transition(questionContainer, {
-      transform: 'rotateY(' + rotation + 'deg) translateZ(1300px) translateZ(-2189px) rotateX(-180deg) rotateY(-48deg) rotateZ(-23deg)',
-      opacity: 0
-    }, 0.4, 'linear').then(function() {
-      questionContainer.style.display = 'none';
-    });
+    if (desktopView) {
+      return rq.utils.transition(questionContainer, {
+        transform: 'rotateY(' + rotation + 'deg) translateZ(1300px) translateZ(-2189px) rotateX(-180deg) rotateY(-48deg) rotateZ(-23deg)',
+        opacity: 0
+      }, 0.4, 'linear').then(function() {
+        questionContainer.style.display = 'none';
+      });
+    }
+    else {
+      rq.utils.transition(questionContainer, {
+        transform: 'translateZ(500px)',
+          opacity: 0
+      }, 0.5).then(function() {
+        questionContainer.style.display = 'none';
+      });
+      return Q.resolve();
+    }
   };
 
   QuizUiProto.toQuestionView_ = function() {
@@ -155,17 +175,11 @@
       });
     }
     else {
-      Q.all([
-        rq.utils.transition(quizUi.intro_, {
-          transform: 'translateZ(500px)',
-          opacity: 0
-        }, 0.5, 'easeInOutQuad'),
-        rq.utils.transition(quizUi.questionUis_[0].container, {
-          transform: '',
-          opacity: 1
-        }, 0.5, 'easeInOutQuad')
-      ]).then(function() {
-        quizUi.world_.removeChild(quizUi.intro_);
+      rq.utils.transition(quizUi.intro_, {
+        transform: 'translateZ(500px)',
+        opacity: 0
+      }, 0.5).then(function() {
+        quizUi.intro_.style.display = 'none';
       });
     }
     quizUi.viewMode_ = 'question';
@@ -221,16 +235,26 @@
 
     this.world_.appendChild(this.finalResults_);
 
-    rq.utils.css(this.finalResults_, 'transform', 'translateZ(1800px)');
 
-    rq.utils.transition(this.score_, {
-      transform: 'translate(0,-100%)'
-    }, 0.4, 'easeOutQuad');
+    if (desktopView) {
+      rq.utils.css(this.finalResults_, 'transform', 'translateZ(1800px)');
 
-    rq.utils.transition(this.finalResults_, {
-      opacity: '1',
-      transform: 'translateZ(1300px)'
-    }, 0.5, 'easeOutQuad');
+      rq.utils.transition(this.score_, {
+        transform: 'translate(0,-100%)'
+      }, 0.4, 'easeOutQuad');
+
+      rq.utils.transition(this.finalResults_, {
+        opacity: '1',
+        transform: 'translateZ(1300px)'
+      }, 0.5, 'easeOutQuad');
+    }
+    else {
+      rq.utils.css(this.finalResults_, 'transform', 'translateZ(-500px)');
+      rq.utils.transition(this.finalResults_, {
+        opacity: '1',
+        transform: ''
+      }, 0.5);
+    }
   };
 
   rq.QuizUi = QuizUi;

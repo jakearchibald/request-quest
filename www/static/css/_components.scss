@@ -1,5 +1,11 @@
 @import 'buttons';
 
+@include keyframes(spin) {
+  to {
+    @include transform(rotateY(-360deg));
+  }
+}
+
 .intro {
   padding: 0 20px;
   box-sizing: border-box;
@@ -456,52 +462,69 @@
   }
 }
 
-@include desktop {
-
-
-  @include keyframes(spin) {
-    to {
-      @include transform(rotateY(-360deg));
-    }
-  }
-
-  .spin {
+.spin {
+  @include desktop {
     @include animation(spin 20s infinite linear);
   }
+}
 
-  .end {
-    opacity: 0;
-    color: #fff;
+.end {
+  opacity: 0;
+  color: #fff;
+  text-align: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  
+  @include desktop {
+    padding: 0;
+  }
+
+  & .game-over {
+    font-family: akashi;
     text-align: center;
-
-    & .game-over {
-      font-family: akashi;
-      text-align: center;
-      font-weight: normal;
+    font-weight: normal;
+    line-height: 0.85;
+    color: #000;
+    margin: 0 auto;
+    text-shadow: 0 0 52px #03A4FF, 0 0 7px #FFF;
+    font-size: 27vw;
+    
+    @include desktop {
       font-size: 104px;
-      line-height: 0.85;
-      text-shadow: 0 0 70px #03A4FF, 0 0 7px #BBE7FF;
-      color: #000;
       width: 640px;
-      margin: 0 auto;
+      text-shadow: 0 0 70px #03A4FF, 0 0 7px #BBE7FF;
     }
-    & .score-info {
-      font-family: akashi;
+  }
+  & .score-info {
+    font-family: akashi;
+    font-size: 6.3vw;
+    text-align: center;
+    margin: 2px 0;
+    
+    @include desktop {
       font-size: 40px;
-      text-align: center;
-      margin: 2px 0;
     }
+  }
 
-    & .review-p {
+  & .review-p {
+    margin: 0 auto;
+    line-height: 1.5;
+    margin: 1em auto;
+    text-align: left;
+    @include desktop {
       width: 320px;
-      margin: 0 auto;
-      line-height: 1.5;
-      margin: 1em auto;
-      text-align: left;
+    }
+  }
+
+  & .button-row {
+    margin: 24px auto;
+    
+    @include desktop {
+      width: 360px;
     }
 
     & .btn {
-      width: 360px;
+      width: 100%;
     }
   }
 }

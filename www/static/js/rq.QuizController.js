@@ -56,14 +56,14 @@
     }).then(function() {
       quizController.questionNum_++;
       var questionController = quizController.questionControllers_[quizController.questionNum_];
-      quizController.ui_.showQuestion(quizController.questionNum_);
 
-      if (!questionController) {
-        quizController.results_();
-        return;
+      if (questionController) {
+        quizController.ui_.showQuestion(quizController.questionNum_);
+        questionController.start();
       }
-
-      questionController.start();
+      else {
+        quizController.results_();
+      }
     });
   };
 

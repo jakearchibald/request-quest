@@ -50,7 +50,7 @@
       if (this.phase_) {
         this.ui.continueQuestion(this.model_.langClass, phaseObj.code);
       }
-      else {
+      else { // first phase, initial setup done on page load
         this.ui.showPhaseCode(this.model_.langClass, phaseObj.code);
       }
     }
