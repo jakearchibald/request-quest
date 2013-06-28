@@ -366,9 +366,17 @@
 
     &.correct {
       background: #D4F3D0;
+      & .feedback-content {
+        @include scroll-shadow(#D4F3D0, 0.4);
+      }
     }
     &.incorrect {
       background: #FFE5E5;
+      & .feedback-content {
+        @include scroll-shadow(#FFE5E5, 0.4);
+      }
+    }
+
     & .feedback-content {
       overflow: auto;
       margin-bottom: 1em;
