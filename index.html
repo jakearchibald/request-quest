@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Request Quest</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -46,9 +47,6 @@
       <div class="score">
         Score: <span class="num">0</span>
       </div>
-      <div class="reset">
-        <button type="button" class="reset-btn btn btn-warning">Start over</button>
-      </div>
     </div>
     <script type="text/html" class="question-template">
       <div class="centerer question-container">
@@ -61,8 +59,11 @@
               <span class="question-title"></span>
             </h1>
           </header>
-          <div class="box question-detail">
+          <div class="box question-detail code-detail">
             <pre class="phase-code"><code></code></pre>
+            <div class="fader"></div>
+          </div>
+          <div class="box question-detail additional-info">
             <p>
               Does the above trigger a request for
               <span class="request"></span>
@@ -81,6 +82,7 @@
               <button type="button" class="continue-btn btn btn-large btn-primary">Continue</button>
             </div>
             <div class="question-back"></div>
+            <div class="fader"></div>
           </section>
           <div class="answer-buttons box">
             <p class="button-lead-initial button-lead">What do you think?</p>
@@ -89,6 +91,7 @@
               <button type="button" class="yes-btn btn btn-large btn-success">Yes</button>
               <button type="button" class="no-btn btn btn-large btn-danger">No</button>
             </div>
+            <div class="fader"></div>
           </div>
         </article>
       </div>
