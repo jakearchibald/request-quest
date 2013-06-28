@@ -14,36 +14,14 @@
   function fullscreenPage() {
     var elm = document.documentElement;
     var deferred = Q.defer();
-    var prefixes = ['webkit', 'moz', ''];
     var requestFullscreen = elm.requestFullscreen || elm.webkitRequestFullscreen || elm.mozRequestFullscreen;
-
-    function removeListeners() {
-      prefixes.forEach(function(prefix) {
-        elm.removeEventListener(prefix + 'fullscreenchange', done);
-        elm.removeEventListener(prefix + 'fullscreenerror', error);
-      });
-    }
-    function done() {
-      removeListeners();
-      // let fullscreen engage
-      setTimeout(function() {
-        deferred.resolve();
-      }, 1000);
-    }
-    function error() {
-      removeListeners();
-      deferred.reject();
-    }
 
     if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement) {
       deferred.resolve();
     }
     else if (requestFullscreen) {
-      prefixes.forEach(function(prefix) {
-        elm.addEventListener(prefix + 'fullscreenchange', done);
-        elm.addEventListener(prefix + 'fullscreenerror', error);
-      });
       requestFullscreen.call(elm);
+      deferred.resolve();
     }
     else {
       deferred.reject();
