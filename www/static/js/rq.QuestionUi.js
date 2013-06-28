@@ -1,5 +1,9 @@
 (function() {
-  var desktopView = window.matchMedia('(min-width: 420px)').matches;
+  var desktopView = window.matchMedia('(min-device-width: 640px)').matches;
+  /*
+  // for testing
+  var desktopView = window.matchMedia('(min-width: 640px)').matches;
+  */
 
   function toArray(arrayLike) {
     return Array.prototype.slice.call(arrayLike);
