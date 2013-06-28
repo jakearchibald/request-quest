@@ -1,5 +1,5 @@
 (function() {
-  var desktopView = window.matchMedia('(min-width: 400px)').matches;
+  var desktopView = window.matchMedia('(min-width: 420px)').matches;
 
   function toArray(arrayLike) {
     return Array.prototype.slice.call(arrayLike);
@@ -125,7 +125,7 @@
       }, 0.3).then(function() {
         quizUi.browserIcons_.classList.add('reveal');
         quizUi.questionButtons_.style.opacity = '0';
-        quizUi.answerFeedback_.style.display = 'block';
+        quizUi.answerFeedback_.classList.add('show');
         rq.utils.css(quizUi.answerFeedback_, "transform", 'rotateX(-90deg)');
         rq.utils.transition(quizUi.question_, {
           transform: 'translate(0, ' + Math.floor((quizUi.questionButtons_.offsetHeight - quizUi.answerFeedback_.offsetHeight)/2) + 'px)'
@@ -141,7 +141,7 @@
       }, 0.3).then(function() {
         quizUi.browserIcons_.classList.add('reveal');
         quizUi.questionButtons_.style.display = 'none';
-        quizUi.answerFeedback_.style.display = 'block';
+        quizUi.answerFeedback_.classList.add('show');
         quizUi.feedbackFader_.style.opacity = '1';
         return rq.utils.transition(quizUi.feedbackFader_, {
           opacity: 0
@@ -193,15 +193,15 @@
           transform: 'rotateX(0deg)'
         }, 0.3);
       }).then(function() {
-        quizUi.answerFeedback_.style.display = 'none';
+        quizUi.answerFeedback_.classList.remove('show');
       });
     }
     else {
       rq.utils.transition(quizUi.feedbackFader_, {
         opacity: 1
       }, 0.3).then(function() {
-        quizUi.questionButtons_.style.display = 'block';
-        quizUi.answerFeedback_.style.display = 'none';
+        quizUi.questionButtons_.style.display = '';
+        quizUi.answerFeedback_.classList.remove('show');
         quizUi.buttonsFader_.style.opacity = '1';
         quizUi.showPhaseCode(lang, code);
         rq.utils.css(quizUi.questionCodeContainer_, 'transform', 'scale(1.8)');

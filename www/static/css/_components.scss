@@ -254,27 +254,31 @@
     }
   }
 
-  & .title-container .title {
-    background: #206C80;
-    padding: 13px 15px;
-    color: #fff;
-    margin: 0;
-    font-weight: normal;
-    overflow: hidden;
+  & .title-container {
+    @include flex(none);
     
-    @include desktop {
-      padding: 13px 26px;
-    }
+    & .title {
+      background: #206C80;
+      padding: 13px 15px;
+      color: #fff;
+      margin: 0;
+      font-weight: normal;
+      overflow: hidden;
+      
+      @include desktop {
+        padding: 13px 26px;
+      }
 
-    & .subtitle {
-      font-size: 12px;
-      display: block;
-      line-height: 1;
-      margin: 0 0 3px;
-    }
-    & .question-title {
-      display: block;
-      line-height: 1;
+      & .subtitle {
+        font-size: 12px;
+        display: block;
+        line-height: 1;
+        margin: 0 0 3px;
+      }
+      & .question-title {
+        display: block;
+        line-height: 1;
+      }
     }
   }
 
@@ -284,6 +288,7 @@
     position: relative;
     @include transform-origin(0 0);
     @include backface-visibility(hidden);
+    @include flex(none);
     
     @include desktop {
       padding: 20px 26px;
@@ -299,7 +304,7 @@
   & .question-detail {
     @include display-flex;
     @include flex-direction(column);
-    @include flex(1);
+    @include flex(auto);
     padding-bottom: 0;
     overflow: hidden;
 
@@ -308,6 +313,10 @@
       @include transform(translateZ(0));
       @include backface-visibility(hidden);
     }
+  }
+
+  & .additional-info {
+    @include flex(none);
   }
   
   & .fader {
@@ -326,6 +335,8 @@
     padding: 20px 15px;
     line-height: 1.5;
     position: relative;
+    @include flex(initial);
+    @include flex-direction(column);
     
     @include desktop {
       padding: 20px 26px;
@@ -335,6 +346,13 @@
       @include transform-style(preserve-3d);
       @include transform-origin(0 0);
       @include backface-visibility(hidden);
+    }
+
+    &.show {
+      @include display-flex;
+      @include desktop {
+        display: block;
+      }
     }
 
     & h1 {
@@ -351,17 +369,28 @@
     }
     &.incorrect {
       background: #FFE5E5;
+    & .feedback-content {
+      overflow: auto;
+      margin-bottom: 1em;
+      @include flex(initial);
+    }
+
+    & .button-row {
+      @include flex(none);
     }
   }
+
 
   & .phase-code {
     margin-top: 0;
     margin-bottom: 0;
-    overflow: hidden;
+    overflow-y: auto;
+    min-height: 38px;
+    @include flex(initial);
 
     & code {
       padding: 10px;
-      overflow: auto;
+      overflow-x: auto;
       
       @include desktop {
         padding: 11px 16px;
@@ -411,6 +440,10 @@
         border: 1px solid #FFF;
         z-index: -1;
       }
+    }
+
+    & > :last-child {
+      margin-bottom: 0;
     }
   }
 }

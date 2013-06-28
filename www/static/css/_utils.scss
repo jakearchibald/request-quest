@@ -1,6 +1,6 @@
 // responsive
   @mixin desktop {
-    @media screen and (min-width: 400px) {
+    @media screen and (min-width: 420px) {
       @content;
     }
   }

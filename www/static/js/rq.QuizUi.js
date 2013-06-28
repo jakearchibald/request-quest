@@ -1,6 +1,6 @@
 (function() {
-  var desktopView = window.matchMedia('(min-width: 400px)').matches;
-  var desktopScreen = window.matchMedia('(min-device-width: 400px)').matches;
+  var desktopView = window.matchMedia('(min-width: 420px)').matches;
+  var desktopScreen = window.matchMedia('(min-device-width: 420px)').matches;
 
   function toArray(arrayLike) {
     return Array.prototype.slice.call(arrayLike);
