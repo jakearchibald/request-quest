@@ -230,6 +230,7 @@
   & .lock {
     display: none;
     @include desktop {
+      display: block;
       @include transform(translateZ(0.05px));
       @include backface-visibility(hidden);
       @include transition(opacity 0.3s ease-in-out);
