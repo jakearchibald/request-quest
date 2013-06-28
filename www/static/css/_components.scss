@@ -309,9 +309,6 @@
   }
 
   & .question-detail {
-    @include display-flex;
-    @include flex-direction(column);
-    @include flex(auto);
     padding-bottom: 0;
     overflow: hidden;
 
@@ -322,8 +319,23 @@
     }
   }
 
+  & .code-detail {
+    @include flex-direction(column);
+    @include flex(initial);
+    @include display-flex;
+    z-index: 1;
+    min-height: 38px;
+    position: relative;
+    
+    @include desktop {
+      display: block;
+      min-height: 0;
+    }
+  }
+
   & .additional-info {
-    @include flex(none);
+    padding-top: 0;
+    @include flex(1 0 auto);
   }
   
   & .fader {
@@ -342,7 +354,7 @@
     padding: 20px 15px;
     line-height: 1.5;
     position: relative;
-    @include flex(initial);
+    @include flex(0 0.001 auto);
     @include flex-direction(column);
     
     @include desktop {
@@ -388,6 +400,9 @@
       overflow: auto;
       margin-bottom: 1em;
       @include flex(initial);
+      @include desktop {
+        overflow: visible;
+      }
     }
 
     & .button-row {
@@ -400,8 +415,12 @@
     margin-top: 0;
     margin-bottom: 0;
     overflow-y: auto;
-    min-height: 38px;
-    @include flex(initial);
+    white-space: pre-wrap;
+    
+    @include desktop {
+      white-space: pre;
+      overflow-y: hidden;
+    }
 
     & code {
       padding: 10px;
@@ -409,6 +428,7 @@
       
       @include desktop {
         padding: 11px 16px;
+        overflow-x: hidden;
       }
     }
   }
@@ -433,6 +453,8 @@
   }
 
   & .explanation {
+    overflow: hidden; // hack to avoid scrollbar appearing when it shouldn't
+    
     & blockquote {
       margin: 0;
       border-left: 10px solid rgba(255, 255, 255, 0.8);

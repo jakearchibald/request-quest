@@ -27,6 +27,7 @@
     this.feedbackContent_ = this.question_.querySelector('.feedback-content');
     this.feedbackFader_ = this.answerFeedback_.querySelector('.fader');
     this.buttonsFader_ = this.questionButtons_.querySelector('.fader');
+    this.codeFader_ = this.question_.querySelector('.code-detail .fader');
     this.browserIcons_ = this.question_.querySelector('.browsers-remaining');
 
     this.enhanceQuestion_();
@@ -36,24 +37,37 @@
 
   QuestionUiProto.enhanceQuestion_ = function() {
     var quizUi = this;
+    var yesBtn = quizUi.question_.querySelector('.yes-btn');
+    var noBtn = quizUi.question_.querySelector('.no-btn');
+    var continueBtn = quizUi.question_.querySelector('.continue-btn');
 
-    quizUi.question_.querySelector('.yes-btn').addEventListener('click', function(event) {
+    function yesClick(event) {
       quizUi.trigger('answerYes');
       quizUi.questionButtons_.style.pointerEvents = 'none';
       event.preventDefault();
-    });
+    }
 
-    quizUi.question_.querySelector('.no-btn').addEventListener('click', function(event) {
+    yesBtn.addEventListener('touchstart', yesClick);
+    yesBtn.addEventListener('click', yesClick);
+
+    function noClick(event) {
       quizUi.trigger('answerNo');
       quizUi.questionButtons_.style.pointerEvents = 'none';
       event.preventDefault();
-    });
+    }
 
-    quizUi.question_.querySelector('.continue-btn').addEventListener('click', function(event) {
+    noBtn.addEventListener('touchstart', noClick);
+    noBtn.addEventListener('click', noClick);
+
+    function continueClick(event) {
       quizUi.trigger('continue');
       quizUi.answerFeedback_.style.pointerEvents = 'none';
       event.preventDefault();
-    });
+    }
+
+    // causes a janky outro in chrome, how odd
+    //continueBtn.addEventListener('touchstart', continueClick);
+    continueBtn.addEventListener('click', continueClick);
   };
 
   QuestionUiProto.setQuestionTotal = function(total) {
@@ -204,11 +218,11 @@
         quizUi.answerFeedback_.classList.remove('show');
         quizUi.buttonsFader_.style.opacity = '1';
         quizUi.showPhaseCode(lang, code);
-        rq.utils.css(quizUi.questionCodeContainer_, 'transform', 'scale(1.8)');
+        quizUi.codeFader_.style.opacity = 1;
 
-        rq.utils.transition(quizUi.questionCodeContainer_, {
-          transform: ''
-        }, 0.3, 'easeOutQuad');
+        rq.utils.transition(quizUi.codeFader_, {
+          opacity: 0
+        }, 0.5, 'easeOutQuad');
 
         rq.utils.transition(quizUi.buttonsFader_, {
           opacity: 0
