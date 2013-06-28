@@ -37,32 +37,40 @@
   }
 // flexbox
   @mixin display-flex {
+    display: -webkit-box;
     display: -webkit-flex;
     display: flex;
   }
 
-  @mixin flex-direction($type...) {
-    @each $prefix in -webkit-, '' {
-      #{$prefix}flex-direction: $type;
+  @mixin flex-direction($type) {
+    @if $type == 'column' {
+      -webkit-box-orient: vertical;
     }
+    @else {
+      -webkit-box-orient: horizontal;
+    }
+    -webkit-flex-direction: $type;
+    flex-direction: $type;
   }
 
   @mixin justify-content($type...) {
-    @each $prefix in -webkit-, '' {
-      #{$prefix}justify-content: $type;
-    }
+    -webkit-box-pack: $type;
+    -webkit-justify-content: $type;
+    justify-content: $type;
   }
 
   @mixin align-items($type...) {
-    @each $prefix in -webkit-, '' {
-      #{$prefix}align-items: $type;
-    }
+    -webkit-box-align: $type;
+    -webkit-align-items: $type;
+    align-items: $type;
   }
 
-  @mixin flex($type...) {
-    @each $prefix in -webkit-, '' {
-      #{$prefix}flex: $type;
+  @mixin flex($type) {
+    @if type-of($type) == 'number' {
+      -webkit-box-flex: $type;
     }
+    -webkit-flex: $type;
+    flex: $type;
   }
 
 // transform
